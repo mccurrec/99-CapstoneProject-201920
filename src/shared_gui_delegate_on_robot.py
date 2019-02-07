@@ -15,3 +15,6 @@ class Receiver(object):
         print('Got forward ', lws, rws)
         self.robot.drive_system.go(int(lws), int(rws))
 
+    def raise_arm(self):
+        print('Got raise_arm')
+        self.robot.arm_and_claw.raise_arm()
