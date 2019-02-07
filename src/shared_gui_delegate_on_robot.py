@@ -23,7 +23,7 @@ class Receiver(object):
 
     def backward(self, lws, rws):
         print('Got backward', lws, rws)
-        self.robot.drive_system.go(-int(lws), -int(rws))
+        self.robot.drive_system.go(int(-lws), int(-rws))
 
     def stop(self):
         print('Got stop')
