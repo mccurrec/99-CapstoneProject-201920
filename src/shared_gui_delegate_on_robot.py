@@ -6,4 +6,12 @@
     and Loki Strain, Ezrie McCurry, Jack Franey.
   Winter term, 2018-2019.
 """
+class Receiver(object):
+
+    def __init__(self,robot):
+        self.robot = robot
+        """:type  robot: rosebot.RoseBot"""
+    def forward(self, lws, rws):
+        print('Got forward ', lws, rws)
+        self.robot.drive_system.go(int(lws), int(rws))
 
