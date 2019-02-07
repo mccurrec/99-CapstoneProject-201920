@@ -29,3 +29,11 @@ class Receiver(object):
         print('Got lower_arm')
         self.robot.arm_and_claw.lower_arm()
 
+    def calibrate_arm(self):
+        print('Got calibrate_arm')
+        self.robot.arm_and_claw.calibrate_arm()
+
+    def move_arm_to_position(self, arm_position_entry):
+        print('Got move_arm_to_position')
+        self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
+
