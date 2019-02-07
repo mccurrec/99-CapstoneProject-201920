@@ -35,5 +35,5 @@ class Receiver(object):
 
     def move_arm_to_position(self, arm_position_entry):
         print('Got move_arm_to_position')
-        self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
+        self.robot.arm_and_claw.move_arm_to_position(int(arm_position_entry))
 
