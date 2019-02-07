@@ -6,6 +6,8 @@
     and Loki Strain, Ezrie McCurry, Jack Franey.
   Winter term, 2018-2019.
 """
+
+
 class Receiver(object):
 
     def __init__(self,robot):
@@ -15,6 +17,15 @@ class Receiver(object):
         print('Got forward ', lws, rws)
         self.robot.drive_system.go(int(lws), int(rws))
 
+    def backward(self, lws, rws):
+        print('Got backward', lws, rws)
+        self.robot.drive_system.go(int(lws), int(rws))
+
     def raise_arm(self):
         print('Got raise_arm')
         self.robot.arm_and_claw.raise_arm()
+
+    def lower_arm(self):
+        print('Got lower_arm')
+        self.robot.arm_and_claw.lower_arm()
+
