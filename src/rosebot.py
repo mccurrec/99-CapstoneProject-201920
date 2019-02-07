@@ -83,7 +83,13 @@ class DriveSystem(object):
         self.right_motor.turn_off()
 
     def go_straight_for_seconds(self, seconds, speed):
-        lws = self.left_motor
+        self.left_motor.turn_on(speed)
+        self.left_motor.turn_on(speed)
+
+        if time.time() >= seconds:
+            self.left_motor.turn_off()
+            self.right_motor.turn_off()
+
         """
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
@@ -95,6 +101,8 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        seconds = (inches/10) * speed/100
+        
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
