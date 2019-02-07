@@ -13,6 +13,10 @@ class Receiver(object):
     def __init__(self,robot):
         self.robot = robot
         """:type  robot: rosebot.RoseBot"""
+
+    ###############################################################################
+    # Drive System Methods
+    ###############################################################################
     def forward(self, lws, rws):
         print('Got forward ', lws, rws)
         self.robot.drive_system.go(int(lws), int(rws))
@@ -25,6 +29,17 @@ class Receiver(object):
         print('Got stop')
         self.robot.drive_system.stop()
 
+    def go_straight_for_seconds(self, seconds, speed):
+        print('Got go_straight_for_seconds', seconds, speed)
+        self.robot.drive_system.go_straight_for_seconds()
+
+    def go_straight_for_inches_using_encoder(self, inches, speed):
+        print('Got go_straight_for_inches_using_encoder', inches, speed)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
+
+    ###############################################################################
+    # Arm and Claw Methods
+    ###############################################################################
     def raise_arm(self):
         print('Got raise_arm')
         self.robot.arm_and_claw.raise_arm()
