@@ -81,6 +81,7 @@ class DriveSystem(object):
         """ Stops the left and right wheel motors. """
 
     def go_straight_for_seconds(self, seconds, speed):
+        lws = self.left_motor
         """
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
