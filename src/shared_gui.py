@@ -132,6 +132,7 @@ def get_sound_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
+    frame_label = ttk.Label(frame, text="Sound System")
     tone_label = ttk.Label(frame, text="Tone Player")
     frequency_label = ttk.Label(frame, text="Frequency")
     duration_label = ttk.Label(frame, text="Duration")
@@ -141,12 +142,13 @@ def get_sound_frame(window, mqtt_sender):
 
     tone_button = ttk.Button(frame, text="Tone")
 
-    tone_label.grid(row=0, column=1)
-    frequency_label.grid(row=2, column=1)
-    frequency_entry.grid(row=3, column=1)
-    duration_label.grid(row=4, column=1)
-    duration_entry.grid(row=5, column=1)
-    tone_button.grid(row=7, column=1)
+    frame_label.grid(row=0, column=1)
+    tone_label.grid(row=1, column=1)
+    frequency_label.grid(row=3, column=1)
+    frequency_entry.grid(row=4, column=1)
+    duration_label.grid(row=5, column=1)
+    duration_entry.grid(row=6, column=1)
+    tone_button.grid(row=8, column=1)
 
     tone_button["command"] = lambda: handle_tone(frequency_entry, duration_entry, mqtt_sender)
 
