@@ -313,7 +313,7 @@ class SoundSystem(object):
         Plays an increasing sequence of short tones,
         stopping when the touch sensor is pressed.
         """
-    def tone(self,frequency, duration):
+    def tone(self, frequency, duration):
         self.tone_maker
 
 
