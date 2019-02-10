@@ -66,3 +66,6 @@ class Receiver(object):
     def tone(self, frequency_entry, duration_entry):
         print("Playing tone at ", frequency_entry, " for ", duration_entry)
         #self.robot.sound_system.tone(frequency_entry, duration_entry)
+
+    def speak_phrase(self,phrase):
+        print("Speaking phrase:", phrase)
