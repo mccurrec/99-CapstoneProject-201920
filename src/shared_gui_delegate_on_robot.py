@@ -31,11 +31,15 @@ class Receiver(object):
 
     def go_straight_for_seconds(self, seconds, speed):
         print('Got go_straight_for_seconds', seconds, speed)
-        self.robot.drive_system.go_straight_for_seconds()
+        self.robot.drive_system.go_straight_for_seconds(seconds, speed)
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         print('Got go_straight_for_inches_using_encoder', inches, speed)
         self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
+
+    def inches_using_time(self, inches_using_time_entry, left_entry_box):
+        print('Moving ', inches_using_time_entry, " inches")
+        self.robot.drive_system.go_straight_for_inches_using_time(inches_using_time_entry, left_entry_box)
 
     ###############################################################################
     # Arm and Claw Methods
@@ -56,10 +60,9 @@ class Receiver(object):
         print('Got move_arm_to_position')
         self.robot.arm_and_claw.move_arm_to_position(int(arm_position_entry))
 
-    def inches_using_time(self,inches_using_time_entry, left_entry_box):
-        print('Moving ', inches_using_time_entry, " inches")
-        self.robot.drive_system.go_straight_for_inches_using_time(inches_using_time_entry, left_entry_box)
-
+    ###############################################################################
+    # Sound Methods
+    ###############################################################################
     def tone(self, frequency_entry, duration_entry):
         print("Playing tone at ", frequency_entry, " for ", duration_entry)
         #self.robot.sound_system.tone(frequency_entry, duration_entry)

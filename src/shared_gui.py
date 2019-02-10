@@ -35,36 +35,32 @@ def get_teleoperation_frame(window, mqtt_sender):
     frame_label = ttk.Label(frame, text="Teleoperation")
     left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
     right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
-    inches_using_time_label = ttk.Label(frame, text="Inches to go")
 
     left_speed_entry = ttk.Entry(frame, width=8)
     left_speed_entry.insert(0, "100")
     right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.insert(0, "100")
-    inches_using_time_entry = ttk.Entry(frame, width=8)
 
     forward_button = ttk.Button(frame, text="Forward")
     backward_button = ttk.Button(frame, text="Backward")
     left_button = ttk.Button(frame, text="Left")
     right_button = ttk.Button(frame, text="Right")
     stop_button = ttk.Button(frame, text="Stop")
-    inches_using_time_button = ttk.Button(frame, text="Go")
 
     # Grid the widgets:
+    #    Grid the labels:
     frame_label.grid(row=0, column=1)
     left_speed_label.grid(row=1, column=0)
     right_speed_label.grid(row=1, column=2)
-    inches_using_time_label.grid(row=6, column=0)
+    #   Grid the entries:
     left_speed_entry.grid(row=2, column=0)
     right_speed_entry.grid(row=2, column=2)
-    inches_using_time_entry.grid(row=7, column=0)
-
+    #   Grid the buttons:
     forward_button.grid(row=3, column=1)
     left_button.grid(row=4, column=0)
     stop_button.grid(row=4, column=1)
     right_button.grid(row=4, column=2)
     backward_button.grid(row=5, column=1)
-    inches_using_time_button.grid(row=8,column=0)
 
     # Set the button callbacks:
     forward_button["command"] = lambda: handle_forward(
@@ -76,8 +72,6 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button["command"] = lambda: handle_right(
         left_speed_entry, right_speed_entry, mqtt_sender)
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
-    inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_using_time_entry, left_speed_entry,
-                                                                           mqtt_sender)
 
     return frame
 
@@ -126,6 +120,7 @@ def get_arm_frame(window, mqtt_sender):
 
     return frame
 
+
 def get_sound_frame(window, mqtt_sender):
     """
         Constructs and returns a frame on the given window, where the frame has
@@ -158,9 +153,6 @@ def get_sound_frame(window, mqtt_sender):
     return frame
 
 
-
-
-
 def get_control_frame(window, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame has
@@ -185,6 +177,60 @@ def get_control_frame(window, mqtt_sender):
     # Set the Button callbacks:
     quit_robot_button["command"] = lambda: handle_quit(mqtt_sender)
     exit_button["command"] = lambda: handle_exit(mqtt_sender)
+
+    return frame
+
+def get_drive_system_frame(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame has
+    buttons and entry boxes containing drive system commands.
+        :type  window:       ttk.Frame | ttk.Toplevel
+        :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the Widgets on the Frame:
+    frame_label = ttk.Label(frame, text='Drive System')
+    inches_using_time_speed_label = ttk.Label(frame, text="Speed to run at")
+    inches_using_time_inches_label = ttk.Label(frame, text="Inches to go")
+    go_straight_for_seconds_time_label = ttk.Label(frame, text='Time to go for')
+    go_straight_for_seconds_speed_label = ttk.Label(frame, text='Speed to run at')
+
+    # Constructs the entry boxes on the frame:
+    inches_using_time_speed_entry = ttk.Entry(frame, width=8)
+    inches_using_time_inches_entry = ttk.Entry(frame, width=8)
+    go_straight_for_seconds_speed_entry = ttk.Entry(frame, width=8)
+    go_straight_for_seconds_time_entry = ttk.Entry(frame, width=8)
+
+    # Constructs the buttons on the frame:
+    inches_using_time_button = ttk.Button(frame, text="Go for Inches")
+    go_straight_for_seconds_button = ttk.Button(frame, text='Go for Time')
+
+    # Grids the Widgets:
+    #   Grids the labels:
+    frame_label.grid(row=0, column=1)
+    inches_using_time_speed_label.grid(row=1, column=0)
+    inches_using_time_inches_label.grid(row=3, column=0)
+    go_straight_for_seconds_time_label.grid(row=1, column=2)
+    go_straight_for_seconds_speed_label.grid(row=3, column=2)
+
+    #   Grids the entry boxes:
+    inches_using_time_speed_entry.grid(row=2, column=0)
+    inches_using_time_inches_entry.grid(row=4, column=0)
+    go_straight_for_seconds_speed_entry.grid(row=2, column=2)
+    go_straight_for_seconds_time_entry.grid(row=4, column=2)
+
+    #   Grids the buttons:
+    inches_using_time_button.grid(row=5, column=0)
+    go_straight_for_seconds_button.grid(row=5, column=2)
+
+    # Sets the button callbacks:
+    inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_using_time_inches_entry,
+                                                                           inches_using_time_speed_entry, mqtt_sender)
+    go_straight_for_seconds_button['command'] = lambda: handle_go_straight_for_seconds(
+        go_straight_for_seconds_time_entry, go_straight_for_seconds_speed_entry, mqtt_sender)
 
     return frame
 
@@ -256,13 +302,27 @@ def handle_stop(mqtt_sender):
     print('stop')
     mqtt_sender.send_message('stop')
 
-def handle_inches_using_time(inches_using_time_entry, left_entry_box, mqtt_sender):
-    """Tells robot to move for an amount of inches based on time conversion
-    :type inches_using_time_entry:  ttk.Entry
-    :type left_entry_box: ttk.Entry"""
 
-    print("Moving ", inches_using_time_entry.get(), " inches")
-    mqtt_sender.send_message('inches_using_time', [inches_using_time_entry.get(), left_entry_box.get()])
+def handle_inches_using_time(inches_using_time_inches_entry, inches_using_time_speed_entry, mqtt_sender):
+    """Tells robot to move for an amount of inches based on time conversion
+    :type inches_using_time_inches_entry:  ttk.Entry
+    :type inches_using_time_speed_entry:  ttk.Entry
+    :type  mqtt_sender:      com.MqttClient"""
+
+    print("Moving ", inches_using_time_inches_entry.get(), " inches")
+    mqtt_sender.send_message('inches_using_time', [int(inches_using_time_inches_entry.get()),
+                                                   int(inches_using_time_speed_entry.get())])
+
+
+def handle_go_straight_for_seconds(time_entry, speed_entry, mqtt_sender):
+    """
+        Tells the robot to move foward at a given speed for a given number of seconds
+          :type  speed_entry:   ttk.Entry
+          :type  time_entry:  ttk.Entry
+          :type  mqtt_sender:      com.MqttClient
+        """
+    print('Moving at speed:', speed_entry, 'for', time_entry, 'seconds.')
+    mqtt_sender.send_message('go_straight_for_seconds', [speed_entry.get(), time_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
@@ -283,8 +343,6 @@ def handle_lower_arm(mqtt_sender):
     """
     print('Lower Arm')
     mqtt_sender.send_message('lower_arm')
-
-
 
 
 def handle_calibrate_arm(mqtt_sender):
@@ -332,6 +390,7 @@ def handle_quit(mqtt_sender):
     """
     print("quit the robot's program")
     mqtt_sender.send_message("quit")
+
 
 def handle_exit(mqtt_sender):
     """

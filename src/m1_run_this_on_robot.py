@@ -22,23 +22,13 @@ def main():
 
 def demonstration():
     robot = rosebot.RoseBot()
-    receiver = Receiver(robot)
+    receiver = rec.Receiver(robot)
     mqtt_receiver = com.MqttClient(receiver)
     mqtt_receiver.connect_to_pc()
-
 
     while True:
         time.sleep(0.01)
 
-
-class Receiver(object):
-    def __init__(self, robot):
-        """ :type   robot:  rosebot.RoseBot """
-        self.robot = robot
-
-    def forward(self, left_wheel_speed, right_wheel_speed):
-        print('Got forward', left_wheel_speed, right_wheel_speed)
-        self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

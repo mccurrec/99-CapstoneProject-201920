@@ -33,7 +33,7 @@ class RoseBot(object):
         self.sensor_system = SensorSystem()
         self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
-        self.sound_system = SoundSystem()
+        # self.sound_system = SoundSystem()
 
 
 ###############################################################################
@@ -85,12 +85,13 @@ class DriveSystem(object):
 
     def go_straight_for_seconds(self, seconds, speed):
         self.left_motor.turn_on(speed)
-        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
         start_time = time.time()
 
-        if time.time() - start_time >= seconds:
-            self.left_motor.turn_off()
-            self.right_motor.turn_off()
+        while True:
+            if time.time() - start_time >= float(seconds):
+                self.stop()
+                break
 
         """
         Makes the robot go straight (forward if speed > 0, else backward)
@@ -103,15 +104,13 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
-        seconds = (inches/10) * speed/100
-        self.go(speed,speed)
+        seconds = (inches / 10) * (100 / speed)
+        self.go(speed, speed)
         start_time = time.time()
         while True:
             if time.time() - start_time >= seconds:
                 self.stop()
                 break
-
-        
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -124,7 +123,6 @@ class DriveSystem(object):
             if self.left_motor.get_position() >= (inches * (360/(1.3*math.pi))):
                 self.stop()
                 break
-
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
