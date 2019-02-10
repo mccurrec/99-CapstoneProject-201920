@@ -56,3 +56,10 @@ class Receiver(object):
         print('Got move_arm_to_position')
         self.robot.arm_and_claw.move_arm_to_position(int(arm_position_entry))
 
+    def inches_using_time(self,inches_using_time_entry, left_entry_box):
+        print('Moving ', inches_using_time_entry, " inches")
+        self.robot.drive_system.go_straight_for_inches_using_time(inches_using_time_entry, left_entry_box)
+
+    def tone(self, frequency_entry, duration_entry):
+        print("Playing tone at ", frequency_entry, " for ", duration_entry)
+        self.robot.sound_system.tone(frequency_entry, duration_entry)

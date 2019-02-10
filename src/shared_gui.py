@@ -35,30 +35,36 @@ def get_teleoperation_frame(window, mqtt_sender):
     frame_label = ttk.Label(frame, text="Teleoperation")
     left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
     right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
+    inches_using_time_label = ttk.Label(frame, text="Inches to go")
 
     left_speed_entry = ttk.Entry(frame, width=8)
     left_speed_entry.insert(0, "100")
     right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.insert(0, "100")
+    inches_using_time_entry = ttk.Entry(frame, width=8)
 
     forward_button = ttk.Button(frame, text="Forward")
     backward_button = ttk.Button(frame, text="Backward")
     left_button = ttk.Button(frame, text="Left")
     right_button = ttk.Button(frame, text="Right")
     stop_button = ttk.Button(frame, text="Stop")
+    inches_using_time_button = ttk.Button(frame, text="Go")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     left_speed_label.grid(row=1, column=0)
     right_speed_label.grid(row=1, column=2)
+    inches_using_time_label.grid(row=6, column=0)
     left_speed_entry.grid(row=2, column=0)
     right_speed_entry.grid(row=2, column=2)
+    inches_using_time_entry.grid(row=7, column=0)
 
     forward_button.grid(row=3, column=1)
     left_button.grid(row=4, column=0)
     stop_button.grid(row=4, column=1)
     right_button.grid(row=4, column=2)
     backward_button.grid(row=5, column=1)
+    inches_using_time_button.grid(row=8,column=0)
 
     # Set the button callbacks:
     forward_button["command"] = lambda: handle_forward(
@@ -70,6 +76,8 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button["command"] = lambda: handle_right(
         left_speed_entry, right_speed_entry, mqtt_sender)
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
+    inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_using_time_entry, left_speed_entry,
+                                                                           mqtt_sender)
 
     return frame
 
@@ -117,6 +125,40 @@ def get_arm_frame(window, mqtt_sender):
         position_entry, mqtt_sender)
 
     return frame
+
+def get_sound_frame(window, mqtt_sender):
+    """
+        Constructs and returns a frame on the given window, where the frame has
+        Button objects and entry boxes containing sounds commands.
+          :type  window:       ttk.Frame | ttk.Toplevel
+          :type  mqtt_sender:  com.MqttClient
+        """
+
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    tone_label = ttk.Label(frame, text="Tone Player")
+    frequency_label = ttk.Label(frame, text="Frequency")
+    duration_label = ttk.Label(frame, text="Duration")
+
+    frequency_entry = ttk.Entry(frame, width=8)
+    duration_entry = ttk.Entry(frame, width=8)
+
+    tone_button = ttk.Button(frame, text="Tone")
+
+    tone_label.grid(row=0, column=1)
+    frequency_label.grid(row=2, column=1)
+    frequency_entry.grid(row=3, column=1)
+    duration_label.grid(row=4, column=1)
+    duration_entry.grid(row=5, column=1)
+    tone_button.grid(row=7, column=1)
+
+    tone_button["command"] = lambda: handle_tone(frequency_entry, duration_entry, mqtt_sender)
+
+    return frame
+
+
+
 
 
 def get_control_frame(window, mqtt_sender):
@@ -214,6 +256,14 @@ def handle_stop(mqtt_sender):
     print('stop')
     mqtt_sender.send_message('stop')
 
+def handle_inches_using_time(inches_using_time_entry, left_entry_box, mqtt_sender):
+    """Tells robot to move for an amount of inches based on time conversion
+    :type inches_using_time_entry:  ttk.Entry
+    :type left_entry_box: ttk.Entry"""
+
+    print("Moving ", inches_using_time_entry.get(), " inches")
+    mqtt_sender.send_message('inches_using_time', [inches_using_time_entry.get(), left_entry_box.get()])
+
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
 ###############################################################################
@@ -259,6 +309,17 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     print('Move arm to position', arm_position_entry.get())
     mqtt_sender.send_message('move_arm_to_position', [arm_position_entry.get()])
 
+###############################################################################
+# Handlers for Buttons in the Sound frame.
+###############################################################################
+def handle_tone(frequency_entry, duration_entry, mqtt_sender):
+    """
+    :type frequency:  ttk.Entry
+    :type duration: ttk.Entry
+    :type mqtt_sender: com.MqttClient
+    """
+    print("Playing tone at ", frequency_entry.get(), " for ", duration_entry.get())
+    mqtt_sender.send_message('tone', [frequency_entry.get(), duration_entry.get()])
 
 
 ###############################################################################
