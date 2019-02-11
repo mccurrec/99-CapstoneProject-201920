@@ -199,16 +199,21 @@ def get_drive_system_frame(window, mqtt_sender):
     inches_using_time_inches_label = ttk.Label(frame, text="Inches to go")
     go_straight_for_seconds_time_label = ttk.Label(frame, text='Time to go for')
     go_straight_for_seconds_speed_label = ttk.Label(frame, text='Speed to run at')
+    go_straight_using_encoder_speed_label = ttk.Label(frame, text="Speed to run at")
+    go_straight_using_encoder_inches_label = ttk.Label(frame, text='Inches to go')
 
     # Constructs the entry boxes on the frame:
     inches_using_time_speed_entry = ttk.Entry(frame, width=8)
     inches_using_time_inches_entry = ttk.Entry(frame, width=8)
     go_straight_for_seconds_speed_entry = ttk.Entry(frame, width=8)
     go_straight_for_seconds_time_entry = ttk.Entry(frame, width=8)
+    go_straight_using_encoder_speed_entry = ttk.Entry(frame, width=8)
+    go_straight_using_encoder_inches_entry = ttk.Entry(frame,width=8)
 
     # Constructs the buttons on the frame:
     inches_using_time_button = ttk.Button(frame, text="Go for Inches")
     go_straight_for_seconds_button = ttk.Button(frame, text='Go for Time')
+    go_straight_using_encoder_button = ttk.Button(frame, text= 'Go Using Encoder' )
 
     # Grids the Widgets:
     #   Grids the labels:
@@ -217,22 +222,28 @@ def get_drive_system_frame(window, mqtt_sender):
     inches_using_time_inches_label.grid(row=3, column=0)
     go_straight_for_seconds_time_label.grid(row=1, column=2)
     go_straight_for_seconds_speed_label.grid(row=3, column=2)
+    go_straight_using_encoder_speed_label.grid(row=1,column=1)
+    go_straight_using_encoder_inches_label.grid(row=3,column=1)
 
     #   Grids the entry boxes:
     inches_using_time_speed_entry.grid(row=2, column=0)
     inches_using_time_inches_entry.grid(row=4, column=0)
     go_straight_for_seconds_speed_entry.grid(row=2, column=2)
     go_straight_for_seconds_time_entry.grid(row=4, column=2)
+    go_straight_using_encoder_speed_entry.grid(row=2,column=1)
+    go_straight_using_encoder_inches_entry.grid(row=4,column=1)
 
     #   Grids the buttons:
     inches_using_time_button.grid(row=5, column=0)
     go_straight_for_seconds_button.grid(row=5, column=2)
+    go_straight_using_encoder_button.grid(row=5,column=1)
 
     # Sets the button callbacks:
     inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_using_time_inches_entry,
                                                                            inches_using_time_speed_entry, mqtt_sender)
     go_straight_for_seconds_button['command'] = lambda: handle_go_straight_for_seconds(
         go_straight_for_seconds_time_entry, go_straight_for_seconds_speed_entry, mqtt_sender)
+    go_straight_using_encoder_button['command'] = lambda: handle_go_straight_using_encoder(go_straight_using_encoder_speed_entry,go_straight_using_encoder_inches_entry,mqtt_sender)
 
     return frame
 
@@ -325,6 +336,17 @@ def handle_go_straight_for_seconds(time_entry, speed_entry, mqtt_sender):
         """
     print('Moving at speed:', speed_entry, 'for', time_entry, 'seconds.')
     mqtt_sender.send_message('go_straight_for_seconds', [speed_entry.get(), time_entry.get()])
+
+def handle_go_straight_using_encoder(speed_entry,inches_entry,mqtt_sender):
+    """
+    Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
+    :type speed_entry:  ttk.Entry
+    :type inches_entry: ttk.Entry
+    :type mqtt_sender:  com.MqttClient
+
+    """
+    print('Moving at speed:', speed_entry, 'for', inches_entry, 'inches')
+    mqtt_sender.send_message('go_staight_for_inches_using_encoder', [inches_entry.get(),speed_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
