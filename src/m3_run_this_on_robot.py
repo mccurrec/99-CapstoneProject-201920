@@ -28,7 +28,8 @@ def real_thing():
 
     while True:
         time.sleep(.01) #wait 1/100 to let the "background loop" see if anything gets sent
-
+        if receiver.is_time_to_stop() == True:
+            break
 
 # class Receiver(object):
 #     def __init__(self, robot):
