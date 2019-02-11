@@ -172,6 +172,7 @@ def get_sound_frame(window, mqtt_sender):
 
     tone_button["command"] = lambda: handle_tone(frequency_entry, duration_entry, mqtt_sender)
     beep_button['command'] = lambda: handle_beep(beep_entry, mqtt_sender)
+    speak_phrase_button['command'] = lambda: handle_speak_phrase(speak_phrase_entry, mqtt_sender)
     return frame
 
 
@@ -424,6 +425,15 @@ def handle_tone(frequency_entry, duration_entry, mqtt_sender):
     """
     print("Playing tone at ", frequency_entry.get(), " for ", duration_entry.get())
     mqtt_sender.send_message('tone', [frequency_entry.get(), duration_entry.get()])
+
+
+def handle_speak_phrase(phrase_entry, mqtt_sender):
+    """
+    :type phrase_entry: ttk.Entry
+    :type mqtt_sender: com.MqttClient
+    """
+    print('Speaking the phrase: {}'.format(phrase_entry.get()))
+    mqtt_sender.send_message('speak_phrase', [str(phrase_entry.get())])
 
 
 def handle_beep(beep_entry, mqtt_sender):

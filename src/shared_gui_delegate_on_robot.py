@@ -66,12 +66,13 @@ class Receiver(object):
     ###############################################################################
     def beep(self, times):
         print('I will beep {} times'.format(times))
-        for _ in range(times):
+        for _ in range(int(times)):
             self.robot.sound_system.beeper.beep().wait()
 
     def tone(self, frequency_entry, duration_entry):
         print("Playing tone at ", frequency_entry, " for ", duration_entry)
-        self.robot.sound_system.tone(frequency_entry, duration_entry)
+        # self.robot.sound_system.tone(frequency_entry, duration_entry)
+        self.robot.sound_system.tone_maker.play_tone(frequency_entry, duration_entry).wait()
 
     def speak_phrase(self, phrase):
         print("Speaking phrase:", phrase)
