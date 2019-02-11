@@ -313,8 +313,8 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-    print('left', - left_entry_box.get(), right_entry_box.get())
-    mqtt_sender.send_message('left', [- left_entry_box.get(), right_entry_box.get()])
+    print('left', - int(left_entry_box.get()), right_entry_box.get())
+    mqtt_sender.send_message('left', [- int(left_entry_box.get()), int(right_entry_box.get())])
 
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
@@ -325,8 +325,8 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-    print('right', left_entry_box.get(), - right_entry_box.get())
-    mqtt_sender.send_message('right', [left_entry_box.get(), - right_entry_box.get()])
+    print('right', left_entry_box.get(), - int(right_entry_box.get()))
+    mqtt_sender.send_message('right', [int(left_entry_box.get()), - int(right_entry_box.get())])
 
 
 def handle_stop(mqtt_sender):
@@ -360,7 +360,7 @@ def handle_go_straight_for_seconds(time_entry, speed_entry, mqtt_sender):
     mqtt_sender.send_message('go_straight_for_seconds', [speed_entry.get(), time_entry.get()])
 
 
-def handle_go_straight_using_encoder(speed_entry,inches_entry,mqtt_sender):
+def handle_go_straight_using_encoder(speed_entry, inches_entry, mqtt_sender):
     """
     Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
     :type speed_entry:  ttk.Entry
@@ -369,7 +369,7 @@ def handle_go_straight_using_encoder(speed_entry,inches_entry,mqtt_sender):
 
     """
     print('Moving at speed:', speed_entry, 'for', inches_entry, 'inches')
-    mqtt_sender.send_message('go_staight_for_inches_using_encoder', [inches_entry.get(),speed_entry.get()])
+    mqtt_sender.send_message('go_straight_for_inches_using_encoder', [inches_entry.get(), speed_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.

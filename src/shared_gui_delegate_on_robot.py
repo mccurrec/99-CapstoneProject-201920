@@ -44,11 +44,11 @@ class Receiver(object):
 
     def left(self, lws, rws):
         print('Got left', lws, rws)
-        self.robot.drive_system.go(int(lws), int(rws))
+        self.robot.drive_system.go(lws, rws)
 
     def right(self, lws, rws):
         print('Got right', lws, rws)
-        self.robot.drive_system.go(int(lws), int(rws))
+        self.robot.drive_system.go(lws, rws)
 
     ###############################################################################
     # Arm and Claw Methods
