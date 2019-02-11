@@ -31,24 +31,24 @@ class Receiver(object):
         self.robot.drive_system.stop()
 
     def go_straight_for_seconds(self, seconds, speed):
-        print('Got go_straight_for_seconds', seconds, speed)
-        self.robot.drive_system.go_straight_for_seconds(seconds, speed)
+        print('Got go_straight_for_seconds', int(seconds), int(speed))
+        self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
-        print('Got go_straight_for_inches_using_encoder', inches, speed)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
+        print('Got go_straight_for_inches_using_encoder', int(inches), int(speed))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
     def inches_using_time(self, inches_using_time_entry, left_entry_box):
-        print('Moving ', inches_using_time_entry, " inches")
-        self.robot.drive_system.go_straight_for_inches_using_time(inches_using_time_entry, left_entry_box)
+        print('Moving ', int(inches_using_time_entry), " inches")
+        self.robot.drive_system.go_straight_for_inches_using_time(int(inches_using_time_entry), int(left_entry_box))
 
     def left(self, lws, rws):
-        print('Got left', lws, rws)
-        self.robot.drive_system.go(lws, rws)
+        print('Got left', int(lws), int(rws))
+        self.robot.drive_system.go(int(lws), int(rws))
 
     def right(self, lws, rws):
-        print('Got right', lws, rws)
-        self.robot.drive_system.go(lws, rws)
+        print('Got right', int(lws), int(rws))
+        self.robot.drive_system.go(int(lws), int(rws))
 
     ###############################################################################
     # Arm and Claw Methods
@@ -80,11 +80,11 @@ class Receiver(object):
     def tone(self, frequency_entry, duration_entry):
         print("Playing tone at ", frequency_entry, " for ", duration_entry)
         # self.robot.sound_system.tone(frequency_entry, duration_entry)
-        self.robot.sound_system.tone_maker.play_tone(frequency_entry, duration_entry).wait()
+        self.robot.sound_system.tone_maker.play_tone(int(frequency_entry), int(duration_entry)).wait()
 
     def speak_phrase(self, phrase):
-        print("Speaking phrase:", phrase)
-        self.robot.sound_system.speech_maker.speak(phrase).wait()
+        print("Speaking phrase:", str(phrase))
+        self.robot.sound_system.speech_maker.speak(str(phrase)).wait()
 
     ###############################################################################
     # Controls Methods
