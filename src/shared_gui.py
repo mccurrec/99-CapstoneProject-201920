@@ -132,38 +132,46 @@ def get_sound_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
-    #labels
+    # labels
     frame_label = ttk.Label(frame, text="Sound System")
     tone_label = ttk.Label(frame, text="Tone Player")
     frequency_label = ttk.Label(frame, text="Frequency")
     duration_label = ttk.Label(frame, text="Duration")
     speak_phrase_label = ttk.Label(frame, text="Speak Phrase")
-    speak_phrase_word_label = ttk.Label(frame,text="Phrase")
+    speak_phrase_word_label = ttk.Label(frame, text="Phrase")
+    beep_label = ttk.Label(frame, text="Beep")
+    number_of_beeps_label = ttk.Label(frame, text='Number of Beeps')
 
-    #entry boxes
+    # entry boxes
     frequency_entry = ttk.Entry(frame, width=8)
     duration_entry = ttk.Entry(frame, width=8)
-    speak_phrase_entry = ttk.Entry(frame,width=8)
+    speak_phrase_entry = ttk.Entry(frame, width=8)
+    beep_entry = ttk.Entry(frame, width=8)
 
-    #buttons
+    # buttons
     tone_button = ttk.Button(frame, text="Tone")
     speak_phrase_button = ttk.Button(frame, text="Speak")
+    beep_button = ttk.Button(frame, text='Beep')
 
-    #grid stuff
+    # grid stuff
     frame_label.grid(row=0, column=1)
     tone_label.grid(row=1, column=1)
-    frequency_label.grid(row=3, column=1)
-    frequency_entry.grid(row=4, column=1)
-    duration_label.grid(row=5, column=1)
-    duration_entry.grid(row=6, column=1)
-    tone_button.grid(row=8, column=1)
-    speak_phrase_label.grid(row=1,column=0)
-    speak_phrase_button.grid(row=8,column=0)
-    speak_phrase_entry.grid(row=6,column=0)
-    speak_phrase_word_label.grid(row=5,column=0)
+    frequency_label.grid(row=2, column=1)
+    frequency_entry.grid(row=3, column=1)
+    duration_label.grid(row=4, column=1)
+    duration_entry.grid(row=5, column=1)
+    tone_button.grid(row=6, column=1)
+    speak_phrase_label.grid(row=1, column=0)
+    speak_phrase_button.grid(row=6, column=0)
+    speak_phrase_entry.grid(row=5, column=0)
+    speak_phrase_word_label.grid(row=4, column=0)
+    beep_label.grid(row=1, column=2)
+    number_of_beeps_label.grid(row=4, column=2)
+    beep_entry.grid(row=5, column=2)
+    beep_button.grid(row=6, column=2)
 
     tone_button["command"] = lambda: handle_tone(frequency_entry, duration_entry, mqtt_sender)
-
+    beep_button['command'] = lambda: handle_beep(beep_entry, mqtt_sender)
     return frame
 
 
@@ -193,6 +201,7 @@ def get_control_frame(window, mqtt_sender):
     exit_button["command"] = lambda: handle_exit(mqtt_sender)
 
     return frame
+
 
 def get_drive_system_frame(window, mqtt_sender):
     """
@@ -349,6 +358,7 @@ def handle_go_straight_for_seconds(time_entry, speed_entry, mqtt_sender):
     print('Moving at speed:', speed_entry, 'for', time_entry, 'seconds.')
     mqtt_sender.send_message('go_straight_for_seconds', [speed_entry.get(), time_entry.get()])
 
+
 def handle_go_straight_using_encoder(speed_entry,inches_entry,mqtt_sender):
     """
     Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
@@ -408,13 +418,21 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
 ###############################################################################
 def handle_tone(frequency_entry, duration_entry, mqtt_sender):
     """
-    :type frequency:  ttk.Entry
-    :type duration: ttk.Entry
+    :type frequency_entry:  ttk.Entry
+    :type duration_entry: ttk.Entry
     :type mqtt_sender: com.MqttClient
     """
     print("Playing tone at ", frequency_entry.get(), " for ", duration_entry.get())
     mqtt_sender.send_message('tone', [frequency_entry.get(), duration_entry.get()])
 
+
+def handle_beep(beep_entry, mqtt_sender):
+    """
+    :type beep_entry:  ttk.Entry
+    :type mqtt_sender: com.MqttClient
+    """
+    print('I will beep {} times.'.format(beep_entry.get()))
+    mqtt_sender.send_message('beep', [beep_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
