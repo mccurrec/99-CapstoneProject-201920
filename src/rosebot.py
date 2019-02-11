@@ -174,12 +174,26 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         """
 
+        inf = self.sensor_system.ir_proximity_sensor
+        self.go(speed, speed)
+        while True:
+            if inf.get_distance_in_inches() >= inches:
+                self.stop()
+                break
+
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
         Goes straight at the given speed until the robot is greater than
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
+
+        inf = self.sensor_system.ir_proximity_sensor
+        self.go(-speed, -speed)
+        while True:
+            if inf.get_distance_in_inches() > inches:
+                self.stop()
+                break
 
     def go_until_distance_is_within(self, delta, inches, speed):
         """
@@ -191,6 +205,25 @@ class DriveSystem(object):
         the robot should move until it is between 6.8 and 7.4 inches
         from the object.
         """
+        inf = self.sensor_system.ir_proximity_sensor
+        maxd = inches + delta
+        mind = inches - delta
+
+        if inf.get_distance_in_inches() > maxd:
+            self.go(speed, speed)
+            while True:
+                if inf.get_distance_in_inches() <= maxd:
+                    self.stop()
+                    break
+
+        if inf.get_distance_in_inches() < mind:
+            self.go(-speed, -speed)
+            while True:
+                if inf.get_distance_in_inches() >= mind:
+                    self.stop()
+                    break
+
+
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
