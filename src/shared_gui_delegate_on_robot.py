@@ -10,9 +10,10 @@
 
 class Receiver(object):
 
-    def __init__(self,robot):
-        self.robot = robot
+    def __init__(self, robot):
         """:type  robot: rosebot.RoseBot"""
+        self.robot = robot
+        self.is_time_to_stop = False
 
     ###############################################################################
     # Drive System Methods
@@ -65,11 +66,22 @@ class Receiver(object):
     ###############################################################################
     def beep(self, times):
         print('I will beep {} times'.format(times))
-        # self.robot.sound_system.beep(times)
+        for _ in range(times):
+            self.robot.sound_system.beeper.beep().wait()
 
     def tone(self, frequency_entry, duration_entry):
         print("Playing tone at ", frequency_entry, " for ", duration_entry)
         # self.robot.sound_system.tone(frequency_entry, duration_entry)
 
-    def speak_phrase(self,phrase):
+    def speak_phrase(self, phrase):
         print("Speaking phrase:", phrase)
+
+    ###############################################################################
+    # Controls Methods
+    ###############################################################################
+    def quit(self):
+        print('got quit')
+        self.is_time_to_stop = True
+
+    def exit(self):
+        print('got exit')

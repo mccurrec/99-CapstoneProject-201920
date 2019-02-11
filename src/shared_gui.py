@@ -453,4 +453,5 @@ def handle_exit(mqtt_sender):
       :type mqtt_sender: com.MqttClient
     """
     print("quit the robot's program and exit this")
-    mqtt_sender.send_message("exit")
+    handle_quit(mqtt_sender)
+    exit()
