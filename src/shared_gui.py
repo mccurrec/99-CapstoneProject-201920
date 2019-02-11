@@ -215,7 +215,7 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_for_seconds_button = ttk.Button(frame, text='Go for Time')
     go_straight_using_encoder_button = ttk.Button(frame, text= 'Go Using Encoder' )
 
-    # Grids the Widgets:
+    #  Grids the Widgets:
     #   Grids the labels:
     frame_label.grid(row=0, column=1)
     inches_using_time_speed_label.grid(row=1, column=0)
