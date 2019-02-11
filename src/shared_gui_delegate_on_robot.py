@@ -95,3 +95,17 @@ class Receiver(object):
 
     def exit(self):
         print('got exit')
+
+    ###############################################################################
+    # Methods for Sprint 2
+    ###############################################################################
+
+    def m2(self, frequency):
+
+        self.robot.drive_system.go_forward_until_distance_is_less_than(0,100)
+        if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= .5:
+                self.robot.drive_system.go_forward_until_distance_is_less_than(0,100)
+                if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= .5:
+                    self.robot.drive_system.go_forward_until_distance_is_less_than(0, 100)
+
+
