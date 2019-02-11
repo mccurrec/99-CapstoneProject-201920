@@ -58,6 +58,17 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
+    m2 = ttk.Frame(main_frame, padding=10, borderwidth=5, relief="ridge")
+    m2_label = ttk.Label(m2, text="M2 Frame")
+    m2_label.grid(row=0, column=0)
+    m2_entry = ttk.Entry(m2, width=8)
+    m2_entry.grid(row=1, column=0)
+    m2_button = ttk.Button(m2, text="Wild Thang")
+    m2_button.grid(row=2, column=0)
+
+
+    m2.grid(row=0, column=1)
+
 
     grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame)
 
@@ -80,13 +91,13 @@ def get_shared_frames(main_frame, mqtt_sender):
     return teleop_frame, arm_frame, control_frame, sound_frame, drive_frame
 
 
-
 def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=4,column=0)
     sound_frame.grid(row=3,column=0)
     drive_frame.grid(row=2, column=0)
+
 
 
 
