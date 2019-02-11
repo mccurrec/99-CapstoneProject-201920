@@ -75,7 +75,7 @@ class Receiver(object):
 
     def speak_phrase(self, phrase):
         print("Speaking phrase:", phrase)
-        self.robot.sound_system.speech_maker.speak(phrase)
+        self.robot.sound_system.speech_maker.speak(phrase).wait()
 
     ###############################################################################
     # Controls Methods
