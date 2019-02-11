@@ -42,6 +42,14 @@ class Receiver(object):
         print('Moving ', inches_using_time_entry, " inches")
         self.robot.drive_system.go_straight_for_inches_using_time(inches_using_time_entry, left_entry_box)
 
+    def left(self, lws, rws):
+        print('Got left', lws, rws)
+        self.robot.drive_system.go(int(lws), int(rws))
+
+    def right(self, lws, rws):
+        print('Got right', lws, rws)
+        self.robot.drive_system.go(int(lws), int(rws))
+
     ###############################################################################
     # Arm and Claw Methods
     ###############################################################################
