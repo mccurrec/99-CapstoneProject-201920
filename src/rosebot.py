@@ -232,7 +232,7 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-    def go_until_distance_is_within(self, delta, inches, speed):
+    def go_until_distance_is_within(self, inches, speed, delta):
         """
         Goes forward or backward, repeated as necessary, until the robot is
         within the given delta of the given inches from the nearest object
