@@ -52,7 +52,7 @@ class Receiver(object):
 
     def go_straight_until_intensity_is_less_than(self, intensity_entry, speed_entry):
         print('Got go_straight_until_intensity_is_less_than', intensity_entry)
-        self.robot.drive_system.go_straight_until_intensity_is_less_than(float(intensity_entry), float(speed))
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(float(intensity_entry), float(speed_entry))
 
     def go_straight_until_intensity_is_greater_than(self, intensity_entry):
         print('Got go_straight_until_intensity_is_greater_than', intensity_entry)
@@ -65,6 +65,18 @@ class Receiver(object):
     def go_straight_until_color_is_not(self, color_entry):
         print('Got go_straight_until_color_is_not', color_entry)
         self.robot.drive_system.go_straight_until_color_is_not(color_entry)
+
+    def display_camera_data(self):
+        print("Got display_camera_data")
+        self.robot.drive_system.display_camera_data()
+
+    def spin_clockwise_until_sees_object(self,speed_entry,area_entry):
+        print("Got spin_clockwise_until_sees_object, Speed: {}, Area: {}".format(int(speed_entry),int(area_entry)))
+        self.robot.drive_system.spin_clockwise_until_sees_object(speed_entry,area_entry)
+
+    def spin_counterclockwise_until_sees_object(self,speed_entry,area_entry):
+        print("Got spin_counterclockwise_until_sees_object, Speed: {}, Area: {}".format(int(speed_entry),int(area_entry)))
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(speed_entry,area_entry)
 
     ###############################################################################
     # Arm and Claw Methods
