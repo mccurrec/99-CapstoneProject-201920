@@ -89,7 +89,7 @@ class Receiver(object):
     def within(self, distance_entry, speed_entry, delta_entry):
         print('got it')
         self.robot.drive_system.go_until_distance_is_within(distance_entry,speed_entry,distance_entry)
-        
+
 
     ###############################################################################
     # Arm and Claw Methods
