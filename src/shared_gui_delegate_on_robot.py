@@ -141,19 +141,21 @@ class Receiver(object):
     # Methods for Sprint 2
     ###############################################################################
 
-    def m1_feature_9(self, initial_rate, rate_of_increase, speed):
+    def m1_feature_9(self, initial_rate, rate_of_increase):
         # starts the robot at the given speed:
-        self.robot.drive_system.go(speed, speed)
+        self.robot.drive_system.go(100, 100)
         # stores the distance to the cube as previous distance:
         previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         # stores the current time as the previous time:
         previous_time = time.time()
         # set the rate between beeps as the initial rate given by the user:
         rate = initial_rate
+        delta = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() / ((
+                    self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() - 0.05) / rate_of_increase)
         # loops until the cube is reached and picked up:
         while True:
             # checks to see if the current distance to the cube is less than the previous distance:
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= previous_distance:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() - previous_distance >= delta:
                 # checks to see if enough time has passsed from the last beep:
                 if time.time() - previous_time >= rate:
                     # if enough times has passed, a beep happens:
