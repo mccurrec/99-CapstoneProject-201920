@@ -7,6 +7,7 @@
   Winter term, 2018-2019.
 """
 
+import time
 
 class Receiver(object):
 
@@ -139,6 +140,34 @@ class Receiver(object):
     ###############################################################################
     # Methods for Sprint 2
     ###############################################################################
+
+    def m1_feature_9(self, initial_rate, rate_of_increase, speed):
+        # starts the robot at the given speed:
+        self.robot.drive_system.go(speed, speed)
+        # stores the distance to the cube as previous distance:
+        previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        # stores the current time as the previous time:
+        previous_time = time.time()
+        # set the rate between beeps as the initial rate given by the user:
+        rate = initial_rate
+        # loops until the cube is reached and picked up:
+        while True:
+            # checks to see if the current distance to the cube is less than the previous distance:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= previous_distance:
+                # checks to see if enough time has passsed from the last beep:
+                if time.time() - previous_time >= rate:
+                    # if enough times has passed, a beep happens:
+                    self.robot.sound_system.beeper.beep()
+                    # and the time from last beep is reset:
+                    previous_time = time.time()
+                    # and the rate between beeps is adjusted according to the user inputted increment
+                    rate = rate - rate_of_increase
+            # stops the robot once it is within 1 inch of the cube, and picks it up:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                break
+            previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
     def m2(self, freq, iteration):
 
