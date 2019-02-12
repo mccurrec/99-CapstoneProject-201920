@@ -190,7 +190,39 @@ class Receiver(object):
 
                 break
 
-
+    def m3_feature_9(self,initial_rate,rate_of_increase,speed):
+        # starts the robot at the given speed:
+        self.robot.drive_system.go(speed, speed)
+        # stores the distance to the cube as previous distance:
+        previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        # stores the current time as the previous time:
+        previous_time = time.time()
+        # set the rate between lights as the initial rate given by the user:
+        rate = initial_rate
+        while True:
+            # checks to see if the current distance to the cube is less than the previous distance:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= previous_distance:
+                # checks to see if enough time has passsed from the last light:
+                if time.time() - previous_time >= rate:
+                    # if enough times has passed, a light cycle happens:
+                    self.robot.led_system.left_led.turn_on().wait()
+                    self.robot.led_system.left_led.turn_off()
+                    self.robot.led_system.right_led.turn_on().wait()
+                    self.robot.led_system.right_led.turn_off()
+                    self.robot.led_system.left_led.turn_on()
+                    self.robot.led_system.right_led.turn_on().wait()
+                    self.robot.led_system.left_led.turn_off()
+                    self.robot.led_system.right_led.turn_off().wait(100)
+                    # and the time from last light cycle is reset:
+                    previous_time = time.time()
+                    # and the rate between light cycles is adjusted according to the user inputted increment
+                    rate = rate - rate_of_increase
+            # stops the robot once it is within 1 inch of the cube, and picks it up:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                break
+            previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
 
 
