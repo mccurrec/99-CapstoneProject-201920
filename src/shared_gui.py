@@ -439,6 +439,9 @@ def handle_stop(mqtt_sender):
     mqtt_sender.send_message('stop')
 
 
+###############################################################################
+# Handlers for Buttons in the DriveSystem frame.
+###############################################################################
 def handle_inches_using_time(inches_using_time_inches_entry, inches_using_time_speed_entry, mqtt_sender):
     """Tells robot to move for an amount of inches based on time conversion
     :type inches_using_time_inches_entry:  ttk.Entry
@@ -450,17 +453,6 @@ def handle_inches_using_time(inches_using_time_inches_entry, inches_using_time_s
                                                    int(inches_using_time_speed_entry.get())])
 
 
-def handle_go_straight_for_seconds(time_entry, speed_entry, mqtt_sender):
-    """
-        Tells the robot to move foward at a given speed for a given number of seconds
-          :type  speed_entry:   ttk.Entry
-          :type  time_entry:  ttk.Entry
-          :type  mqtt_sender:      com.MqttClient
-        """
-    print('Moving at speed:', speed_entry, 'for', time_entry, 'seconds.')
-    mqtt_sender.send_message('go_straight_for_seconds', [speed_entry.get(), time_entry.get()])
-
-
 def handle_go_straight_using_encoder(speed_entry, inches_entry, mqtt_sender):
     """
     Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
@@ -470,6 +462,17 @@ def handle_go_straight_using_encoder(speed_entry, inches_entry, mqtt_sender):
     """
     print('Moving at speed:', speed_entry, 'for', inches_entry, 'inches')
     mqtt_sender.send_message('go_straight_for_inches_using_encoder', [inches_entry.get(), speed_entry.get()])
+
+
+def handle_go_straight_for_seconds(time_entry, speed_entry, mqtt_sender):
+    """
+        Tells the robot to move foward at a given speed for a given number of seconds
+          :type  speed_entry:   ttk.Entry
+          :type  time_entry:  ttk.Entry
+          :type  mqtt_sender:      com.MqttClient
+        """
+    print('Moving at speed:', speed_entry, 'for', time_entry, 'seconds.')
+    mqtt_sender.send_message('go_straight_for_seconds', [speed_entry.get(), time_entry.get()])
 
 
 def handle_go_straight_until_intensity_is_less_than(intensity_entry, mqtt_sender):
@@ -512,32 +515,50 @@ def handle_go_straight_until_color_is_not(color_entry, mqtt_sender):
     mqtt_sender.send_message('go_straight_until_color_is_not', [color_entry.get()])
 
 
+def handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry, m3_spin_clockwise_area_entry, mqtt_sender):
+    """
+    :type m3_spin_clockwise_speed_entry:  ttk.Entry
+    :type m3_spin_clockwise_area_entry:    ttk.Entry
+    :type mqtt_sender:  com.MqttClient
+    """
+    print("Spin Clockwise until color is big enough, Speed: {}, Area: {}".format(m3_spin_clockwise_speed_entry.get(),
+                                                                                 m3_spin_clockwise_area_entry.get()))
+    mqtt_sender.send_message('spin_clockwise_until_sees_object', [m3_spin_clockwise_speed_entry.get(),
+                                                                  m3_spin_clockwise_area_entry.get()])
+
+
+def handle_m3_spin_counterclockwise(m3_spin_counterclockwise_speed_entry, m3_spin_counterclockwise_area_entry,
+                                    mqtt_sender):
+    """
+    :type m3_spin_counterclockwise_speed_entry:  ttk.Entry
+    :type m3_spin_counterclockwise_area_entry:    ttk.Entry
+    :type mqtt_sender:  com.MqttClient
+    """
+    print("Spin Counterclockwise until color is big enough. Speed: {}, Area: {}".format(
+        m3_spin_counterclockwise_speed_entry.get(), m3_spin_counterclockwise_area_entry.get()))
+    mqtt_sender.send_message('spin_counterclockwise_until_sees_object', [m3_spin_counterclockwise_speed_entry.get(),
+                                                                         m3_spin_counterclockwise_area_entry.get()])
+
+
 def handle_forward_until(ir_distance_entry, ir_speed_entry, mqtt_sender):
     print('Forward until ', ir_distance_entry.get(), ' away')
     mqtt_sender.send_message('forward_until', [ir_distance_entry.get(), ir_speed_entry.get()])
 
 
 def handle_backward_until(ir_distance_entry, ir_speed_entry, mqtt_sender):
-    print('Backward until ', ir_distance_entry.get(),' away')
+    print('Backward until ', ir_distance_entry.get(), ' away')
     mqtt_sender.send_message('backward_until', [ir_distance_entry.get(), ir_speed_entry.get()])
 
 
 def handle_within(ir_distance_entry, ir_speed_entry, ir_delta_entry, mqtt_sender):
     print('Move until ', ir_distance_entry, ' away')
-    mqtt_sender.send_message('within',[ir_distance_entry.get(), ir_speed_entry.get(), ir_delta_entry.get()])
+    mqtt_sender.send_message('within', [ir_distance_entry.get(), ir_speed_entry.get(), ir_delta_entry.get()])
 
 
 def handle_m3_display(mqtt_sender):
     print("Camera data")
     mqtt_sender.send_message('display_camera_data')
 
-def handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry,m3_spin_clockwise_area_entry,mqtt_sender):
-    print("Spin Clockwise until color is big enough, Speed: {}, Area: {}".format(m3_spin_clockwise_speed_entry.get(),m3_spin_clockwise_area_entry.get()))
-    mqtt_sender.send_message('spin_clockwise_until_sees_object', [m3_spin_clockwise_speed_entry.get(),m3_spin_clockwise_area_entry.get()])
-
-def handle_m3_spin_counterclockwise(m3_spin_counterclockwise_speed_entry,m3_spin_counterclockwise_area_entry,mqtt_sender):
-    print("Spin Counterclockwise until color is big enough. Speed: {}, Area: {}".format(m3_spin_counterclockwise_speed_entry.get(),m3_spin_counterclockwise_area_entry.get()))
-    mqtt_sender.send_message('spin_counterclockwise_until_sees_object', [m3_spin_counterclockwise_speed_entry.get(),m3_spin_counterclockwise_area_entry.get()])
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
 ###############################################################################
