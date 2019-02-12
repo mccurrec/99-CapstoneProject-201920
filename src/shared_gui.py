@@ -269,6 +269,28 @@ def get_drive_system_frame(window, mqtt_sender):
 
     return frame
 
+def get_m2_frame(window, mqtt_sender):
+    """
+          :type  window:       ttk.Frame | ttk.Toplevel
+          :type  mqtt_sender:  com.MqttClient
+        """
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    m2_label = ttk.Label(frame, text="M2 Frame")
+    m2_label.grid(row=0, column=0)
+    m2_entry1_label = ttk.Label(text="Init Frequency")
+    m2_entry1 = ttk.Entry(frame, width=8)
+    m2_entry1.grid(row=2, column=0)
+    m2_entry1_label.grid(row=1, column=0)
+    m2_entry2_label = ttk.Label(frame, text="Iteration")
+    m2_entry2 = ttk.Entry(frame, width=8)
+    m2_entry2_label.grid(row=3, column=0)
+    m2_entry2.grid(row=4, column=0)
+    m2_button = ttk.Button(frame, text="Wild Thang")
+    m2_button.grid(row=5, column=0)
+    m2_button['command'] = lambda: handle_m2(m2_entry1, m2_entry2, mqtt_sender)
+
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -465,3 +487,13 @@ def handle_exit(mqtt_sender):
     print("quit the robot's program and exit this")
     handle_quit(mqtt_sender)
     exit()
+
+##############################################################################
+#Handles for Sprint 2
+##############################################################################
+
+def handle_m2(m2_entry1, m2_entry2, mqtt_sender):
+    """:type mqtt_sender: com.MqttClient"""
+    print('got')
+    mqtt_sender.send_message("m2", [m2_entry1.get(), m2_entry2.get()])
+
