@@ -100,12 +100,28 @@ class Receiver(object):
     # Methods for Sprint 2
     ###############################################################################
 
-    def m2(self, frequency):
+    def m2(self, freq, iteration):
 
-        self.robot.drive_system.go_forward_until_distance_is_less_than(0,100)
-        if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= .5:
-                self.robot.drive_system.go_forward_until_distance_is_less_than(0,100)
-                if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= .5:
-                    self.robot.drive_system.go_forward_until_distance_is_less_than(0, 100)
+        self.robot.drive_system.go(100, 100)
+        self.robot.drive_system.left_motor.reset_position()
+        start = self.robot.drive_system.left_motor.get_position()
+
+        while True:
+            if self.robot.drive_system.left_motor.get_position() - start >= 90:
+                self.robot.sound_system.tone_maker.play_tone(freq, 500)
+                freq = freq + iteration
+                start = self.robot.drive_system.left_motor.get_position()
+
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
+                if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
+                    if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
+
+                        self.robot.drive_system.stop()
+                        self.robot.arm_and_claw.raise_arm()
+
+                        break
+
+
+
 
 
