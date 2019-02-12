@@ -112,7 +112,7 @@ class Receiver(object):
                 freq = int(freq) + int(iteration)
                 start = self.robot.drive_system.left_motor.get_position()
 
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
                 #if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
                     #if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
 
