@@ -528,6 +528,7 @@ def handle_within(ir_distance_entry, ir_speed_entry, ir_delta_entry, mqtt_sender
 
 
 def handle_m3_display(mqtt_sender):
+    print("Camera data")
     mqtt_sender.send_message('display_camera_data')
 
 def handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry,m3_spin_clockwise_area_entry,mqtt_sender):
