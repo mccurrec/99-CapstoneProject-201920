@@ -109,7 +109,7 @@ class Receiver(object):
         while True:
             if self.robot.drive_system.left_motor.get_position() - start >= 90:
                 self.robot.sound_system.tone_maker.play_tone(freq, 500)
-                freq = freq + iteration
+                freq = int(freq) + int(iteration)
                 start = self.robot.drive_system.left_motor.get_position()
 
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
