@@ -312,7 +312,7 @@ def get_drive_system_frame(window, mqtt_sender):
         go_straight_until_color_is_entry,mqtt_sender)
     go_straight_until_color_is_not_button['command'] = lambda: handle_go_straight_until_color_is_not(
         go_straight_until_color_is_not_entry,mqtt_sender)
-    # m3_display_button['command'] = lambda: handle_m3_display(mqtt_sender)
+    m3_display_button['command'] = lambda: handle_m3_display(mqtt_sender)
     m3_spin_clockwise_button['command'] = lambda: handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry,m3_spin_clockwise_area_entry,mqtt_sender)
     m3_spin_counterclockwise_button['command'] = lambda: handle_m3_spin_counterclockwise(m3_spin_counterclockwise_speed_entry,m3_spin_counterclockwise_area_entry,mqtt_sender)
 
@@ -482,13 +482,16 @@ def handle_go_straight_until_color_is_not(color_entry, mqtt_sender):
     print('Go straight until color is not', color_entry.get())
     mqtt_sender.send_message('go_straight_until_color_is_not', [color_entry.get()])
 
-# def handle_m3_display():
-#     print("Camera display information:")
-#     print("X: {} Y:{} Width:{} Height: {}".format())
-#
-# def handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry,m3_spin_clockwise_area_entry):
-#
-# def handle_m3_spin_counterclockwise(m3_spin_counterclockwise_speed_entry,m3_spin_counterclockwise_area_entry):
+def handle_m3_display(mqtt_sender):
+    mqtt_sender.send_message('display_camera_data')
+
+def handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry,m3_spin_clockwise_area_entry,mqtt_sender):
+    print("Spin Clockwise until color is big enough, Speed: {}, Area: {}".format(m3_spin_clockwise_speed_entry.get(),m3_spin_clockwise_area_entry.get()))
+    mqtt_sender.send_message('spin_clockwise_until_sees_object', [m3_spin_clockwise_speed_entry.get(),m3_spin_clockwise_area_entry.get()])
+
+def handle_m3_spin_counterclockwise(m3_spin_counterclockwise_speed_entry,m3_spin_counterclockwise_area_entry,mqtt_sender):
+    print("Spin Counterclockwise until color is big enough. Speed: {}, Area: {}".format(m3_spin_counterclockwise_speed_entry.get(),m3_spin_counterclockwise_area_entry.get()))
+    mqtt_sender.send_message('spin_counterclockwise_until_sees_object', [m3_spin_counterclockwise_speed_entry.get(),m3_spin_counterclockwise_area_entry.get()])
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
 ###############################################################################
