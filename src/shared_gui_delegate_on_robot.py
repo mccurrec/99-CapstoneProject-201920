@@ -72,11 +72,11 @@ class Receiver(object):
 
     def spin_clockwise_until_sees_object(self,speed_entry,area_entry):
         print("Got spin_clockwise_until_sees_object, Speed: {}, Area: {}".format(int(speed_entry),int(area_entry)))
-        self.robot.drive_system.spin_clockwise_until_sees_object(speed_entry,area_entry)
+        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed_entry),int(area_entry))
 
     def spin_counterclockwise_until_sees_object(self,speed_entry,area_entry):
         print("Got spin_counterclockwise_until_sees_object, Speed: {}, Area: {}".format(int(speed_entry),int(area_entry)))
-        self.robot.drive_system.spin_counterclockwise_until_sees_object(speed_entry,area_entry)
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed_entry),int(area_entry))
 
     ###############################################################################
     # Arm and Claw Methods
