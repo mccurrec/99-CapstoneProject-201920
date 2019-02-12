@@ -275,6 +275,16 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+        pixy = ev3.Sensor(driver_name= "pixy-lego")
+
+        pixy.mode = "SIG1"
+        self.right_motor.turn_on(-speed)
+        self.left_motor.turn_on(speed)
+        while True:
+            if int(pixy.value(3)) * int(pixy.value(4)) == area:
+                self.right_motor.turn_off()
+                self.left_motor.turn_off()
+                break
 
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
@@ -282,7 +292,16 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+        pixy = ev3.Sensor(driver_name= "pixy-lego")
 
+        pixy.mode = "SIG1"
+        self.right_motor.turn_on(speed)
+        self.left_motor.turn_on(-speed)
+        while True:
+            if int(pixy.value(3)) * int(pixy.value(4)) == area:
+                self.right_motor.turn_off()
+                self.left_motor.turn_off()
+                break
 
 ###############################################################################
 #    ArmAndClaw
