@@ -298,6 +298,35 @@ def get_drive_system_frame(window, mqtt_sender):
     m3_spin_clockwise_button.grid(row=5,column=5)
     m3_spin_counterclockwise_button.grid(row=5,column=7)
 
+    ir_label = ttk.Label(frame, text='Proximity')
+    ir_distance_label = ttk.Label(frame, text='Distance')
+    ir_speed_label = ttk.Label(frame, text='Speed')
+    ir_delta_label = ttk.Label(frame, text='Delta')
+
+    ir_distance_entry = ttk.Entry(frame, width=8)
+    ir_speed_entry = ttk.Entry(frame, width=8)
+    ir_delta_entry = ttk.Entry(frame, width=8)
+
+    ir_forward_until_button = ttk.Button(frame, text='Go forward until')
+    ir_backward_until_button = ttk.Button(frame, text='Go backward until')
+    ir_within_button = ttk.Button(frame, text='Go until within')
+
+    ir_label.grid(row=0, column=8)
+    ir_forward_until_button.grid(row=2, column=8)
+    ir_backward_until_button.grid(row=3, column=8)
+    ir_within_button.grid(row=4, column=8)
+    ir_distance_label.grid(row=2, column=9)
+    ir_speed_label.grid(row=3, column=9)
+    ir_delta_label.grid(row=4, column=9)
+    ir_distance_entry.grid(row=2, column=10)
+    ir_speed_entry.grid(row=3, column=10)
+    ir_delta_entry.grid(row=4, column=10)
+
+    ir_forward_until_button['command'] = lambda: handle_forward_until(ir_distance_entry, ir_speed_entry, mqtt_sender)
+    ir_backward_until_button['command'] = lambda: handle_backward_until(ir_distance_entry, ir_speed_entry, mqtt_sender)
+    ir_within_button['command'] = lambda: handle_within(ir_distance_entry, ir_distance_entry, ir_delta_entry,
+                                                        mqtt_sender)
+
     # Sets the button callbacks:
     inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_using_time_inches_entry,
                                                                            inches_using_time_speed_entry, mqtt_sender)
@@ -481,6 +510,22 @@ def handle_go_straight_until_color_is_not(color_entry, mqtt_sender):
     """
     print('Go straight until color is not', color_entry.get())
     mqtt_sender.send_message('go_straight_until_color_is_not', [color_entry.get()])
+
+
+def handle_forward_until(ir_distance_entry, ir_speed_entry, mqtt_sender):
+    print('Forward until ', ir_distance_entry.get(), ' away')
+    mqtt_sender.send_message('forward_until', [ir_distance_entry.get(), ir_speed_entry.get()])
+
+
+def handle_backward_until(ir_distance_entry, ir_speed_entry, mqtt_sender):
+    print('Backward until ', ir_distance_entry.get(),' away')
+    mqtt_sender.send_message('backward_until', [ir_distance_entry.get(), ir_speed_entry.get()])
+
+
+def handle_within(ir_distance_entry, ir_speed_entry, ir_delta_entry, mqtt_sender):
+    print('Move until ', ir_distance_entry, ' away')
+    mqtt_sender.send_message('within',[ir_distance_entry.get(), ir_speed_entry.get(), ir_delta_entry.get()])
+
 
 def handle_m3_display(mqtt_sender):
     mqtt_sender.send_message('display_camera_data')
