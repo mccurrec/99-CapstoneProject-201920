@@ -230,12 +230,20 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_for_seconds_speed_entry = ttk.Entry(frame, width=8)
     go_straight_for_seconds_time_entry = ttk.Entry(frame, width=8)
     go_straight_using_encoder_speed_entry = ttk.Entry(frame, width=8)
-    go_straight_using_encoder_inches_entry = ttk.Entry(frame,width=8)
+    go_straight_using_encoder_inches_entry = ttk.Entry(frame, width=8)
+    go_straight_until_intensity_is_less_than_entry = ttk.Entry(frame, width=8)
+    go_straight_until_intensity_is_greater_than_entry = ttk.Entry(frame, width=8)
+    go_straight_until_color_is_entry = ttk.Entry(frame, width=8)
+    go_straight_until_color_is_not_entry = ttk.Entry(frame, width=8)
 
     # Constructs the buttons on the frame:
     inches_using_time_button = ttk.Button(frame, text="Go for Inches")
     go_straight_for_seconds_button = ttk.Button(frame, text='Go for Time')
-    go_straight_using_encoder_button = ttk.Button(frame, text= 'Go Using Encoder' )
+    go_straight_using_encoder_button = ttk.Button(frame, text='Go Using Encoder')
+    go_straight_until_intensity_is_less_than_button = ttk.Button(frame, text='Go until intensity is less than')
+    go_straight_until_intensity_is_greater_than_button = ttk.Button(frame, text='Go until intensity is greater than')
+    go_straight_until_color_is_button = ttk.Button(frame, text='Go until color is')
+    go_straight_until_color_is_not_button = ttk.Button(frame, text='Go until color is not')
 
     #  Grids the Widgets:
     #   Grids the labels:
@@ -244,21 +252,29 @@ def get_drive_system_frame(window, mqtt_sender):
     inches_using_time_inches_label.grid(row=3, column=0)
     go_straight_for_seconds_time_label.grid(row=1, column=2)
     go_straight_for_seconds_speed_label.grid(row=3, column=2)
-    go_straight_using_encoder_speed_label.grid(row=1,column=1)
-    go_straight_using_encoder_inches_label.grid(row=3,column=1)
+    go_straight_using_encoder_speed_label.grid(row=1, column=1)
+    go_straight_using_encoder_inches_label.grid(row=3, column=1)
 
     #   Grids the entry boxes:
     inches_using_time_speed_entry.grid(row=2, column=0)
     inches_using_time_inches_entry.grid(row=4, column=0)
     go_straight_for_seconds_speed_entry.grid(row=2, column=2)
     go_straight_for_seconds_time_entry.grid(row=4, column=2)
-    go_straight_using_encoder_speed_entry.grid(row=2,column=1)
-    go_straight_using_encoder_inches_entry.grid(row=4,column=1)
+    go_straight_using_encoder_speed_entry.grid(row=2, column=1)
+    go_straight_using_encoder_inches_entry.grid(row=4, column=1)
+    go_straight_until_intensity_is_less_than_entry.grid(row=1, column=3)
+    go_straight_until_intensity_is_greater_than_entry.grid(row=2, column=3)
+    go_straight_until_color_is_entry.grid(row=3, column=3)
+    go_straight_until_color_is_not_entry.grid(row=4, column=3)
 
     #   Grids the buttons:
     inches_using_time_button.grid(row=5, column=0)
     go_straight_for_seconds_button.grid(row=5, column=2)
-    go_straight_using_encoder_button.grid(row=5,column=1)
+    go_straight_using_encoder_button.grid(row=5, column=1)
+    go_straight_until_intensity_is_less_than_button.grid(row=1, column=4)
+    go_straight_until_intensity_is_greater_than_button.grid(row=2, column=4)
+    go_straight_until_color_is_button.grid(row=3, column=4)
+    go_straight_until_color_is_not_button.grid(row=4, column=4)
 
     # Sets the button callbacks:
     inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_using_time_inches_entry,
@@ -266,8 +282,15 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_for_seconds_button['command'] = lambda: handle_go_straight_for_seconds(
         go_straight_for_seconds_time_entry, go_straight_for_seconds_speed_entry, mqtt_sender)
     go_straight_using_encoder_button['command'] = lambda: handle_go_straight_using_encoder(go_straight_using_encoder_speed_entry,go_straight_using_encoder_inches_entry,mqtt_sender)
+    go_straight_until_intensity_is_less_than_button['command'] = lambda: handle_go_straight_until_intensity_is_less_than(
+        go_straight_until_intensity_is_less_than_entry)
+    go_straight_until_color_is_button['command'] = lambda: handle_go_straight_until_color_is(
+        go_straight_until_color_is_entry)
+    go_straight_until_color_is_not_button['command'] = lambda: handle_go_straight_until_color_is_not(
+        go_straight_until_color_is_not_entry)
 
     return frame
+
 
 def get_m2_frame(window, mqtt_sender):
     """
@@ -388,10 +411,49 @@ def handle_go_straight_using_encoder(speed_entry, inches_entry, mqtt_sender):
     :type speed_entry:  ttk.Entry
     :type inches_entry: ttk.Entry
     :type mqtt_sender:  com.MqttClient
-
     """
     print('Moving at speed:', speed_entry, 'for', inches_entry, 'inches')
     mqtt_sender.send_message('go_straight_for_inches_using_encoder', [inches_entry.get(), speed_entry.get()])
+
+
+def handle_go_straight_until_intensity_is_less_than(intensity_entry, mqtt_sender):
+    """
+    Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
+    :type intensity_entry:  ttk.Entry
+    :type mqtt_sender:  com.MqttClient
+    """
+    print('Go straight until intensity is less than', intensity_entry.get())
+    mqtt_sender.send_message('go_straight_until_intensity_is_less_than', [intensity_entry.get()])
+
+
+def handle_go_straight_until_intensity_is_greater_than(intensity_entry, mqtt_sender):
+    """
+    Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
+    :type intensity_entry:  ttk.Entry
+    :type mqtt_sender:  com.MqttClient
+    """
+    print('Go straight until intensity is greater than', intensity_entry.get())
+    mqtt_sender.send_message('go_straight_until_intensity_is_greater_than', [intensity_entry.get()])
+
+
+def handle_go_straight_until_color_is(color_entry, mqtt_sender):
+    """
+    Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
+    :type color_entry:  ttk.Entry
+    :type mqtt_sender:  com.MqttClient
+    """
+    print('Go straight until color is', color_entry.get())
+    mqtt_sender.send_message('go_straight_until_color_is', [color_entry.get()])
+
+
+def handle_go_straight_until_color_is_not(color_entry, mqtt_sender):
+    """
+    Tells robot to move forward at a given speed for a given amount of inches using the motor's encoder to determine the inches traveled
+    :type color_entry:  ttk.Entry
+    :type mqtt_sender:  com.MqttClient
+    """
+    print('Go straight until color is not', color_entry.get())
+    mqtt_sender.send_message('go_straight_until_color_is_not', [color_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
