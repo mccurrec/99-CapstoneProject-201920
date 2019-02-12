@@ -267,8 +267,8 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_using_encoder_inches_label.grid(row=3, column=1)
     m3_spin_clockwise_speed_label.grid(row=1,column=5)
     m3_spin_clockwise_area_label.grid(row=3,column=5)
-    m3_spin_counterclockwise_speed_entry.grid(row=1,column=7)
-    m3_spin_counterclockwise_area_entry.grid(row=3,column=7)
+    m3_spin_counterclockwise_speed_label.grid(row=1,column=7)
+    m3_spin_counterclockwise_area_label.grid(row=3,column=7)
 
     #   Grids the entry boxes:
     inches_using_time_speed_entry.grid(row=2, column=0)
