@@ -51,6 +51,17 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
+    m3 = ttk.Frame(main_frame, padding=10, borderwidth=5, relief="ridge")
+    m3_label = ttk.Label(m2, text="M2 Frame")
+    m3_label.grid(row=0, column=0)
+    m3_entry = ttk.Entry(m2, width=8)
+    m3_entry.grid(row=1, column=0)
+    m3_button = ttk.Button(m2, text="Wild Thang")
+    m3_button.grid(row=2, column=0)
+
+
+    m3.grid(row=0, column=1)
+
     grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame)
 
     # -------------------------------------------------------------------------
