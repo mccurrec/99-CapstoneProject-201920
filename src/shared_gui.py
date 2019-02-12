@@ -223,6 +223,10 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_for_seconds_speed_label = ttk.Label(frame, text='Speed to run at')
     go_straight_using_encoder_speed_label = ttk.Label(frame, text="Speed to run at")
     go_straight_using_encoder_inches_label = ttk.Label(frame, text='Inches to go')
+    m3_spin_clockwise_speed_label = ttk.Label(frame, text="Speed")
+    m3_spin_clockwise_area_label = ttk.Label(frame, text="Area")
+    m3_spin_counterclockwise_speed_label = ttk.Label(frame, text="Speed")
+    m3_spin_counterclockwise_area_label = ttk.Label(frame, text="Area")
 
     # Constructs the entry boxes on the frame:
     inches_using_time_speed_entry = ttk.Entry(frame, width=8)
@@ -235,6 +239,10 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_until_intensity_is_greater_than_entry = ttk.Entry(frame, width=8)
     go_straight_until_color_is_entry = ttk.Entry(frame, width=8)
     go_straight_until_color_is_not_entry = ttk.Entry(frame, width=8)
+    m3_spin_clockwise_speed_entry = ttk.Entry(frame, width=8)
+    m3_spin_clockwise_area_entry = ttk.Entry(frame, width=8)
+    m3_spin_counterclockwise_speed_entry = ttk.Entry(frame, width=8)
+    m3_spin_counterclockwise_area_entry = ttk.Entry(frame, width=8)
 
     # Constructs the buttons on the frame:
     inches_using_time_button = ttk.Button(frame, text="Go for Inches")
@@ -244,6 +252,9 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_until_intensity_is_greater_than_button = ttk.Button(frame, text='Go until intensity is greater than')
     go_straight_until_color_is_button = ttk.Button(frame, text='Go until color is')
     go_straight_until_color_is_not_button = ttk.Button(frame, text='Go until color is not')
+    m3_display_button = ttk.Button(frame, text="What the camera sees:")
+    m3_spin_clockwise_button = ttk.Button(frame, text="Spin Clockwise")
+    m3_spin_counterclockwise_button = ttk.Button(frame, text="Spin Counter-Clockwise")
 
     #  Grids the Widgets:
     #   Grids the labels:
@@ -254,6 +265,10 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_for_seconds_speed_label.grid(row=3, column=2)
     go_straight_using_encoder_speed_label.grid(row=1, column=1)
     go_straight_using_encoder_inches_label.grid(row=3, column=1)
+    m3_spin_clockwise_speed_label.grid(row=1,column=5)
+    m3_spin_clockwise_area_label.grid(row=3,column=5)
+    m3_spin_counterclockwise_speed_entry.grid(row=1,column=7)
+    m3_spin_counterclockwise_area_entry.grid(row=3,column=7)
 
     #   Grids the entry boxes:
     inches_using_time_speed_entry.grid(row=2, column=0)
@@ -266,6 +281,10 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_until_intensity_is_greater_than_entry.grid(row=2, column=3)
     go_straight_until_color_is_entry.grid(row=3, column=3)
     go_straight_until_color_is_not_entry.grid(row=4, column=3)
+    m3_spin_clockwise_speed_entry.grid(row=2,column=5)
+    m3_spin_clockwise_area_entry.grid(row=4,column=5)
+    m3_spin_counterclockwise_speed_entry.grid(row=2,column=7)
+    m3_spin_counterclockwise_area_entry.grid(row=4,column=7)
 
     #   Grids the buttons:
     inches_using_time_button.grid(row=5, column=0)
@@ -275,6 +294,9 @@ def get_drive_system_frame(window, mqtt_sender):
     go_straight_until_intensity_is_greater_than_button.grid(row=2, column=4)
     go_straight_until_color_is_button.grid(row=3, column=4)
     go_straight_until_color_is_not_button.grid(row=4, column=4)
+    m3_display_button.grid(row=5,column=6)
+    m3_spin_clockwise_button.grid(row=5,column=5)
+    m3_spin_counterclockwise_button.grid(row=5,column=7)
 
     # Sets the button callbacks:
     inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_using_time_inches_entry,
@@ -283,11 +305,16 @@ def get_drive_system_frame(window, mqtt_sender):
         go_straight_for_seconds_time_entry, go_straight_for_seconds_speed_entry, mqtt_sender)
     go_straight_using_encoder_button['command'] = lambda: handle_go_straight_using_encoder(go_straight_using_encoder_speed_entry,go_straight_using_encoder_inches_entry,mqtt_sender)
     go_straight_until_intensity_is_less_than_button['command'] = lambda: handle_go_straight_until_intensity_is_less_than(
-        go_straight_until_intensity_is_less_than_entry)
+        go_straight_until_intensity_is_less_than_entry,mqtt_sender)
+    go_straight_until_intensity_is_greater_than_button['command'] = lambda: handle_go_straight_until_intensity_is_greater_than(
+        go_straight_until_intensity_is_greater_than_entry,mqtt_sender)
     go_straight_until_color_is_button['command'] = lambda: handle_go_straight_until_color_is(
-        go_straight_until_color_is_entry)
+        go_straight_until_color_is_entry,mqtt_sender)
     go_straight_until_color_is_not_button['command'] = lambda: handle_go_straight_until_color_is_not(
-        go_straight_until_color_is_not_entry)
+        go_straight_until_color_is_not_entry,mqtt_sender)
+    # m3_display_button['command'] = lambda: handle_m3_display(mqtt_sender)
+    m3_spin_clockwise_button['command'] = lambda: handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry,m3_spin_clockwise_area_entry,mqtt_sender)
+    m3_spin_counterclockwise_button['command'] = lambda: handle_m3_spin_counterclockwise(m3_spin_counterclockwise_speed_entry,m3_spin_counterclockwise_area_entry,mqtt_sender)
 
     return frame
 
@@ -455,6 +482,13 @@ def handle_go_straight_until_color_is_not(color_entry, mqtt_sender):
     print('Go straight until color is not', color_entry.get())
     mqtt_sender.send_message('go_straight_until_color_is_not', [color_entry.get()])
 
+# def handle_m3_display():
+#     print("Camera display information:")
+#     print("X: {} Y:{} Width:{} Height: {}".format())
+#
+# def handle_m3_spin_clockwise(m3_spin_clockwise_speed_entry,m3_spin_clockwise_area_entry):
+#
+# def handle_m3_spin_counterclockwise(m3_spin_counterclockwise_speed_entry,m3_spin_counterclockwise_area_entry):
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
 ###############################################################################

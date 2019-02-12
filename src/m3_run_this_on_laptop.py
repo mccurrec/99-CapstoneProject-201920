@@ -51,14 +51,6 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    m3 = ttk.Frame(main_frame, padding=10, borderwidth=5, relief="ridge")
-    m3_label = ttk.Label(m3, text="M3 Frame")
-    m3_label.grid(row=0, column=0)
-    m3_button = ttk.Button(m3, text="What the camera sees:")
-    m3_button.grid(row=2, column=0)
-
-
-    m3.grid(row=0, column=1)
 
     grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame)
 
