@@ -318,6 +318,35 @@ def get_drive_system_frame(window, mqtt_sender):
     return frame
 
 
+def get_m1_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
+
+    # LABELS:
+    frame_label = ttk.Label(frame, text='m1 Feature 9')
+    frame_label.grid(row=0, column=0)
+    speed_label = ttk.Label(frame, text='Speed: ')
+    speed_label.grid(row=1, column=0)
+    initial_label = ttk.Label(frame, text='Initial Time Between Beeps: ')
+    initial_label.grid(row=2, column=0)
+    decrease_label = ttk.Label(frame, text='Decrease Time Between Beeps By: ')
+    decrease_label.grid(row=3, column=0)
+
+    # ENTRY BOXES:
+    speed_entry = ttk.Entry(frame, width=8)
+    speed_entry.grid(row=1, column=1)
+    initial_entry = ttk.Entry(frame, width=8)
+    initial_entry.grid(row=2, column=1)
+    decrease_entry = ttk.Entry(frame, width=8)
+    decrease_entry.grid(row=3, column=1)
+
+    # BUTTONS:
+    run_button = ttk.Button(frame, text='RUN')
+    run_button.grid(row=4, column=1)
+    run_button['command'] = lambda: handle_m1_feature_9(initial_entry, decrease_entry, speed_entry, mqtt_sender)
+
+    return frame
+
+
 def get_m2_frame(window, mqtt_sender):
     """
           :type  window:       ttk.Frame | ttk.Toplevel
@@ -627,6 +656,18 @@ def handle_exit(mqtt_sender):
 ##############################################################################
 #Handles for Sprint 2
 ##############################################################################
+
+
+def handle_m1_feature_9(initial_rate_entry, rate_of_increase_entry, speed_entry, mqtt_sender):
+    """
+    :type initial_rate_entry:  ttk.Entry
+    :type rate_of_increase_entry:  ttk.Entry
+    :type mqtt_sender: com.MqttClient
+    """
+    print('sending m1_feature9')
+    mqtt_sender.send_message('m1_feature_9', [float(initial_rate_entry.get()), float(rate_of_increase_entry.get()),
+                                             int(speed_entry.get())])
+
 
 def handle_m2(m2_entry1, m2_entry2, mqtt_sender):
     """:type mqtt_sender: com.MqttClient"""

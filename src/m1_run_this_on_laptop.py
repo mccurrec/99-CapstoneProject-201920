@@ -40,7 +40,8 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m1_feature_9_frame = \
+        get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -50,7 +51,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m1_feature_9_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -64,16 +65,19 @@ def get_shared_frames(main_frame, mqtt_sender):
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     sound_frame = shared_gui.get_sound_frame(main_frame, mqtt_sender)
     drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
+    m1_feature_9_frame = shared_gui.get_m1_frame(main_frame, mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame
+    return teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m1_feature_9_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m1_feature_9_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=3, column=0)
     drive_system_frame.grid(row=0, column=1)
     sound_frame.grid(row=2, column=0)
+    m1_feature_9_frame.grid(row=1, column=1)
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
