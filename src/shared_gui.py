@@ -30,9 +30,9 @@ def get_teleoperation_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
-
+    frame.grid_columnconfigure(1, weight=1)
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Teleoperation")
+    frame_label = ttk.Label(frame, text="Teleoperation", font='bold')
     left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
     right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
 
@@ -49,7 +49,7 @@ def get_teleoperation_frame(window, mqtt_sender):
 
     # Grid the widgets:
     #    Grid the labels:
-    frame_label.grid(row=0, column=1)
+    frame_label.grid(row=0, column=0, columnspan=3)
     left_speed_label.grid(row=1, column=0)
     right_speed_label.grid(row=1, column=2)
     #   Grid the entries:
@@ -57,9 +57,9 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_speed_entry.grid(row=2, column=2)
     #   Grid the buttons:
     forward_button.grid(row=3, column=1)
-    left_button.grid(row=4, column=0)
+    left_button.grid(row=4, column=0, sticky='E')
     stop_button.grid(row=4, column=1)
-    right_button.grid(row=4, column=2)
+    right_button.grid(row=4, column=2, sticky='W')
     backward_button.grid(row=5, column=1)
 
     # Set the button callbacks:
@@ -87,9 +87,10 @@ def get_arm_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
+    frame.grid_columnconfigure(1, weight=1)
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Arm and Claw")
+    frame_label = ttk.Label(frame, text="Arm and Claw", font='bold')
     position_label = ttk.Label(frame, text="Desired arm position:")
     position_entry = ttk.Entry(frame, width=8)
 
@@ -101,7 +102,7 @@ def get_arm_frame(window, mqtt_sender):
     blank_label = ttk.Label(frame, text="")
 
     # Grid the widgets:
-    frame_label.grid(row=0, column=1)
+    frame_label.grid(row=0, column=1, columnspan=3, sticky='W')
     position_label.grid(row=1, column=0)
     position_entry.grid(row=1, column=1)
     move_arm_button.grid(row=1, column=2)
@@ -131,9 +132,10 @@ def get_sound_frame(window, mqtt_sender):
 
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
+    frame.grid_columnconfigure(1, weight=1)
 
     # labels
-    frame_label = ttk.Label(frame, text="Sound System")
+    frame_label = ttk.Label(frame, text="Sound System", font='bold')
     tone_label = ttk.Label(frame, text="Tone Player")
     frequency_label = ttk.Label(frame, text="Frequency")
     duration_label = ttk.Label(frame, text="Duration")
@@ -154,7 +156,7 @@ def get_sound_frame(window, mqtt_sender):
     beep_button = ttk.Button(frame, text='Beep')
 
     # grid stuff
-    frame_label.grid(row=0, column=1)
+    frame_label.grid(row=0, column=0, columnspan=3)
     tone_label.grid(row=1, column=1)
     frequency_label.grid(row=2, column=1)
     frequency_entry.grid(row=3, column=1)
@@ -186,14 +188,15 @@ def get_control_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
+    frame.grid_columnconfigure(1, weight=1)
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Control")
+    frame_label = ttk.Label(frame, text="Control", font='bold')
     quit_robot_button = ttk.Button(frame, text="Stop the robot's program")
     exit_button = ttk.Button(frame, text="Stop this and the robot's program")
 
     # Grid the widgets:
-    frame_label.grid(row=0, column=1)
+    frame_label.grid(row=0, column=0, columnspan=3)
     quit_robot_button.grid(row=1, column=0)
     exit_button.grid(row=1, column=2)
 
@@ -214,14 +217,10 @@ def get_drive_system_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
+    frame.grid_columnconfigure(2, weight=1)
 
     # Construct the Widgets on the Frame:
-    frame_label = ttk.Label(frame, text='Drive System')
-    # inches_using_time_inches_label = ttk.Label(frame, text="Inches to go")
-    # go_straight_for_seconds_time_label = ttk.Label(frame, text='Time to go for')
-    # go_straight_using_encoder_inches_label = ttk.Label(frame, text='Inches to go')
-    # m3_spin_clockwise_area_label = ttk.Label(frame, text="Area")
-    # m3_spin_counterclockwise_area_label = ttk.Label(frame, text="Area")
+    frame_label = ttk.Label(frame, text='Drive System', font='bold')
     inches_label = ttk.Label(frame, text='Inches: ')
     time_label = ttk.Label(frame, text='Time: ')
     intensity_label = ttk.Label(frame, text='Intensity: ')
@@ -259,41 +258,41 @@ def get_drive_system_frame(window, mqtt_sender):
 
     #  Grids the Widgets:
     #   Grids the labels:
-    frame_label.grid(row=0, column=2)
+    frame_label.grid(row=0, column=0, columnspan=2)
     inches_label.grid(row=1, column=0, sticky='E')
     time_label.grid(row=3, column=0, sticky='E')
     intensity_label.grid(row=4, column=0, sticky='E')
     color_label.grid(row=6, column=0, sticky='E')
     area_label.grid(row=8, column=0, sticky='E')
-    speed_label.grid(row=0, column=3, sticky='E')
-    distance_label.grid(row=1, column=4, sticky='E')
-    delta_label.grid(row=3, column=4, sticky='E')
+    speed_label.grid(row=0, column=2, sticky='E')
+    distance_label.grid(row=10, column=0, sticky='E')
+    delta_label.grid(row=12, column=0, sticky='E')
 
     #   Grids the entry boxes:
-    speed_entry.grid(row=0, column=4, sticky='W')
+    speed_entry.grid(row=0, column=3, sticky='W')
     inches_entry.grid(row=1, column=1)
     time_entry.grid(row=3, column=1)
     intensity_entry.grid(row=4, column=1)
     color_entry.grid(row=6, column=1)
     area_entry.grid(row=8, column=1)
-    distance_entry.grid(row=1, column=5)
-    delta_entry.grid(row=3, column=5)
+    distance_entry.grid(row=10, column=1)
+    delta_entry.grid(row=12, column=1)
 
     #   Grids the buttons:
-    inches_using_time_button.grid(row=1, column=2, sticky='W', ipadx='22')
-    go_straight_using_encoder_button.grid(row=2, column=2, sticky='W', pady=(0, 8), ipadx='10')
-    go_straight_for_seconds_button.grid(row=3, column=2, sticky='W', pady=(0, 8), ipadx='15')
-    go_straight_until_intensity_is_less_than_button.grid(row=4, column=2, sticky='W', ipadx='8')
-    go_straight_until_intensity_is_greater_than_button.grid(row=5, column=2, sticky='W', pady=(0, 8), ipadx='2')
-    go_straight_until_color_is_button.grid(row=6, column=2, sticky='W')
-    go_straight_until_color_is_not_button.grid(row=7, column=2, sticky='W', pady=(0, 8))
-    m3_spin_clockwise_button.grid(row=8, column=2, sticky='W')
-    m3_spin_counterclockwise_button.grid(row=9, column=2, sticky='W')
-    m3_display_button.grid(row=5, column=4)
-
-    ir_forward_until_button.grid(row=1, column=6, sticky='W')
-    ir_backward_until_button.grid(row=2, column=6, sticky='W')
-    ir_within_button.grid(row=3, column=6, sticky='W')
+    inches_using_time_button.grid(row=1, column=2, sticky='W', ipadx='26', columnspan=2)
+    go_straight_using_encoder_button.grid(row=2, column=2, sticky='W', pady=(0, 8), ipadx='18', columnspan=2)
+    go_straight_for_seconds_button.grid(row=3, column=2, sticky='W', pady=(0, 8), ipadx='23', columnspan=2)
+    go_straight_until_intensity_is_less_than_button.grid(row=4, column=2, sticky='W', ipadx='15', columnspan=2)
+    go_straight_until_intensity_is_greater_than_button.grid(row=5, column=2, sticky='W', pady=(0, 8), ipadx='7',
+                                                            columnspan=2)
+    go_straight_until_color_is_button.grid(row=6, column=2, sticky='W', ipadx='20', columnspan=2)
+    go_straight_until_color_is_not_button.grid(row=7, column=2, sticky='W', pady=(0, 8), ipadx='9', columnspan=2)
+    m3_spin_clockwise_button.grid(row=8, column=2, sticky='W', ipadx='24', columnspan=2)
+    m3_spin_counterclockwise_button.grid(row=9, column=2, sticky='W', pady=(0, 8), columnspan=2)
+    ir_forward_until_button.grid(row=10, column=2, sticky='W', ipadx='18', columnspan=2)
+    ir_within_button.grid(row=11, column=2, sticky='W', pady=(0, 8), ipadx='22', columnspan=2)
+    ir_backward_until_button.grid(row=12, column=2, sticky='W', pady=(0, 8), ipadx='14', columnspan=2)
+    m3_display_button.grid(row=13, column=0, columnspan=3)
 
     # Sets the button callbacks:
     inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_entry,
@@ -323,22 +322,24 @@ def get_m1_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
 
     # LABELS:
-    frame_label = ttk.Label(frame, text='m1 Feature 9', font=('bold'))
+    frame_label = ttk.Label(frame, text='Individual Features', font='bold')
     frame_label.grid(row=0, column=0)
+    going_straight_label = ttk.Label(frame, text='Going Straight')
+    going_straight_label.grid(row=2, column=0, pady=(8, 4))
     initial_label = ttk.Label(frame, text='Initial Time Between Beeps: ')
-    initial_label.grid(row=2, column=0)
+    initial_label.grid(row=3, column=0, sticky='E')
     decrease_label = ttk.Label(frame, text='Decrease Time Between Beeps By: ')
-    decrease_label.grid(row=3, column=0)
+    decrease_label.grid(row=4, column=0, sticky='E')
 
     # ENTRY BOXES:
     initial_entry = ttk.Entry(frame, width=8)
-    initial_entry.grid(row=2, column=1)
+    initial_entry.grid(row=3, column=1)
     decrease_entry = ttk.Entry(frame, width=8)
-    decrease_entry.grid(row=3, column=1)
+    decrease_entry.grid(row=4, column=1)
 
     # BUTTONS:
-    run_button = ttk.Button(frame, text='RUN')
-    run_button.grid(row=4, column=1)
+    run_button = ttk.Button(frame, text='FIND OBJECT')
+    run_button.grid(row=5, column=1)
     run_button['command'] = lambda: handle_m1_feature_9(initial_entry, decrease_entry, mqtt_sender)
 
     return frame

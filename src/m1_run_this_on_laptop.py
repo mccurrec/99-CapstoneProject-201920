@@ -75,8 +75,8 @@ def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_syste
     arm_frame.grid(row=1, column=0)
     sound_frame.grid(row=2, column=0)
     control_frame.grid(row=3, column=0)
-    drive_system_frame.grid(row=0, column=1, rowspan=2)
-    m1_feature_9_frame.grid(row=2, column=1)
+    drive_system_frame.grid(row=0, column=1, rowspan=3)
+    m1_feature_9_frame.grid(row=3, column=1)
 
 
 # -----------------------------------------------------------------------------
