@@ -201,6 +201,14 @@ class Receiver(object):
 
                 break
 
+    def m2_f10(self, frequency, iteration, direction, speed):
+        ds = self.robot.drive_system
+        ses = self.robot.sensor_system
+        sos = self.robot.sound_system
+
+
+
+
     def m3_feature_9(self, initial_rate, rate_of_increase):
         # starts the robot at the given speed:
         self.robot.drive_system.go(100, 100)
