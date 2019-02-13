@@ -36,10 +36,10 @@ def m1_feature_9_beep_and_time_faster(rate, rate_of_increase, robot):
 
 def m1_spin_cw(initial_rate, rate_of_increase, robot):
     robot.drive_system.spin_clockwise_until_sees_object(50, 10)
-    m1_feature_9(initial_rate, rate_of_increase)
+    m1_feature_9(initial_rate, rate_of_increase, robot)
 
 
 def m1_spin_ccw(initial_rate, rate_of_increase, robot):
     robot.drive_system.spin_counterclockwise_until_sees_object(50, 10)
-    m1_feature_9(initial_rate, rate_of_increase)
+    m1_feature_9(initial_rate, rate_of_increase, robot)
 
