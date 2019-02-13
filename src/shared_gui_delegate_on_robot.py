@@ -251,7 +251,7 @@ class Receiver(object):
         if direction == "clockwise":
             self.robot.drive_system.left_motor.turn_on(speed)
             self.robot.drive_system.right_motor.turn_on(-speed)
-        else:
+        elif direction == "counterclockwise":
             self.robot.drive_system.left_motor.turn_on(-speed)
             self.robot.drive_system.right_motor.turn_on(speed)
         while True:
