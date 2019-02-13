@@ -172,10 +172,13 @@ class Receiver(object):
         # the time from last beep is reset:
         return time.time(), rate - rate_of_increase
 
-    # def m1_feature_9_beep_and_time_slower(self, rate, rate_of_increase):
-    #     self.robot.sound_system.beeper.beep()
-        # the time from last beep is reset:
-    #     return time.time(), rate + rate_of_increase
+    def m1_spin_cw(self, initial_rate, rate_of_increase):
+        pass
+        self.m1_feature_9(initial_rate, rate_of_increase)
+
+    def m1_spin_ccw(self, initial_rate, rate_of_increase):
+        pass
+        self.m1_feature_9(initial_rate, rate_of_increase)
 
     def m2(self, freq, iteration):
 
@@ -198,9 +201,9 @@ class Receiver(object):
 
                 break
 
-    def m3_feature_9(self,initial_rate,rate_of_increase):
+    def m3_feature_9(self, initial_rate, rate_of_increase):
         # starts the robot at the given speed:
-        self.robot.drive_system.go(100,100)
+        self.robot.drive_system.go(100, 100)
         # stores the distance to the cube as previous distance:
         previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         # stores the current time as the previous time:

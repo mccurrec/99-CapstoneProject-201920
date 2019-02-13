@@ -323,9 +323,7 @@ def get_m1_frame(window, mqtt_sender):
 
     # LABELS:
     frame_label = ttk.Label(frame, text='Individual Features', font='bold')
-    frame_label.grid(row=0, column=0)
-    going_straight_label = ttk.Label(frame, text='Going Straight')
-    going_straight_label.grid(row=2, column=0, pady=(8, 4))
+    frame_label.grid(row=0, column=0, columnspan=2)
     initial_label = ttk.Label(frame, text='Initial Time Between Beeps: ')
     initial_label.grid(row=3, column=0, sticky='E')
     decrease_label = ttk.Label(frame, text='Decrease Time Between Beeps By: ')
@@ -338,9 +336,17 @@ def get_m1_frame(window, mqtt_sender):
     decrease_entry.grid(row=4, column=1)
 
     # BUTTONS:
-    run_button = ttk.Button(frame, text='FIND OBJECT')
-    run_button.grid(row=5, column=1)
+    run_button = ttk.Button(frame, text='Go Straight')
+    run_button.grid(row=5, column=0, columnspan=2, sticky='E'+'W')
     run_button['command'] = lambda: handle_m1_feature_9(initial_entry, decrease_entry, mqtt_sender)
+
+    spin_cw_button = ttk.Button(frame, text='Spin Clockwise')
+    spin_cw_button.grid(row=6, column=0, columnspan=2, sticky='E'+'W')
+    spin_cw_button['command'] = lambda: handle_m1_spin_cw(initial_entry, decrease_entry, mqtt_sender)
+
+    spin_ccw_button = ttk.Button(frame, text='Spin Counter-Clockwise')
+    spin_ccw_button.grid(row=7, column=0, columnspan=2, sticky='E'+'W')
+    spin_ccw_button['command'] = lambda: handle_m1_spin_ccw(initial_entry, decrease_entry, mqtt_sender)
 
     return frame
 
@@ -366,6 +372,7 @@ def get_m2_frame(window, mqtt_sender):
     m2_button['command'] = lambda: handle_m2(m2_entry1, m2_entry2, mqtt_sender)
 
     return frame
+
 
 def get_m3_frame(window, mqtt_sender):
     """
@@ -398,6 +405,7 @@ def get_m3_frame(window, mqtt_sender):
     run_button['command'] = lambda: handle_m3_feature_9(initial_entry, decrease_entry, mqtt_sender)
 
     return frame
+
 
 def m3_feature_10(window,mqtt_sender):
     """
@@ -718,8 +726,6 @@ def handle_exit(mqtt_sender):
 ##############################################################################
 #Handles for Sprint 2
 ##############################################################################
-
-
 def handle_m1_feature_9(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
     """
     :type initial_rate_entry:  ttk.Entry
@@ -728,6 +734,26 @@ def handle_m1_feature_9(initial_rate_entry, rate_of_increase_entry, mqtt_sender)
     """
     print('sending m1_feature9')
     mqtt_sender.send_message('m1_feature_9', [float(initial_rate_entry.get()), float(rate_of_increase_entry.get())])
+
+
+def handle_m1_spin_cw(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
+    """
+    :type initial_rate_entry:  ttk.Entry
+    :type rate_of_increase_entry:  ttk.Entry
+    :type mqtt_sender: com.MqttClient
+    """
+    print('sending m1 spin clockwise to find cube')
+    mqtt_sender.send_message('m1_spin_cw', [float(initial_rate_entry.get()), float(rate_of_increase_entry.get())])
+
+
+def handle_m1_spin_ccw(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
+    """
+    :type initial_rate_entry:  ttk.Entry
+    :type rate_of_increase_entry:  ttk.Entry
+    :type mqtt_sender: com.MqttClient
+    """
+    print('sending m1 spin counter-clockwise to find cube')
+    mqtt_sender.send_message('m1_spin_ccw', [float(initial_rate_entry.get()), float(rate_of_increase_entry.get())])
 
 
 def handle_m2(m2_entry1, m2_entry2, mqtt_sender):
