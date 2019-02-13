@@ -246,7 +246,9 @@ class Receiver(object):
             previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
     def m3_feature_10(self, speed, direction):
-        pixy = self.robot.sensor_system.camera.set_signature("SIG1")
+        pixy = self.robot.sensor_system.ev3.Sensor(driver_name= "pixy-lego")
+
+        pixy.mode = "SIG1"
 
         if direction == "clockwise":
             self.robot.drive_system.left_motor.turn_on(speed)
