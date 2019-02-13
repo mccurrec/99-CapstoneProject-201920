@@ -228,7 +228,7 @@ class Receiver(object):
                     # and the rate between light cycles is adjusted according to the user inputted increment
                     rate = rate - rate_of_increase
             # stops the robot once it is within 1 inch of the cube, and picks it up:
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
