@@ -725,7 +725,7 @@ def handle_m1_feature_9(initial_rate_entry, rate_of_increase_entry, mqtt_sender)
     :type mqtt_sender: com.MqttClient
     """
     print('sending m1_feature9')
-    mqtt_sender.send_message('m1_feature_9', [float(initial_rate_entry.get()), float(rate_of_increase_entry.get()))
+    mqtt_sender.send_message('m1_feature_9', [float(initial_rate_entry.get()), float(rate_of_increase_entry.get())])
 
 
 def handle_m2(m2_entry1, m2_entry2, mqtt_sender):
