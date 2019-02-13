@@ -296,20 +296,20 @@ class DriveSystem(object):
         Prints on the Console the Blob data of the Blob that the camera sees
         (if any).
         """
-        # pixy = ev3.Sensor(driver_name= "pixy-lego")
+        pixy = ev3.Sensor(driver_name= "pixy-lego")
+
+        pixy.mode = "SIG1"
+
+        print("Value1: X", pixy.value(1))
+        print("Value2: Y", pixy.value(2))
+        print("Value3: Width", pixy.value(3))
+        print("Value4: Height", pixy.value(4))
+        # SIG1 = self.sensor_system.camera.set_signature("SIG1")
         #
-        # pixy.mode = "SIG1"
-        SIG1 = self.sensor_system.camera.set_signature("SIG1")
-
-        print("Value1: X", SIG1.value(1))
-        print("Value2: Y", SIG1.value(2))
-        print("Value3: Width", SIG1.value(3))
-        print("Value4: Height", SIG1.value(4))
-
-        # print("Value1: X", pixy.value(1))
-        # print("Value2: Y", pixy.value(2))
-        # print("Value3: Width", pixy.value(3))
-        # print("Value4: Height", pixy.value(4))
+        # print("Value1: X", SIG1.value(1))
+        # print("Value2: Y", SIG1.value(2))
+        # print("Value3: Width", SIG1.value(3))
+        # print("Value4: Height", SIG1.value(4))
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """

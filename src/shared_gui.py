@@ -366,6 +366,10 @@ def get_m2_frame(window, mqtt_sender):
     return frame
 
 def get_m3_frame(window, mqtt_sender):
+    """
+    :type  window:       ttk.Frame | ttk.Toplevel
+    :type  mqtt_sender:  com.MqttClient
+    """
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
 
     # LABELS:
@@ -394,6 +398,10 @@ def get_m3_frame(window, mqtt_sender):
     return frame
 
 def m3_feature_10(window,mqtt_sender):
+    """
+    :type  window:       ttk.Frame | ttk.Toplevel
+    :type  mqtt_sender:  com.MqttClient
+    """
     frame = ttk.Frame(window,padding=10,borderwidth=5,relief='ridge')
 
     # LABELS:
