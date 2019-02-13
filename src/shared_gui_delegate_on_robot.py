@@ -239,5 +239,5 @@ class Receiver(object):
                 break
             previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
-
+    def m3_feature_10(self,speed,direction):
 
