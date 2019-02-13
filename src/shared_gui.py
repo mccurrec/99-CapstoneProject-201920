@@ -348,6 +348,10 @@ def get_m1_frame(window, mqtt_sender):
     spin_ccw_button.grid(row=7, column=0, columnspan=2, sticky='E'+'W')
     spin_ccw_button['command'] = lambda: handle_m1_spin_ccw(initial_entry, decrease_entry, mqtt_sender)
 
+    line_follow_button = ttk.Button(frame, text='Line Follower')
+    line_follow_button.grid(row=8, column=0, columnspan=2, sticky='E'+'W')
+    line_follow_button['command'] = lambda: handle_m1_line_follow(mqtt_sender)
+
     return frame
 
 
@@ -724,7 +728,7 @@ def handle_exit(mqtt_sender):
     exit()
 
 ##############################################################################
-#Handles for Sprint 2
+# Handles for Sprint 2 Feature 8 and 9:
 ##############################################################################
 def handle_m1_feature_9(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
     """
@@ -780,3 +784,17 @@ def handle_m3_feature_10(speed_entry, direction_entry, mqtt_sender):
     """
     print("sending m3_feature_10")
     mqtt_sender.send_message('m3_feature_10', [int(speed_entry.get()),str(direction_entry.get())])
+
+
+##############################################################################
+# Handles for Sprint 2 Feature 11:
+##############################################################################
+
+def handle_m1_line_follow(mqtt_sender):
+    """"
+    :type mqtt_sender: com.MqttClient
+    """
+    print('sending m1_line_follow')
+    mqtt_sender.send_message('m1_line_follow')
+
+
