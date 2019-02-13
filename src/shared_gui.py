@@ -375,16 +375,16 @@ def get_m3_frame(window, mqtt_sender):
     # LABELS:
     frame_label = ttk.Label(frame, text='m3 Feature 9')
     frame_label.grid(row=0, column=0)
-    speed_label = ttk.Label(frame, text='Speed: ')
-    speed_label.grid(row=1, column=0)
+    # speed_label = ttk.Label(frame, text='Speed: ')
+    # speed_label.grid(row=1, column=0)
     initial_label = ttk.Label(frame, text='Initial Time Between Light Cycles: ')
     initial_label.grid(row=2, column=0)
     decrease_label = ttk.Label(frame, text='Decrease Time Between Cycles By: ')
     decrease_label.grid(row=3, column=0)
 
     # ENTRY BOXES:
-    speed_entry = ttk.Entry(frame, width=8)
-    speed_entry.grid(row=1, column=1)
+    # speed_entry = ttk.Entry(frame, width=8)
+    # speed_entry.grid(row=1, column=1)
     initial_entry = ttk.Entry(frame, width=8)
     initial_entry.grid(row=2, column=1)
     decrease_entry = ttk.Entry(frame, width=8)
