@@ -246,9 +246,11 @@ class Receiver(object):
             previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
     def m3_feature_10(self, speed, direction):
-        pixy = self.robot.sensor_system.ev3.Sensor(driver_name= "pixy-lego")
-
-        pixy.mode = "SIG1"
+        # pixy = self.robot.sensor_system.ev3.Sensor(driver_name= "pixy-lego")
+        # # pixy = self.robot.sensor_system.camera.set_signature("SIG1")
+        #
+        # pixy.mode = "SIG1"
+        self.robot.drive_system.display_camera_data()
 
         if direction == "clockwise":
             self.robot.drive_system.left_motor.turn_on(speed)
@@ -257,7 +259,7 @@ class Receiver(object):
             self.robot.drive_system.left_motor.turn_on(-speed)
             self.robot.drive_system.right_motor.turn_on(speed)
         while True:
-            if int(pixy.value(3)) * int(pixy.value(4)) == 20 and 140 < int(pixy.value(1)) < 180 and 80 < int(pixy.value(2)) < 120:
+            if int(pixy.value(3)) * int(pixy.value(4)) >= 20 and 140 < int(pixy.value(1)) < 180 and 80 < int(pixy.value(2)) < 120:
                 self.robot.drive_system.right_motor.turn_off()
                 self.robot.drive_system.left_motor.turn_off()
                 break
