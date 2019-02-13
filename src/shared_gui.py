@@ -240,6 +240,7 @@ def get_drive_system_frame(window, mqtt_sender):
     area_entry = ttk.Entry(frame, width=8)
     distance_entry = ttk.Entry(frame, width=8)
     delta_entry = ttk.Entry(frame, width=8)
+    speed_entry.insert(0, '50')
 
     # Constructs the buttons on the frame:
     inches_using_time_button = ttk.Button(frame, text="Go Using Time")

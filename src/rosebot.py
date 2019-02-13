@@ -171,18 +171,36 @@ class DriveSystem(object):
         the color sensor's color.
         """
         self.sensor_system.color_sensor.mode = 'COL-COLOR'
-        if type(color) is int:
-            self.go(speed, speed)
+        self.go(speed, speed)
+
+        try:
+            val = int(color)
             while True:
-                if self.sensor_system.color_sensor.get_color() == color:
+                if self.sensor_system.color_sensor.get_color() == val:
                     self.stop()
                     break
-        if type(color) is str:
-            self.go(speed, speed)
+        except ValueError:
             while True:
                 if self.sensor_system.color_sensor.get_color_as_name() == color:
                     self.stop()
                     break
+        # if type(color) is int:
+        #     while True:
+        #         print(self.sensor_system.color_sensor.get_color_as_name())
+        #         if self.sensor_system.color_sensor.get_color_as_name() == self.sensor_system.color_sensor.COLORS[color]:
+        #             self.stop()
+        #             break
+        # else:
+        #     while True:
+        #         print(self.sensor_system.color_sensor.get_color_as_name())
+        #         if self.sensor_system.color_sensor.get_color_as_name() == color:
+        #             self.stop()
+        #             break
+        # while True:
+        #     if self.sensor_system.color_sensor.get_color() == color or \
+        #             self.sensor_system.color_sensor.get_color_as_name() == color:
+        #         self.stop()
+        #         break
 
     def go_straight_until_color_is_not(self, color, speed):
         """
