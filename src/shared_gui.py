@@ -393,7 +393,7 @@ def get_m3_frame(window, mqtt_sender):
     # BUTTONS:
     run_button = ttk.Button(frame, text='RUN')
     run_button.grid(row=4, column=1)
-    run_button['command'] = lambda: handle_m3_feature_9(initial_entry, decrease_entry, speed_entry, mqtt_sender)
+    run_button['command'] = lambda: handle_m3_feature_9(initial_entry, decrease_entry, mqtt_sender)
 
     return frame
 
