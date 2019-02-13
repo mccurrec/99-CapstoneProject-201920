@@ -9,6 +9,7 @@
 
 import time
 import m1_individual
+import m3_individual
 
 class Receiver(object):
 
@@ -177,66 +178,33 @@ class Receiver(object):
         ses = self.robot.sensor_system
         sos = self.robot.sound_system
 
+    def m3_feature_9(self,initial_rate,rate_of_increase):
+        m3_individual.m3_feature_9(initial_rate,rate_of_increase,self.robot)
+
+    def m3_feature_10(self,speed,direction):
+        m3_individual.m3_feature_10(speed,direction,self.robot)
 
 
-    def m3_feature_9(self, initial_rate, rate_of_increase):
-        # starts the robot at the given speed:
-        self.robot.drive_system.go(50, 50)
-        self.robot.drive_system.left_motor.reset_position()
-        # stores the distance to the cube as previous distance:
-        previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        # stores the current time as the previous time:
-        previous_time = time.time()
-        # set the rate between beeps as the initial rate given by the user:
-        rate = initial_rate
-        # delta is the distance needed to travel for the beeping to increase in speed by the given increment:
-        delta = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() / ((
-                    self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() - 0.01) / rate_of_increase)
-        # loops until the cube is reached and picked up:
-        while True:
-            # checks to see if the change in distance to the cube is greater than delta:
-            if self.robot.drive_system.left_motor.get_position() - previous_distance >= delta:
-                # checks to see if enough time has passed from the last beep:
-                if time.time() - previous_time >= rate:
-                    previous_distance = self.robot.drive_system.left_motor.get_position()
-                    previous_time, rate = self.m3_feature_9_cycle_and_time_faster(rate, rate_of_increase)
-                    # previous_time, rate = m1_individual.m1_feature_9_beep_and_time_faster(rate,rate_of_increase,self.robot)
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
-                self.robot.drive_system.stop()
-                self.robot.arm_and_claw.raise_arm()
-                break
-
-    def m3_feature_9_cycle_and_time_faster(self, rate, rate_of_increase):
-        self.robot.led_system.left_led.turn_on()
-        self.robot.led_system.left_led.turn_off()
-        self.robot.led_system.right_led.turn_on()
-        self.robot.led_system.right_led.turn_off()
-        self.robot.led_system.left_led.turn_on()
-        self.robot.led_system.right_led.turn_on()
-        self.robot.led_system.left_led.turn_off()
-        self.robot.led_system.right_led.turn_off()        # the time from last beep is reset:
-        return time.time(), rate - rate_of_increase
-
-
-    def m3_feature_10(self, speed, direction):
-        # pixy = self.robot.sensor_system.ev3.Sensor(driver_name= "pixy-lego")
-        pixy = self.robot.sensor_system.camera.set_signature("SIG1")
-        #
-        # pixy.mode = "SIG1"
-        # self.robot.drive_system.display_camera_data()
-
-        if direction == "clockwise":
-            self.robot.drive_system.left_motor.turn_on(speed)
-            self.robot.drive_system.right_motor.turn_on(-speed)
-        elif direction == "counterclockwise":
-            self.robot.drive_system.left_motor.turn_on(-speed)
-            self.robot.drive_system.right_motor.turn_on(speed)
-        while True:
-            if int(pixy.value(3)) * int(pixy.value(4)) >= 20 and 140 < int(pixy.value(1)) < 180 and 80 < int(pixy.value(2)) < 120:
-                self.robot.drive_system.right_motor.turn_off()
-                self.robot.drive_system.left_motor.turn_off()
-                break
-        self.m3_feature_9(1, .2)
+    # def m3_feature_10(self, speed, direction):
+    #     # pixy = self.robot.sensor_system.ev3.Sensor(driver_name= "pixy-lego")
+    #     pixy = self.robot.sensor_system.camera.set_signature("SIG1")
+    #     #
+    #     # pixy.mode = "SIG1"
+    #     # self.robot.drive_system.display_camera_data()
+    #
+    #     if direction == "clockwise":
+    #         self.robot.drive_system.left_motor.turn_on(speed)
+    #         self.robot.drive_system.right_motor.turn_on(-speed)
+    #     elif direction == "counterclockwise":
+    #         self.robot.drive_system.left_motor.turn_on(-speed)
+    #         self.robot.drive_system.right_motor.turn_on(speed)
+    #     while True:
+    #         if int(pixy.value(3)) * int(pixy.value(4)) >= 20 and 145 < int(pixy.value(1)) < 175:
+    #             self.robot.drive_system.right_motor.turn_off()
+    #             self.robot.drive_system.left_motor.turn_off()
+    #             break
+    #     time.sleep(.05)
+    #     self.m3_feature_9(1, .2)
 
     ###############################################################################
     # Methods for Sprint 2 Feature 11
