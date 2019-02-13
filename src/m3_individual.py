@@ -41,12 +41,12 @@ def m3_feature_9_cycle_and_time_faster(rate, rate_of_increase,robot):
 
 def m3_feature_10(speed, direction,robot):
     if direction == "clockwise":
-        robot.drive_system.spin_clockwise_until_sees_object(50,10)
+        robot.drive_system.spin_clockwise_until_sees_object(speed,10)
         robot.drive_system.left_motor.turn_on(-50)
         robot.drive_system.right_motor.turn_on(50)
         time.sleep(.07)
     elif direction == "counterclockwise":
-        robot.drive_system.spin_counterclockwise_until_sees_object(50, 10)
+        robot.drive_system.spin_counterclockwise_until_sees_object(speed, 10)
         robot.drive_system.left_motor.turn_on(50)
         robot.drive_system.right_motor.turn_on(-50)
         time.sleep(.02)
