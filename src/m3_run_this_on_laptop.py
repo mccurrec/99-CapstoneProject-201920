@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame, m3_feature_10_frame = \
+    teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame = \
         get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
@@ -51,7 +51,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame, m3_feature_10_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -66,19 +66,17 @@ def get_shared_frames(main_frame, mqtt_sender):
     sound_frame = shared_gui.get_sound_frame(main_frame, mqtt_sender)
     drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
     m3_feature_9_frame = shared_gui.get_m3_frame(main_frame, mqtt_sender)
-    m3_feature_10_frame = shared_gui.m3_feature_10(main_frame,mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame, m3_feature_10_frame
+    return teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame, m3_feature_10_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m3_feature_9_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
-    control_frame.grid(row=3, column=0)
-    drive_system_frame.grid(row=0, column=1)
     sound_frame.grid(row=2, column=0)
-    m3_feature_9_frame.grid(row=1, column=1)
-    m3_feature_10_frame.grid(row=2,column=1)
+    control_frame.grid(row=3, column=0)
+    drive_system_frame.grid(row=0, column=1, rowspan=3)
+    m3_feature_9_frame.grid(row=3, column=1)
 
 
 # -----------------------------------------------------------------------------
