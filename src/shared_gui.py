@@ -342,7 +342,7 @@ def get_m1_frame(window, mqtt_sender):
     # BUTTONS:
     run_button = ttk.Button(frame, text='RUN')
     run_button.grid(row=4, column=1)
-    run_button['command'] = lambda: handle_m1_feature_9(initial_entry, decrease_entry, speed_entry, mqtt_sender)
+    run_button['command'] = lambda: handle_m1_feature_9(initial_entry, decrease_entry, mqtt_sender)
 
     return frame
 
@@ -730,7 +730,7 @@ def handle_m2(m2_entry1, m2_entry2, mqtt_sender):
     print('got')
     mqtt_sender.send_message("m2", [m2_entry1.get(), m2_entry2.get()])
 
-def handle_m3_feature_9(initial_rate_entry, rate_of_increase_entry, speed_entry, mqtt_sender):
+def handle_m3_feature_9(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
     """
     :type initial_rate_entry:  ttk.Entry
     :type rate_of_increase_entry:  ttk.Entry
