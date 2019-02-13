@@ -138,6 +138,7 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        self.sensor_system.color_sensor.mode = 'COL-REFLECT'
         self.go(speed, speed)
         while True:
             if self.sensor_system.color_sensor.get_reflected_light_intensity() < intensity:
@@ -149,6 +150,7 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        self.sensor_system.color_sensor.mode = 'COL-REFLECT'
         self.go(speed, speed)
         while True:
             if self.sensor_system.color_sensor.get_reflected_light_intensity() > intensity:
@@ -168,6 +170,7 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
+        self.sensor_system.color_sensor.mode = 'COL-COLOR'
         if type(color) is int:
             self.go(speed, speed)
             while True:
@@ -189,6 +192,7 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
+        self.sensor_system.color_sensor.mode = 'COL-COLOR'
         if type(color) is int:
             self.go(speed, speed)
             while True:
@@ -306,7 +310,6 @@ class DriveSystem(object):
         # print("Value2: Y", pixy.value(2))
         # print("Value3: Width", pixy.value(3))
         # print("Value4: Height", pixy.value(4))
-
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
