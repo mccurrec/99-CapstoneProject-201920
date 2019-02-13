@@ -200,18 +200,19 @@ class Receiver(object):
                 if time.time() - previous_time >= rate:
                     previous_distance = self.robot.drive_system.left_motor.get_position()
                     previous_time, rate = self.m3_feature_9_cycle_and_time_faster(rate, rate_of_increase)
+                    # previous_time, rate = m1_individual.m1_feature_9_beep_and_time_faster(rate,rate_of_increase,self.robot)
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
 
     def m3_feature_9_cycle_and_time_faster(self, rate, rate_of_increase):
-        self.robot.led_system.left_led.turn_on().wait()
+        self.robot.led_system.left_led.turn_on()
         self.robot.led_system.left_led.turn_off()
-        self.robot.led_system.right_led.turn_on().wait()
+        self.robot.led_system.right_led.turn_on()
         self.robot.led_system.right_led.turn_off()
         self.robot.led_system.left_led.turn_on()
-        self.robot.led_system.right_led.turn_on().wait()
+        self.robot.led_system.right_led.turn_on()
         self.robot.led_system.left_led.turn_off()
         self.robot.led_system.right_led.turn_off()        # the time from last beep is reset:
         return time.time(), rate - rate_of_increase
