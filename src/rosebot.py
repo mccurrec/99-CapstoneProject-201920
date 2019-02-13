@@ -13,6 +13,7 @@
 import ev3dev.ev3 as ev3
 import time
 import math
+import shared_gui_delegate_on_robot as shared_gui
 
 
 ###############################################################################
