@@ -259,17 +259,17 @@ def get_drive_system_frame(window, mqtt_sender):
     #  Grids the Widgets:
     #   Grids the labels:
     frame_label.grid(row=0, column=2)
-    inches_label.grid(row=1, column=0)
-    time_label.grid(row=3, column=0)
-    intensity_label.grid(row=4, column=0)
-    color_label.grid(row=6, column=0)
-    area_label.grid(row=8, column=0)
-    speed_label.grid(row=0, column=3)
-    distance_label.grid(row=1, column=4)
-    delta_label.grid(row=3, column=4)
+    inches_label.grid(row=1, column=0, sticky='E')
+    time_label.grid(row=3, column=0, sticky='E')
+    intensity_label.grid(row=4, column=0, sticky='E')
+    color_label.grid(row=6, column=0, sticky='E')
+    area_label.grid(row=8, column=0, sticky='E')
+    speed_label.grid(row=0, column=3, sticky='E')
+    distance_label.grid(row=1, column=4, sticky='E')
+    delta_label.grid(row=3, column=4, sticky='E')
 
     #   Grids the entry boxes:
-    speed_entry.grid(row=0, column=4)
+    speed_entry.grid(row=0, column=4, sticky='W')
     inches_entry.grid(row=1, column=1)
     time_entry.grid(row=3, column=1)
     intensity_entry.grid(row=4, column=1)
@@ -279,20 +279,20 @@ def get_drive_system_frame(window, mqtt_sender):
     delta_entry.grid(row=3, column=5)
 
     #   Grids the buttons:
-    inches_using_time_button.grid(row=1, column=2)
-    go_straight_using_encoder_button.grid(row=2, column=2)
-    go_straight_for_seconds_button.grid(row=3, column=2)
-    go_straight_until_intensity_is_less_than_button.grid(row=4, column=2)
-    go_straight_until_intensity_is_greater_than_button.grid(row=5, column=2)
-    go_straight_until_color_is_button.grid(row=6, column=2)
-    go_straight_until_color_is_not_button.grid(row=7, column=2)
-    m3_spin_clockwise_button.grid(row=8, column=2)
-    m3_spin_counterclockwise_button.grid(row=9, column=2)
+    inches_using_time_button.grid(row=1, column=2, sticky='W', ipadx='22')
+    go_straight_using_encoder_button.grid(row=2, column=2, sticky='W', pady=(0, 8), ipadx='10')
+    go_straight_for_seconds_button.grid(row=3, column=2, sticky='W', pady=(0, 8), ipadx='15')
+    go_straight_until_intensity_is_less_than_button.grid(row=4, column=2, sticky='W', ipadx='8')
+    go_straight_until_intensity_is_greater_than_button.grid(row=5, column=2, sticky='W', pady=(0, 8), ipadx='2')
+    go_straight_until_color_is_button.grid(row=6, column=2, sticky='W')
+    go_straight_until_color_is_not_button.grid(row=7, column=2, sticky='W', pady=(0, 8))
+    m3_spin_clockwise_button.grid(row=8, column=2, sticky='W')
+    m3_spin_counterclockwise_button.grid(row=9, column=2, sticky='W')
     m3_display_button.grid(row=5, column=4)
 
-    ir_forward_until_button.grid(row=1, column=6)
-    ir_backward_until_button.grid(row=2, column=6)
-    ir_within_button.grid(row=3, column=6)
+    ir_forward_until_button.grid(row=1, column=6, sticky='W')
+    ir_backward_until_button.grid(row=2, column=6, sticky='W')
+    ir_within_button.grid(row=3, column=6, sticky='W')
 
     # Sets the button callbacks:
     inches_using_time_button['command'] = lambda: handle_inches_using_time(inches_entry,

@@ -73,10 +73,10 @@ def get_shared_frames(main_frame, mqtt_sender):
 def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_system_frame, m1_feature_9_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
-    control_frame.grid(row=3, column=0)
-    drive_system_frame.grid(row=0, column=1)
     sound_frame.grid(row=2, column=0)
-    m1_feature_9_frame.grid(row=1, column=1)
+    control_frame.grid(row=3, column=0)
+    drive_system_frame.grid(row=0, column=1, rowspan=2)
+    m1_feature_9_frame.grid(row=2, column=1)
 
 
 # -----------------------------------------------------------------------------

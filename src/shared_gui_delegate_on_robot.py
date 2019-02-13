@@ -150,36 +150,37 @@ class Receiver(object):
         previous_time = time.time()
         # set the rate between beeps as the initial rate given by the user:
         rate = initial_rate
+        # delta is the distance needed to travel for the beeping to increase in speed by the given increment:
         delta = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() / ((
                     self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() - 0.05) / rate_of_increase)
         # loops until the cube is reached and picked up:
         while True:
-            # checks to see if the current distance to the cube is less than the previous distance:
+            # checks to see if the change in distance to the cube is greater than delta:
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() - previous_distance >= delta:
                 # checks to see if enough time has passed from the last beep:
                 if time.time() - previous_time >= rate:
-                    # if enough times has passed, a beep happens:
-                    self.robot.sound_system.beeper.beep()
-                    # and the time from last beep is reset:
-                    previous_time = time.time()
-                    # and the rate between beeps is adjusted according to the user inputted increment
-                    rate = rate - rate_of_increase
-            # checks to see if the current distance to the cube is greater than the previous distance:
+                    previous_time, rate = self.m1_feature_9_beep_and_time_faster(rate, rate_of_increase)
+            # checks to see if the change in distance to the cube is less than negative delta:
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() - previous_distance <= - delta:
                 # checks to see if enough time has passed from the last beep:
                 if time.time() - previous_time >= rate:
-                    # if enough times has passed, a beep happens:
-                    self.robot.sound_system.beeper.beep()
-                    # and the time from last beep is reset:
-                    previous_time = time.time()
-                    # and the rate between beeps is adjusted according to the user inputted increment
-                    rate = rate + rate_of_increase
+                    previous_time, rate = self.m1_feature_9_beep_and_time_slower(rate, rate_of_increase)
             # stops the robot once it is within 1 inch of the cube, and picks it up:
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1.5:
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
             previous_distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+
+    def m1_feature_9_beep_and_time_faster(self, rate, rate_of_increase):
+        self.robot.sound_system.beeper.beep()
+        # the time from last beep is reset:
+        return time.time(), rate - rate_of_increase
+
+    def m1_feature_9_beep_and_time_slower(self, rate, rate_of_increase):
+        self.robot.sound_system.beeper.beep()
+        # the time from last beep is reset:
+        return time.time(), rate + rate_of_increase
 
     def m2(self, freq, iteration):
 
