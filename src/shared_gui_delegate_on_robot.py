@@ -255,11 +255,11 @@ class Receiver(object):
             self.robot.drive_system.left_motor.turn_on(-speed)
             self.robot.drive_system.right_motor.turn_on(speed)
         while True:
-            if int(pixy.value(3)) * int(pixy.value(4)) == 20:
+            if int(pixy.value(3)) * int(pixy.value(4)) == 20 and 140 < int(pixy.value(1)) < 180 and 80 < int(pixy.value(2)) < 120:
                 self.robot.drive_system.right_motor.turn_off()
                 self.robot.drive_system.left_motor.turn_off()
                 break
-        self.m3_feature_9(1, .2, 100)
+        self.m3_feature_9(1, .2)
 
     ###############################################################################
     # Methods for Sprint 2 Feature 11
