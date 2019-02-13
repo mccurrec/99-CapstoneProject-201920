@@ -203,7 +203,7 @@ class Receiver(object):
 
                 break
 
-    def m3_feature_9(self,initial_rate,rate_of_increase,speed):
+    def m3_feature_9(self,initial_rate,rate_of_increase):
         # starts the robot at the given speed:
         self.robot.drive_system.go(100,100)
         # stores the distance to the cube as previous distance:
