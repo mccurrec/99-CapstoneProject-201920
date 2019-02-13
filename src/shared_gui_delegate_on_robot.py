@@ -247,10 +247,10 @@ class Receiver(object):
 
     def m3_feature_10(self, speed, direction):
         # pixy = self.robot.sensor_system.ev3.Sensor(driver_name= "pixy-lego")
-        # # pixy = self.robot.sensor_system.camera.set_signature("SIG1")
+        pixy = self.robot.sensor_system.camera.set_signature("SIG1")
         #
         # pixy.mode = "SIG1"
-        self.robot.drive_system.display_camera_data()
+        # self.robot.drive_system.display_camera_data()
 
         if direction == "clockwise":
             self.robot.drive_system.left_motor.turn_on(speed)

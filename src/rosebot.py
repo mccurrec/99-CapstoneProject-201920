@@ -323,7 +323,7 @@ class DriveSystem(object):
         self.right_motor.turn_on(-speed)
         self.left_motor.turn_on(speed)
         while True:
-            if int(pixy.value(3)) * int(pixy.value(4)) >= area:
+            if int(pixy.value(3)) * int(pixy.value(4)) >= area and 140 < int(pixy.value(1)) < 180 and 80 < int(pixy.value(2)) < 120:
                 self.right_motor.turn_off()
                 self.left_motor.turn_off()
                 break
@@ -340,7 +340,7 @@ class DriveSystem(object):
         self.right_motor.turn_on(speed)
         self.left_motor.turn_on(-speed)
         while True:
-            if int(pixy.value(3)) * int(pixy.value(4)) >= area:
+            if int(pixy.value(3)) * int(pixy.value(4)) >= area and 140 < int(pixy.value(1)) < 180 and 80 < int(pixy.value(2)) < 120:
                 self.right_motor.turn_off()
                 self.left_motor.turn_off()
                 break
