@@ -216,8 +216,11 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         """
         self.go(speed, speed)
+
         while True:
+
             if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches:
+
                 self.stop()
                 break
 
