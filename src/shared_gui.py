@@ -332,8 +332,10 @@ def get_m1_frame(window, mqtt_sender):
     # ENTRY BOXES:
     initial_entry = ttk.Entry(frame, width=8)
     initial_entry.grid(row=3, column=1)
+    initial_entry.insert(0, '0.5')
     decrease_entry = ttk.Entry(frame, width=8)
     decrease_entry.grid(row=4, column=1)
+    decrease_entry.insert(0, '0.05')
 
     # BUTTONS:
     run_button = ttk.Button(frame, text='Go Straight')
