@@ -9,6 +9,7 @@
 
 import time
 import m1_individual
+import m2_individual
 import m3_individual
 
 class Receiver(object):
@@ -152,31 +153,11 @@ class Receiver(object):
     def m1_spin_ccw(self, initial_rate, rate_of_increase):
         m1_individual.m1_spin_ccw(initial_rate, rate_of_increase, self.robot)
 
-    def m2(self, freq, iteration):
+    def m2_feature_9(self, freq, iteration):
+        m2_individual.m2_feature_9(int(freq), int(iteration), self.robot)
 
-        self.robot.drive_system.go(100, 100)
-        self.robot.drive_system.left_motor.reset_position()
-        start = self.robot.drive_system.left_motor.get_position()
-
-        while True:
-            if self.robot.drive_system.left_motor.get_position() - start >= 90:
-                self.robot.sound_system.tone_maker.play_tone(freq, 500)
-                freq = int(freq) + int(iteration)
-                start = self.robot.drive_system.left_motor.get_position()
-
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 1:
-                #if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
-                    #if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 0.25:
-
-                self.robot.drive_system.stop()
-                self.robot.arm_and_claw.raise_arm()
-
-                break
-
-    def m2_f10(self, frequency, iteration, direction, speed):
-        ds = self.robot.drive_system
-        ses = self.robot.sensor_system
-        sos = self.robot.sound_system
+    def m2_feature_10(self, frequency, iteration, direction):
+        m2_individual.m2_feature_10(int(frequency), int(iteration), direction, self.robot)
 
     def m3_feature_9(self,initial_rate,rate_of_increase):
         m3_individual.m3_feature_9(initial_rate,rate_of_increase,self.robot)

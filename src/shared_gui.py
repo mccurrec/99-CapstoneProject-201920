@@ -361,19 +361,35 @@ def get_m2_frame(window, mqtt_sender):
           :type  mqtt_sender:  com.MqttClient
         """
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
-    m2_label = ttk.Label(frame, text="M2 Frame")
-    m2_label.grid(row=0, column=0)
+    #Labels
+    m2_label = ttk.Label(frame, text="Fetch")
     m2_entry1_label = ttk.Label(frame, text="Init Frequency")
-    m2_entry1 = ttk.Entry(frame, width=8)
-    m2_entry1.grid(row=3, column=0)
-    m2_entry1_label.grid(row=2, column=0)
     m2_entry2_label = ttk.Label(frame, text="Iteration")
+    m2_entry3_label = ttk.Label(frame, text="Direction")
+
+    #Entrys
+    m2_entry1 = ttk.Entry(frame, width=8)
     m2_entry2 = ttk.Entry(frame, width=8)
+    m2_entry3 = ttk.Entry(frame, width=8)
+
+    #Buttons
+    m2_button1 = ttk.Button(frame, text="Fetch")
+    m2_button2 = ttk.Button(frame, text="Find and Fetch")
+
+    #Grid
+    m2_label.grid(row=0, column=0)
+    m2_entry1_label.grid(row=2, column=0)
+    m2_entry1.grid(row=3, column=0)
     m2_entry2_label.grid(row=4, column=0)
     m2_entry2.grid(row=5, column=0)
-    m2_button = ttk.Button(frame, text="Fetch")
-    m2_button.grid(row=6, column=0)
-    m2_button['command'] = lambda: handle_m2(m2_entry1, m2_entry2, mqtt_sender)
+    m2_entry3_label.grid(row=6, column=0)
+    m2_entry3.grid(row=7, column=0)
+    m2_button1.grid(row=10, column=0)
+    m2_button2.grid(row=11, column=0)
+
+    #Button Commands
+    m2_button1['command'] = lambda: handle_m2_feature_9(m2_entry1, m2_entry2, mqtt_sender)
+    m2_button2['command'] = lambda: handle_m2_feature_10(m2_entry1, m2_entry2, m2_entry3, mqtt_sender)
 
     return frame
 
@@ -760,10 +776,15 @@ def handle_m1_spin_ccw(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
     mqtt_sender.send_message('m1_spin_ccw', [float(initial_rate_entry.get()), float(rate_of_increase_entry.get())])
 
 
-def handle_m2(m2_entry1, m2_entry2, mqtt_sender):
+def handle_m2_feature_9(m2_entry1, m2_entry2, mqtt_sender):
     """:type mqtt_sender: com.MqttClient"""
     print('got')
-    mqtt_sender.send_message("m2", [m2_entry1.get(), m2_entry2.get()])
+    mqtt_sender.send_message("m2_feature_9", [m2_entry1.get(), m2_entry2.get()])
+
+
+def handle_m2_feature_10(m2_entry1, m2_entry2, m2_entry3, mqtt_sender):
+    print('got')
+    mqtt_sender.send_message("m2_feature_10", [m2_entry1.get(), m2_entry2.get(), m2_entry3.get()])
 
 
 def handle_m3_feature_9(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
