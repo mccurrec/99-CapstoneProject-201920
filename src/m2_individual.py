@@ -2,7 +2,7 @@ import time
 
 
 def m2_feature_9(freq, iteration, robot):
-    robot.drive_system.go(100, 100)
+    robot.drive_system.go(50, 50)
     robot.drive_system.left_motor.reset_position()
     start = robot.drive_system.left_motor.get_position()
 
