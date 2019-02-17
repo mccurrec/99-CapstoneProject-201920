@@ -22,9 +22,9 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-
-    mqtt_sender = com.MqttClient()
-    mqtt_sender.connect_to_ev3()
+    #laptop_receiver = Laptop_receiver()
+    mqtt_laptop = com.MqttClient()
+    mqtt_laptop.connect_to_ev3()
 
 
     # -------------------------------------------------------------------------
@@ -47,7 +47,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, sound_frame, drive_frame, m2_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, sound_frame, drive_frame, m2_frame = get_shared_frames(main_frame, mqtt_laptop)
 
 
     # -------------------------------------------------------------------------
@@ -70,13 +70,14 @@ def main():
 
 
 
-def get_shared_frames(main_frame, mqtt_sender):
-    teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
-    arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
-    control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
-    sound_frame = shared_gui.get_sound_frame(main_frame, mqtt_sender)
-    drive_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
-    m2_frame = shared_gui.get_m2_frame(main_frame, mqtt_sender)
+def get_shared_frames(main_frame, mqtt_laptop):
+    teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_laptop)
+    arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_laptop)
+    control_frame = shared_gui.get_control_frame(main_frame, mqtt_laptop)
+    sound_frame = shared_gui.get_sound_frame(main_frame, mqtt_laptop)
+    drive_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_laptop)
+    m2_frame = shared_gui.get_m2_frame(main_frame, mqtt_laptop)
+
 
     return teleop_frame, arm_frame, control_frame, sound_frame, drive_frame, m2_frame
 
@@ -90,6 +91,10 @@ def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame
     m2_frame.grid(row=3, column=1)
 
 
+
+
+#class Laptop_receiver(object):
+    #def __init__(self):
 
 
 # -----------------------------------------------------------------------------

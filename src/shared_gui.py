@@ -17,6 +17,7 @@
 import tkinter
 from tkinter import ttk
 import time
+import m2_individual
 
 
 def get_teleoperation_frame(window, mqtt_sender):
@@ -357,7 +358,7 @@ def get_m1_frame(window, mqtt_sender):
     return frame
 
 
-def get_m2_frame(window, mqtt_sender):
+def get_m2_frame(window, mqtt_laptop):
     """
           :type  window:       ttk.Frame | ttk.Toplevel
           :type  mqtt_sender:  com.MqttClient
@@ -377,6 +378,7 @@ def get_m2_frame(window, mqtt_sender):
     #Buttons
     m2_button1 = ttk.Button(frame, text="Fetch")
     m2_button2 = ttk.Button(frame, text="Find and Fetch")
+    m2_top_button = ttk.Button(frame, text='Farm')
 
     #Grid
     m2_label.grid(row=0, column=0)
@@ -388,10 +390,12 @@ def get_m2_frame(window, mqtt_sender):
     m2_entry3.grid(row=7, column=0)
     m2_button1.grid(row=10, column=0)
     m2_button2.grid(row=11, column=0)
+    m2_top_button.grid(row=6, column=1)
 
     #Button Commands
     m2_button1['command'] = lambda: handle_m2_feature_9(m2_entry1, m2_entry2, mqtt_sender)
     m2_button2['command'] = lambda: handle_m2_feature_10(m2_entry1, m2_entry2, m2_entry3, mqtt_sender)
+    m2_top_button['command'] = lambda: m2_popup(mqtt_laptop)
 
     return frame
 
@@ -820,4 +824,55 @@ def handle_m1_line_follow(mqtt_sender):
     print('sending m1_line_follow')
     mqtt_sender.send_message('m1_line_follow')
 
+def m2_popup(mqtt_laptop):
+    """"
+        :type mqtt_laptop: com.MqttClient
+        """
 
+    root2 = tkinter.Tk()
+    root2.title('Farm')
+
+    #Frames
+    main_frame2 = ttk.Frame(root2)
+    main_frame2.grid()
+
+    popup_frame1 = get_teleoperation_frame(main_frame2, mqtt_laptop)
+    popup_frame1.grid(row=0, column=0)
+
+    popup_frame2 = ttk.Frame(main_frame2, padding=10, borderwidth=5, relief='groove')
+    popup_frame2.grid(row=0, column=1)
+
+    #Labels
+
+    popup_frame2_label = ttk.Label(popup_frame2, text='Farm', padding=2, relief='raised')
+    between_rows_label = ttk.Label(popup_frame2, text='Distance between rows', padding=2, relief='ridge')
+    length_rows_label = ttk.Label(popup_frame2, text='Length of rows', padding=2, relief='ridge')
+    number_rows_label = ttk.Label(popup_frame2, text='Number of rows', padding=2, relief='ridge')
+
+    #Entries
+
+    between_rows_entry = ttk.Entry(popup_frame2, width=8)
+    length_rows_entry = ttk.Entry(popup_frame2, width=8)
+    number_rows_entry = ttk.Entry(popup_frame2, width=8)
+
+    #Button
+
+    plow_button = ttk.Button(popup_frame2, text='Plow')
+    plow_button['command'] = lambda: handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_laptop)
+
+    #Grid
+    popup_frame2_label.grid(row=0, column=1)
+    plow_button.grid(row=1, column=1)
+    between_rows_label.grid(row=2, column=0)
+    length_rows_label.grid(row=2, column=1)
+    number_rows_label.grid(row=2, column=2)
+    between_rows_entry.grid(row=3, column=0)
+    length_rows_entry.grid(row=3, column=1)
+    number_rows_entry.grid(row=3, column=2)
+
+def handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_laptop)
+    """"
+    :type mqtt_laptop: com.MqttClient
+    """
+    print('Imma Plow')
+    mqtt_laptop.send_message('plow', [int(between_rows_entry), int(length_rows_entry), int(number_rows_entry)])

@@ -33,14 +33,14 @@ def run_test_arm():
 
 def real_thing():
     robot = rosebot.RoseBot()
-    receiver = rec.Receiver(robot)
-    mqtt_reciever = com.MqttClient(receiver)
-    mqtt_reciever.connect_to_pc()
+    robot_receiver = rec.Receiver(robot)
+    mqtt_robot = com.MqttClient(robot_receiver)
+    mqtt_robot.connect_to_pc()
 
 
     while True:
         time.sleep(0.01)
-        if receiver.is_time_to_stop:
+        if robot_receiver.is_time_to_stop:
             break
 
 

@@ -201,3 +201,10 @@ class Receiver(object):
             else:
                 self.robot.drive_system.left_motor.turn_on(50)
                 self.robot.drive_system.right_motor.turn_on(-50)
+
+    ##############################################################################
+    # Sprint 3 M2
+    ##############################################################################
+
+    def plow(self):
+        m2_individual.plow(between, length, how_many)
