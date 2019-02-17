@@ -393,8 +393,8 @@ def get_m2_frame(window, mqtt_laptop):
     m2_top_button.grid(row=6, column=1)
 
     #Button Commands
-    m2_button1['command'] = lambda: handle_m2_feature_9(m2_entry1, m2_entry2, mqtt_sender)
-    m2_button2['command'] = lambda: handle_m2_feature_10(m2_entry1, m2_entry2, m2_entry3, mqtt_sender)
+    m2_button1['command'] = lambda: handle_m2_feature_9(m2_entry1, m2_entry2, mqtt_laptop)
+    m2_button2['command'] = lambda: handle_m2_feature_10(m2_entry1, m2_entry2, m2_entry3, mqtt_laptop)
     m2_top_button['command'] = lambda: m2_popup(mqtt_laptop)
 
     return frame
@@ -870,7 +870,7 @@ def m2_popup(mqtt_laptop):
     length_rows_entry.grid(row=3, column=1)
     number_rows_entry.grid(row=3, column=2)
 
-def handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_laptop)
+def handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_laptop):
     """"
     :type mqtt_laptop: com.MqttClient
     """

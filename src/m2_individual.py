@@ -41,11 +41,15 @@ def m2_feature_10(freq, iteration, direction, robot):
     m2_feature_9(freq, iteration, robot)
 
 def plow(between, length, how_many, robot):
+    """:type  robot:  rosebot"""
 
 
 
     for k in range(how_many):
-        robot
+        robot.DriveSystem.go_straight_for_inches_using_encoder(length, 100)
+        
+        robot.DriveSystem.go(100, -100)
+
 
 
 
