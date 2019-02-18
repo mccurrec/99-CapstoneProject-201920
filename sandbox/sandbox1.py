@@ -26,3 +26,4 @@ def m1_line_follow(self):
             right_value = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
             if original - error >= right_value or right_value >= original + error:
                 break
+
