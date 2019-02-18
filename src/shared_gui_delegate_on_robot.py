@@ -11,6 +11,7 @@ import time
 import m1_individual
 import m2_individual
 import m3_individual
+import m1_sprint3
 
 class Receiver(object):
 
@@ -208,3 +209,26 @@ class Receiver(object):
 
     def plow(self):
         m2_individual.plow(between, length, how_many)
+
+    ##############################################################################
+    # m1_sprint3:
+    ##############################################################################
+    def return_to_start(self):
+        print('recieved return to start')
+        m1_sprint3.return_to_start(self.robot)
+
+    def go_to_end(self):
+        print('received go to end')
+        m1_sprint3.go_to_end(self.robot)
+
+    def retrieve_package(self):
+        print('received retrieve package')
+        m1_sprint3.retrieve_package(self.robot)
+
+    def deliver_package(self):
+        print('received deliver package')
+        m1_sprint3.deliver_package(self.robot)
+
+    def sort_packages(self, number_of_packages):
+        print('received sort packages')
+        m1_sprint3.sort_packages(number_of_packages, self.robot)

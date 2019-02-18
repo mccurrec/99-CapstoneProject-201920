@@ -23,7 +23,7 @@ def get_frames(main_frame, mqtt_sender):
 
 def grid_frames(teleop_frame, auton_frame):
     teleop_frame.grid(row=0, column=0)
-    auton_frame.grid(row=0, column=1)
+    auton_frame.grid(row=0, column=1, sticky='N'+'S')
 
 
 def get_teleop_frame(window, mqtt_sender):
@@ -70,6 +70,10 @@ def get_auton_frame(window, mqtt_sender):
     sort_packages_button = ttk.Button(frame, text='Sort Packages')
     sort_packages_button.grid(row=2, column=0, columnspan=2, sticky='E'+'W', pady=(2, 0))
     sort_packages_button['command'] = lambda: handle_sort_packages(number_of_package_entry, mqtt_sender)
+
+    # PROGRESS BAR:
+    progress_bar = ttk.Progressbar(frame, orient='horizontal')
+    progress_bar.grid(row=3, column=0, columnspan=2, sticky='E'+'W')
 
     return frame
 
