@@ -42,7 +42,12 @@ def cars_game_window(window,mqtt_sender):
 
     grid_widgets(title_label,select_label,lightning_image,sally_image,doc_image,l_specialty_label,s_specialty_label,d_specialty_label,l_select_button,s_select_button,d_select_button)
 
+    l_select_button["command"] = lambda: lightning_race(frame,window,mqtt_sender)
+    s_select_button["command"] = lambda: sally_race(frame,window,mqtt_sender)
+    d_select_button["command"] = lambda: doc_race(frame,window,mqtt_sender)
 
+
+    return frame
 
 def grid_widgets(title_label,select_label,lightning_image,sally_image,doc_image,l_specialty_label,s_specialty_label,d_specialty_label,l_select_button,s_select_button,d_select_button):
     title_label.grid(row=0,column=1,columnspan=3)
@@ -78,6 +83,50 @@ def doc_picture(window):
     panel.image = img
     return panel
 
+def lightning_race(last_frame,window,mqtt_sender):
+    last_frame.destroy()
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
 
+    base_speed_label = ttk.Label(frame,text='Base Speed:',font='Arial 8')
+    base_speed_entry = ttk.Entry(frame,width=8)
+    auto_race_label = ttk.Label(frame,text='Automatice Race',font='Arial 13 bold')
+    manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
+    turn_choice_label = ttk.Label(frame,text='Turn Choice (left or right):',font='Arial 8')
+    turn_choice_entry = ttk.Entry(frame,width=8)
+    auto_go_button = ttk.Button(frame,text='GO!',font='Arial 10')
+    manual_go_button = ttk.Button(frame,text='GO!',font='Arial 10')
+
+    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button)
+
+    auto_go_button["command"] = lambda: handle_lightning_race_auto(base_speed_entry.get(),turn_choice_entry.get(),mqtt_sender)
+    manual_go_button["command"] = lambda: handle_lightning_race_manual(base_speed_entry.get(),mqtt_sender)
+
+def handle_lightning_race_auto(base_speed,turn_choice,mqtt_sender):
+    print('Automatice race with Lightning. Base speed is {} and turn choice is {}'.format(base_speed,turn_choice))
+
+
+def handle_lightning_race_manual(base_speed,mqtt_sender):
+    print('Manual race with Lightning. Base speed is', base_speed)
+
+def sally_race(last_frame, window, mqtt_sender):
+    last_frame.destroy()
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+def doc_race(last_frame, window, mqtt_sender):
+    last_frame.destroy()
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button):
+    base_speed_label.grid(row=0,column=0)
+    base_speed_entry.grid(row=0,column=1)
+    auto_race_label.grid(row=1,column=0)
+    manual_race_label.grid(row=1,column=1)
+    turn_choice_label.grid(row=2,column=0)
+    turn_choice_entry.grid(row=3,column=0)
+    auto_go_button.grid(row=4,column=0)
+    manual_go_button.grid(row=4,column=1)
 
 main()
