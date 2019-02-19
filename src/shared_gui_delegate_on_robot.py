@@ -241,6 +241,18 @@ class Receiver(object):
         print('received auto lightning')
         m3_sprint_3.auto_race_lightning(int(base_speed),str(turn_choice),self.robot)
 
-    def manual_race_lightning(self,base_speed):
-        print('received manual lightning')
-        m3_sprint_3.manual_race_lightning(int(base_speed),self.robot)
+    def forward_press(self,base_speed):
+        print('received forward press')
+        m3_sprint_3.forward_press(int(base_speed),self.robot)
+
+    def backward_press(self,base_speed):
+        print('received backward press')
+        m3_sprint_3.backward_press(int(base_speed),self.robot)
+
+    def left_press(self,base_speed):
+        print('received left press')
+        m3_sprint_3.left_press(int(base_speed),self.robot)
+
+    def right_press(self,base_speed):
+        print('received right press')
+        m3_sprint_3.right_press(int(base_speed),self.robot)

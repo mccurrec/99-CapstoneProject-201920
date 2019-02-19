@@ -100,7 +100,10 @@ def lightning_race(last_frame,window,mqtt_sender):
     grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button)
 
     auto_go_button["command"] = lambda: handle_lightning_race_auto(base_speed_entry,turn_choice_entry,mqtt_sender)
-    manual_go_button["command"] = lambda: handle_lightning_race_manual(base_speed_entry,mqtt_sender)
+    # manual_go_button["command"] = lambda: handle_lightning_race_manual(base_speed_entry,mqtt_sender)
+    manual_go_button["command"] = lambda: manual_race(base_speed_entry,frame,window,mqtt_sender)
+
+    return frame
 
 def handle_lightning_race_auto(base_speed,turn_choice,mqtt_sender):
     print('Automatice race with Lightning. Base speed is {} and turn choice is {}'.format(base_speed,turn_choice))
@@ -130,8 +133,54 @@ def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_r
     auto_go_button.grid(row=4,column=0)
     manual_go_button.grid(row=4,column=1)
 
+def manual_race(base_speed,last_frame,window,mqtt_sender):
+    root = tkinter.Tk()
+    last_frame.destroy()
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    explain_label = ttk.Label(frame,text='Use the arrow keys to control your robot',font='Arial 10')
+    base_speed_label = ttk.Label(frame,text='Your base speed is {}'.format(base_speed),font='Arial 10')
+
+    explain_label.grid(row=0,column=0)
+    base_speed_label.grid(row=1,column=0)
+
+    root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
+    root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
+
+    root.bind_all('<Key-w>', lambda event: go_forward(event,base_speed,mqtt_sender))
+    root.bind_all('<Key-s>', lambda event: go_backward(event,base_speed,mqtt_sender))
+    root.bind_all('<Key-a>', lambda event: go_left(event,base_speed,mqtt_sender))
+    root.bind_all('<Key-d>', lambda event: go_right(event,base_speed,mqtt_sender))
+
+    return frame
+
+def pressed_a_key(event):
+    print('You pressed the', event.keysym, 'key')
+
+def released_a_key(event):
+    print('You released the', event.keysym, 'key')
+
+def go_forward(event,base_speed,mqtt_sender):
+    print('go forward')
+    mqtt_sender.send_message('forward_press', [base_speed.get()])
+
+def go_backward(event,base_speed,mqtt_sender):
+    print('go backward')
+    mqtt_sender.send_message('backward_press', [base_speed.get()])
+
+def go_left(event,base_speed,mqtt_sender):
+    print('go left')
+    mqtt_sender.send_message('left_press', [base_speed.get()])
+
+def go_right(event,base_speed,mqtt_sender):
+    print('go right')
+    mqtt_sender.send_message('right_press', [base_speed.get()])
+
 def auto_race_lightning(base_speed,turn_choice,robot):
 
-def manual_race_lightning(base_speed,robot):
+def auto_race_sally(base_speed, turn_choice, robot):
+
+def auto_race_doc(base_speed, turn_choice, robot):
 
 main()
