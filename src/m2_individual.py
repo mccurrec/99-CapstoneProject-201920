@@ -40,15 +40,48 @@ def m2_feature_10(freq, iteration, direction, robot):
         time.sleep(.02)
     m2_feature_9(freq, iteration, robot)
 
+
 def plow(between, length, how_many, robot):
-    """:type  robot:  rosebot"""
+    """:type  robot:  rosebot.Rosebot"""
 
 
 
     for k in range(how_many):
         robot.DriveSystem.go_straight_for_inches_using_encoder(length, 100)
-        
+
+        start = time.time()
         robot.DriveSystem.go(100, -100)
+
+        if k % 2 == 0:
+            while True:
+                robot.DriveSystem.go(100, -100)
+                if time.time() - start >= .5:
+                    robot.DriveSystem.stop()
+                    break
+        if k % 2 == 1:
+            while True:
+                robot.DriveSystem.go(-100, 100)
+                if time.time() - start >= .5:
+                    robot.DriveSystem.stop()
+                    break
+        robot.DriveSystem.go_straight_for_inches_using_encoder(between, 100)
+        start = time.time()
+
+        if k % 2 == 0:
+            while True:
+                robot.DriveSystem.go(100, -100)
+                if time.time() - start >= .5:
+                    robot.DriveSystem.stop()
+                    break
+        if k % 2 == 1:
+            while True:
+                robot.DriveSystem.go(-100, 100)
+                if time.time() - start >= .5:
+                    robot.DriveSystem.stop()
+                    break
+
+
+
 
 
 

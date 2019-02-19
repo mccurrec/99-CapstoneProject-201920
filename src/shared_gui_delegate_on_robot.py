@@ -207,8 +207,9 @@ class Receiver(object):
     # Sprint 3 M2
     ##############################################################################
 
-    def plow(self):
-        m2_individual.plow(between, length, how_many)
+    def plow(self, between, length, how_many):
+
+        m2_individual.plow(between, length, how_many, self.robot)
 
     ##############################################################################
     # m1_sprint3:
