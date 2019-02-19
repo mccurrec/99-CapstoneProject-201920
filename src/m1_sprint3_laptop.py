@@ -34,11 +34,11 @@ def get_teleop_frame(window, mqtt_sender):
     frame_label.grid(row=0, column=0)
 
     # BUTTONS:
-    return_to_start_button = ttk.Button(frame, text='Return To Start')
+    return_to_start_button = ttk.Button(frame, text='Go To Delivery Zone')
     return_to_start_button.grid(row=1, column=0, sticky='E'+'W', pady=(10, 2))
     return_to_start_button['command'] = lambda: handle_go_to_target(mqtt_sender)
 
-    go_to_end_button = ttk.Button(frame, text='Go To End')
+    go_to_end_button = ttk.Button(frame, text='Return To Retrieval Zone')
     go_to_end_button.grid(row=2, column=0, sticky='E'+'W', pady=(0, 10))
     go_to_end_button['command'] = lambda: handle_return_to_target(mqtt_sender)
 
