@@ -36,11 +36,11 @@ def get_teleop_frame(window, mqtt_sender):
     # BUTTONS:
     return_to_start_button = ttk.Button(frame, text='Return To Start')
     return_to_start_button.grid(row=1, column=0, sticky='E'+'W', pady=(10, 2))
-    return_to_start_button['command'] = lambda: handle_return_to_start(mqtt_sender)
+    return_to_start_button['command'] = lambda: handle_go_to_target(mqtt_sender)
 
     go_to_end_button = ttk.Button(frame, text='Go To End')
     go_to_end_button.grid(row=2, column=0, sticky='E'+'W', pady=(0, 10))
-    go_to_end_button['command'] = lambda: handle_go_to_end(mqtt_sender)
+    go_to_end_button['command'] = lambda: handle_return_to_target(mqtt_sender)
 
     retrieve_package_button = ttk.Button(frame, text='Retrieve Package')
     retrieve_package_button.grid(row=3, column=0, sticky='E'+'W', pady=(0, 2))
@@ -81,20 +81,20 @@ def get_auton_frame(window, mqtt_sender):
     return frame
 
 
-def handle_return_to_start(mqtt_sender):
+def handle_go_to_target(mqtt_sender):
     """
     :type mqtt_sender: com.MqttClient
     """
-    print('sending return to start')
-    mqtt_sender.send_message('return_to_start')
+    print('sending go to target')
+    mqtt_sender.send_message('go_to_target')
 
 
-def handle_go_to_end(mqtt_sender):
+def handle_return_to_target(mqtt_sender):
     """
     :type mqtt_sender: com.MqttClient
     """
-    print('sending go to end')
-    mqtt_sender.send_message('go_to_end')
+    print('sending return to target')
+    mqtt_sender.send_message('return_to_target')
 
 
 def handle_retrieve_package(mqtt_sender):

@@ -213,13 +213,13 @@ class Receiver(object):
     ##############################################################################
     # m1_sprint3:
     ##############################################################################
-    def return_to_start(self):
-        print('recieved return to start')
-        m1_sprint3.return_to_start(self.robot)
+    def go_to_target(self):
+        print('received go to target')
+        m1_sprint3.go_to_target(self.robot)
 
-    def go_to_end(self):
-        print('received go to end')
-        m1_sprint3.go_to_end(self.robot)
+    def return_to_target(self):
+        print('received return to target')
+        m1_sprint3.return_to_target(self.robot)
 
     def retrieve_package(self):
         print('received retrieve package')
