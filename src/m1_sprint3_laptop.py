@@ -70,6 +70,9 @@ def get_auton_frame(window, mqtt_sender):
     sort_packages_button = ttk.Button(frame, text='Sort Packages')
     sort_packages_button.grid(row=2, column=0, columnspan=2, sticky='E'+'W', pady=(2, 0))
     sort_packages_button['command'] = lambda: handle_sort_packages(number_of_package_entry, mqtt_sender)
+    get_value_button = ttk.Button(frame, text='Get Current Light Value')
+    get_value_button.grid(row=4, column=0)
+    get_value_button['command'] = lambda: handle_get_value(mqtt_sender)
 
     # PROGRESS BAR:
     progress_bar = ttk.Progressbar(frame, orient='horizontal')
@@ -117,6 +120,13 @@ def handle_sort_packages(number_of_packages_entry, mqtt_sender):
     """
     print('sending sort packages')
     mqtt_sender.send_message('sort_packages', [int(number_of_packages_entry.get())])
+
+
+def handle_get_value(mqtt_sender):
+    """
+    :type mqtt_sender: com.MqttClient
+    """
+    mqtt_sender.send_message('get_value')
 
 
 main()
