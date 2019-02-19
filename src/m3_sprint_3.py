@@ -13,116 +13,71 @@ def main():
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
 
-    header_frame, race_frame = get_frames(main_frame,mqtt_sender)
-
-    header_frame.grid(row=0,column=0)
-    race_frame.grid(row=1,column=0)
+    cars_game_window(main_frame,mqtt_sender)
 
     root.mainloop()
 
-def get_frames(main_frame,mqtt_sender):
-    header_frame = get_header_frame(main_frame,mqtt_sender)
-    race_frame = get_race_frame(main_frame,mqtt_sender)
+# def get_frames(main_frame,mqtt_sender):
+#     header_frame = get_header_frame(main_frame,mqtt_sender)
+#     race_frame = get_race_frame(main_frame,mqtt_sender)
+#
+#     return header_frame, race_frame
 
-    return header_frame, race_frame
+def cars_game_window(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
+    frame.grid()
 
-def get_header_frame(window,mqtt_sender):
-    """
-    :type  window:       ttk.Frame | ttk.Toplevel
-    :type  mqtt_sender:  com.MqttClient
-    """
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
+    #make widgets
+    title_label = ttk.Label(frame,text='Welcome to Cars Racing Game',font='Arial 13 bold')
+    select_label = ttk.Label(frame,text='Select your Racer',font='Arial 10')
+    lightning_image = lightning_picture(frame)
+    sally_image = sally_picture(frame)
+    doc_image = doc_picture(frame)
+    l_specialty_label = ttk.Label(frame,text='Specialty: Speed',font='Arial 8')
+    s_specialty_label = ttk.Label(frame,text='Specialty: Items',font='Arial 8')
+    d_specialty_label = ttk.Label(frame,text='Specialty: Handling',font='Arial 8')
+    l_select_button = ttk.Button(frame,text='Select',font='Arial 8')
+    s_select_button = ttk.Button(frame,text='Select',font='Arial 8')
+    d_select_button = ttk.Button(frame,text='Select',font='Arial 8')
 
-    #Labels
-    frame_label = ttk.Label(frame, text='Welcome to Cars Racing Game',font="bold")
-    frame_label.grid(row=0, column=0)
-
-    return frame
-
-def get_race_frame(window,mqtt_sender):
-    """
-    :type  window:       ttk.Frame | ttk.Toplevel
-    :type  mqtt_sender:  com.MqttClient
-    """
-    frame = ttk.Frame(window, padding=10, borderwidth=5,relief='ridge')
-
-    #Labels
-    frame_label = ttk.Label(frame, text='Select your racer')
-    frame_label.grid(row=0,column=1)
-    lightning_label = ttk.Label(frame,text='Lightning McQueen')
-    lightning_label.grid(row=2,column=0)
-    doc_label = ttk.Label(frame,text='Doc Hudson')
-    doc_label.grid(row=2,column=1)
-    sally_label = ttk.Label(frame,text='Sally Carrera')
-    sally_label.grid(row=2,column=2)
-    lightning_special_label = ttk.Label(frame,text='Specialty: Speed')
-    lightning_special_label.grid(row=3,column=0)
-    doc_special_label = ttk.Label(frame,text='Specialty: Handling')
-    doc_special_label.grid(row=3,column=1)
-    sally_special_label = ttk.Label(frame,text='Specialty: Items')
-    sally_special_label.grid(row=3,column=2)
-    your_name_label = ttk.Label(frame,text='Your Name:')
-    your_name_label.grid(row=5,column=0)
-    auto_race_label = ttk.Label(frame,text='Automatic Race')
-    auto_race_label.grid(row=6,column=0)
-    manual_race_label = ttk.Label(frame,text='Manual Race')
-    manual_race_label.grid(row=6,column=2)
-    turn_choice_label = ttk.Label(frame,text='Turn Choice (left or right):')
-    turn_choice_label.grid(row=7,column=0)
-    base_speed_label = ttk.Label(frame,text='Base Speed:')
-    base_speed_label.grid(row=7,column=2)
+    grid_widgets(title_label,select_label,lightning_image,sally_image,doc_image,l_specialty_label,s_specialty_label,d_specialty_label,l_select_button,s_select_button,d_select_button)
 
 
-    #Check Boxes
-    lightning_check = ttk.Checkbutton()
-    lightning_check.grid(row=4,column=0)
-    doc_check = ttk.Checkbutton()
-    doc_check.grid(row=4,column=1)
-    sally_check = ttk.Checkbutton()
-    sally_check.grid(row=4,column=2)
 
-    #Entry Boxes
-    turn_choice_entry = ttk.Entry(frame,width=8)
-    turn_choice_entry.grid(row=8,column=0)
-    base_speed_entry = ttk.Entry(frame,width=8)
-    base_speed_entry.grid(row=8,column=2)
-    your_name_entry = ttk.Entry(frame,width=8)
-    your_name_entry.grid(row=5,column=1)
+def grid_widgets(title_label,select_label,lightning_image,sally_image,doc_image,l_specialty_label,s_specialty_label,d_specialty_label,l_select_button,s_select_button,d_select_button):
+    title_label.grid(row=0,column=1,columnspan=3)
+    select_label.grid(row=1,column=1,columnspan=3)
+    lightning_image.grid(row=2,column=0)
+    sally_image.grid(row=2,column=1)
+    doc_image.grid(row=2,column=2)
+    l_specialty_label.grid(row=3,column=0)
+    s_specialty_label.grid(row=3,column=1)
+    d_specialty_label.grid(row=3,column=2)
+    l_select_button.grid(row=4,column=0)
+    s_select_button.grid(row=4,column=1)
+    d_select_button.grid(row=4,column=2)
 
-    #Buttons
-    auto_race_button = ttk.Button(frame,text='GO!')
-    auto_race_button.grid(row=8,column=0)
-    manual_race_button = ttk.Button(frame,text='GO!')
-    manual_race_button.grid(row=8,column=0)
+def lightning_picture(window):
+    path = 'lightning_image.gif'
+    img = tkinter.PhotoImage(file=path)
+    panel = ttk.Label(window, image=img)
+    panel.image = img
+    return panel
 
-    # Set the Button callbacks:
-    auto_race_button["command"] = lambda: handle_auto_go(mqtt_sender,your_name_entry,turn_choice_entry,base_speed_entry,lightning_check,doc_check,sally_check)
-    manual_race_button["command"] = lambda: handle_manual_go(mqtt_sender,base_speed_entry,lightning_check,doc_check,sally_check)
+def sally_picture(window):
+    path = 'sally_image.gif'
+    img = tkinter.PhotoImage(file=path)
+    panel = ttk.Label(window, image=img)
+    panel.image = img
+    return panel
 
-    return frame
+def doc_picture(window):
+    path = 'doc_image.gif'
+    img = tkinter.PhotoImage(file=path)
+    panel = ttk.Label(window, image=img)
+    panel.image = img
+    return panel
 
-def handle_auto_go(mqtt_sender,your_name_entry,turn_choice_entry,base_speed_entry,lightning_check,doc_check,sally_check):
-    """
-    :type  mqtt_sender:  com.MqttClient
-    :type  your_name_entry: ttk.Entry
-    :type turn_choice_entry: ttk.Entry
-    :type base_speed_entry: ttk.Entry
-    :type lightning_check: ttk.Checkbutton
-    :type doc_check: ttk.Checkbutton
-    :type sally_check: ttk.Checkbutton
-    """
-    print("Auto Go")
-    mqtt_sender.send_message('automatic_go', [your_name_entry.get(),turn_choice_entry.get(),base_speed_entry.get(),lightning_check,doc_check,sally_check])
 
-def handle_manual_go(mqtt_sender,base_speed_entry,lightning_check,doc_check,sally_check):
-    """
-    :type  mqtt_sender:  com.MqttClient
-    :type base_speed_entry: ttk.Entry
-    :type lightning_check: ttk.Checkbutton
-    :type doc_check: ttk.Checkbutton
-    :type sally_check: ttk.Checkbutton
-    """
-    print("Auto Go")
-    mqtt_sender.send_message('manual_go', [base_speed_entry.get(),lightning_check,doc_check,sally_check])
 
 main()
