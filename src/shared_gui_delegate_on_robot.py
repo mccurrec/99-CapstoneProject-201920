@@ -241,6 +241,14 @@ class Receiver(object):
         print('received auto lightning')
         m3_sprint_3.auto_race_lightning(int(base_speed),str(turn_choice),self.robot)
 
+    def auto_race_sally(self,base_speed,turn_choice):
+        print('received auto sally')
+        m3_sprint_3.auto_race_sally(int(base_speed),str(turn_choice),self.robot)
+
+    def auto_race_doc(self,base_speed,turn_choice):
+        print('received auto doc')
+        m3_sprint_3.auto_race_doc(int(base_speed),str(turn_choice),self.robot)
+
     def forward_press(self,base_speed):
         print('received forward press')
         m3_sprint_3.forward_press(int(base_speed),self.robot)
