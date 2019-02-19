@@ -848,17 +848,20 @@ def m2_popup(mqtt_laptop):
     between_rows_label = ttk.Label(popup_frame2, text='Distance between rows', padding=2, relief='ridge')
     length_rows_label = ttk.Label(popup_frame2, text='Length of rows', padding=2, relief='ridge')
     number_rows_label = ttk.Label(popup_frame2, text='Number of rows', padding=2, relief='ridge')
+    direction_label = ttk.Label(popup_frame2, text='Direction', padding=2, relief='ridge')
 
     #Entries
 
     between_rows_entry = ttk.Entry(popup_frame2, width=8)
     length_rows_entry = ttk.Entry(popup_frame2, width=8)
     number_rows_entry = ttk.Entry(popup_frame2, width=8)
+    direction_entry = ttk.Entry(popup_frame2, width=8)
 
     #Button
 
     plow_button = ttk.Button(popup_frame2, text='Plow')
     plow_button['command'] = lambda: handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_laptop)
+    find_water_button = ttk.Button(popup_frame2, text='Find Water')
 
     #Grid
     popup_frame2_label.grid(row=0, column=1)
@@ -869,6 +872,9 @@ def m2_popup(mqtt_laptop):
     between_rows_entry.grid(row=3, column=0)
     length_rows_entry.grid(row=3, column=1)
     number_rows_entry.grid(row=3, column=2)
+    find_water_button.grid(row=4, column=1)
+    direction_label.grid(row=5, column=1)
+    direction_entry.grid(row=6, column=1)
 
 def handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_laptop):
     """"

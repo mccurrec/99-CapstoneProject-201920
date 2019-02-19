@@ -46,18 +46,18 @@ def plow(between, length, how_many, robot):
         robot.drive_system.go_straight_for_inches_using_encoder(length, 100)
 
         start = time.time()
-        robot.drive_system.go(100, -100)
+        robot.drive_system.go(50, -50)
 
         if k % 2 == 0:
             while True:
-                robot.drive_system.go(100, -100)
-                if time.time() - start >= .4:
+                robot.drive_system.go(50, -50)
+                if time.time() - start >= .53:
                     robot.drive_system.stop()
                     break
         if k % 2 == 1:
             while True:
-                robot.drive_system.go(-100, 100)
-                if time.time() - start >= .4:
+                robot.drive_system.go(-50, 50)
+                if time.time() - start >= .53:
                     robot.drive_system.stop()
                     break
         robot.drive_system.go_straight_for_inches_using_encoder(between, 100)
@@ -65,13 +65,27 @@ def plow(between, length, how_many, robot):
 
         if k % 2 == 0:
             while True:
-                robot.drive_system.go(100, -100)
-                if time.time() - start >= .4:
+                robot.drive_system.go(50, -50)
+                if time.time() - start >= .53:
                     robot.drive_system.stop()
                     break
         if k % 2 == 1:
             while True:
-                robot.drive_system.go(-100, 100)
-                if time.time() - start >= .4:
+                robot.drive_system.go(-50, 50)
+                if time.time() - start >= .53:
                     robot.drive_system.stop()
                     break
+
+
+def find_water(direction, robot):
+    if direction == "clockwise":
+        robot.drive_system.spin_clockwise_until_sees_object(50, 10)
+        robot.drive_system.left_motor.turn_on(-50)
+        robot.drive_system.right_motor.turn_on(50)
+        time.sleep(.07)
+    elif direction == "counterclockwise":
+        robot.drive_system.spin_counterclockwise_until_sees_object(50, 10)
+        robot.drive_system.left_motor.turn_on(50)
+        robot.drive_system.right_motor.turn_on(-50)
+        time.sleep(.02)
+    m2_feature_9(0, 0, robot)
