@@ -875,4 +875,4 @@ def handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_l
     :type mqtt_laptop: com.MqttClient
     """
     print('Imma Plow')
-    mqtt_laptop.send_message('plow', [int(between_rows_entry), int(length_rows_entry), int(number_rows_entry)])
+    mqtt_laptop.send_message('plow', [between_rows_entry.get(), length_rows_entry.get(), number_rows_entry.get()])

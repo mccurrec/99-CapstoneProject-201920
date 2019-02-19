@@ -44,8 +44,6 @@ def m2_feature_10(freq, iteration, direction, robot):
 def plow(between, length, how_many, robot):
     """:type  robot:  rosebot.Rosebot"""
 
-
-
     for k in range(how_many):
         robot.DriveSystem.go_straight_for_inches_using_encoder(length, 100)
 
@@ -79,11 +77,3 @@ def plow(between, length, how_many, robot):
                 if time.time() - start >= .5:
                     robot.DriveSystem.stop()
                     break
-
-
-
-
-
-
-
-
