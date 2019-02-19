@@ -9,7 +9,7 @@
 
 import time
 import m1_individual
-# import m2_individual
+import m2_individual
 import m3_individual
 import m1_sprint3
 
@@ -207,8 +207,8 @@ class Receiver(object):
     # Sprint 3 M2
     ##############################################################################
 
-    # def plow(self):
-    #     m2_individual.plow(between, length, how_many)
+    def plow(self, between, length, how_many):
+        m2_individual.plow(int(between), int(length), int(how_many), self.robot)
 
     ##############################################################################
     # m1_sprint3:
