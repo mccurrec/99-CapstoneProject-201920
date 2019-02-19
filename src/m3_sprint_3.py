@@ -99,15 +99,16 @@ def lightning_race(last_frame,window,mqtt_sender):
 
     grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button)
 
-    auto_go_button["command"] = lambda: handle_lightning_race_auto(base_speed_entry.get(),turn_choice_entry.get(),mqtt_sender)
-    manual_go_button["command"] = lambda: handle_lightning_race_manual(base_speed_entry.get(),mqtt_sender)
+    auto_go_button["command"] = lambda: handle_lightning_race_auto(base_speed_entry,turn_choice_entry,mqtt_sender)
+    manual_go_button["command"] = lambda: handle_lightning_race_manual(base_speed_entry,mqtt_sender)
 
 def handle_lightning_race_auto(base_speed,turn_choice,mqtt_sender):
     print('Automatice race with Lightning. Base speed is {} and turn choice is {}'.format(base_speed,turn_choice))
-
+    mqtt_sender.send_message('auto_race_lightning', [base_speed.get(),turn_choice.get()])
 
 def handle_lightning_race_manual(base_speed,mqtt_sender):
     print('Manual race with Lightning. Base speed is', base_speed)
+    mqtt_sender.send_message('manual_race_lightning', [base_speed.get()])
 
 def sally_race(last_frame, window, mqtt_sender):
     last_frame.destroy()
@@ -128,5 +129,9 @@ def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_r
     turn_choice_entry.grid(row=3,column=0)
     auto_go_button.grid(row=4,column=0)
     manual_go_button.grid(row=4,column=1)
+
+def auto_race_lightning(base_speed,turn_choice,robot):
+
+def manual_race_lightning(base_speed,robot):
 
 main()

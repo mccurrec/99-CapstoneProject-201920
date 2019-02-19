@@ -12,6 +12,7 @@ import m1_individual
 import m2_individual
 import m3_individual
 import m1_sprint3
+import m3_sprint_3
 
 class Receiver(object):
 
@@ -235,3 +236,11 @@ class Receiver(object):
 
     def get_value(self):
         m1_sprint3.return_value(self.robot)
+
+    def auto_race_lightning(self,base_speed,turn_choice):
+        print('received auto lightning')
+        m3_sprint_3.auto_race_lightning(int(base_speed),str(turn_choice),self.robot)
+
+    def manual_race_lightning(self,base_speed):
+        print('received manual lightning')
+        m3_sprint_3.manual_race_lightning(int(base_speed),self.robot)
