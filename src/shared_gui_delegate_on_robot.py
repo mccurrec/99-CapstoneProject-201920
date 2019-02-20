@@ -13,6 +13,7 @@ import m2_individual
 import m3_individual
 import m1_sprint3
 import m3_sprint_3
+import m3_sprint_3_robot
 
 class Receiver(object):
 
@@ -256,16 +257,16 @@ class Receiver(object):
 
     def forward_press(self,base_speed):
         print('received forward press')
-        m3_sprint_3.forward_press(int(base_speed),self.robot)
+        m3_sprint_3_robot.forward_press(int(base_speed),self.robot)
 
     def backward_press(self,base_speed):
         print('received backward press')
-        m3_sprint_3.backward_press(int(base_speed),self.robot)
+        m3_sprint_3_robot.backward_press(int(base_speed),self.robot)
 
     def left_press(self,base_speed):
         print('received left press')
-        m3_sprint_3.left_press(int(base_speed),self.robot)
+        m3_sprint_3_robot.left_press(int(base_speed),self.robot)
 
     def right_press(self,base_speed):
         print('received right press')
-        m3_sprint_3.right_press(int(base_speed),self.robot)
+        m3_sprint_3_robot.right_press(int(base_speed),self.robot)
