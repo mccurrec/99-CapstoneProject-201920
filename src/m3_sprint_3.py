@@ -50,8 +50,8 @@ def cars_game_window(window,mqtt_sender):
     return frame
 
 def grid_widgets(title_label,select_label,lightning_image,sally_image,doc_image,l_specialty_label,s_specialty_label,d_specialty_label,l_select_button,s_select_button,d_select_button):
-    title_label.grid(row=0,column=1,columnspan=3)
-    select_label.grid(row=1,column=1,columnspan=3)
+    title_label.grid(row=0,column=1)
+    select_label.grid(row=1,column=1)
     lightning_image.grid(row=2,column=0)
     sally_image.grid(row=2,column=1)
     doc_image.grid(row=2,column=2)
@@ -63,21 +63,21 @@ def grid_widgets(title_label,select_label,lightning_image,sally_image,doc_image,
     d_select_button.grid(row=4,column=2)
 
 def lightning_picture(window):
-    path = 'lightning_image.gif.gif'
+    path = '2lightning.gif'
     img = tkinter.PhotoImage(file=path)
     panel = ttk.Label(window, image=img)
     panel.image = img
     return panel
 
 def sally_picture(window):
-    path = 'sally_image.gif.gif'
+    path = '2sally.gif'
     img = tkinter.PhotoImage(file=path)
     panel = ttk.Label(window, image=img)
     panel.image = img
     return panel
 
 def doc_picture(window):
-    path = 'doc_image.gif.gif'
+    path = '2doc.gif'
     img = tkinter.PhotoImage(file=path)
     panel = ttk.Label(window, image=img)
     panel.image = img
@@ -92,21 +92,19 @@ def lightning_race(last_frame,window,mqtt_sender):
     base_speed_entry = ttk.Entry(frame,width=8)
     auto_race_label = ttk.Label(frame,text='Automatice Race',font='Arial 13 bold')
     manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
-    turn_choice_label = ttk.Label(frame,text='Turn Choice (left or right):')
-    turn_choice_entry = ttk.Entry(frame,width=8)
     auto_go_button = ttk.Button(frame,text='GO!')
     manual_go_button = ttk.Button(frame,text='GO!')
 
-    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button)
+    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button)
 
-    auto_go_button["command"] = lambda: handle_lightning_race_auto(base_speed_entry,turn_choice_entry,mqtt_sender)
-    manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
+    auto_go_button["command"] = lambda: handle_lightning_race_auto(base_speed_entry,mqtt_sender)
+    # manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
 
     return frame
 
-def handle_lightning_race_auto(base_speed,turn_choice,mqtt_sender):
-    print('Automatice race with Lightning. Base speed is {} and turn choice is {}'.format(base_speed,turn_choice))
-    mqtt_sender.send_message('auto_race_lightning', [base_speed.get(),turn_choice.get()])
+def handle_lightning_race_auto(base_speed,mqtt_sender):
+    print('Automatice race with Lightning. Base speed is {}'.format(base_speed.get()))
+    mqtt_sender.send_message('auto_race_lightning', [base_speed.get()])
 
 def sally_race(last_frame, window, mqtt_sender):
     last_frame.destroy()
@@ -117,21 +115,19 @@ def sally_race(last_frame, window, mqtt_sender):
     base_speed_entry = ttk.Entry(frame,width=8)
     auto_race_label = ttk.Label(frame,text='Automatice Race',font='Arial 13 bold')
     manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
-    turn_choice_label = ttk.Label(frame,text='Turn Choice (left or right):')
-    turn_choice_entry = ttk.Entry(frame,width=8)
     auto_go_button = ttk.Button(frame,text='GO!')
     manual_go_button = ttk.Button(frame,text='GO!')
 
-    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button)
+    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button)
 
-    auto_go_button["command"] = lambda: handle_sally_race_auto(base_speed_entry,turn_choice_entry,mqtt_sender)
-    manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
+    auto_go_button["command"] = lambda: handle_sally_race_auto(base_speed_entry,mqtt_sender)
+    # manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
 
     return frame
 
-def handle_sally_race_auto(base_speed,turn_choice,mqtt_sender):
-    print('Automatice race with Sally. Base speed is {} and turn choice is {}'.format(base_speed,turn_choice))
-    mqtt_sender.send_message('auto_race_sally', [base_speed.get(),turn_choice.get()])
+def handle_sally_race_auto(base_speed,mqtt_sender):
+    print('Automatice race with Sally. Base speed is {}'.format(base_speed.get()))
+    mqtt_sender.send_message('auto_race_sally', [base_speed.get()])
 
 def doc_race(last_frame, window, mqtt_sender):
     last_frame.destroy()
@@ -142,53 +138,49 @@ def doc_race(last_frame, window, mqtt_sender):
     base_speed_entry = ttk.Entry(frame,width=8)
     auto_race_label = ttk.Label(frame,text='Automatice Race',font='Arial 13 bold')
     manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
-    turn_choice_label = ttk.Label(frame,text='Turn Choice (left or right):')
-    turn_choice_entry = ttk.Entry(frame,width=8)
     auto_go_button = ttk.Button(frame,text='GO!')
     manual_go_button = ttk.Button(frame,text='GO!')
 
-    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button)
+    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button)
 
-    auto_go_button["command"] = lambda: handle_doc_race_auto(base_speed_entry,turn_choice_entry,mqtt_sender)
-    manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
+    auto_go_button["command"] = lambda: handle_doc_race_auto(base_speed_entry,mqtt_sender)
+    # manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
 
     return frame
 
-def handle_doc_race_auto(base_speed,turn_choice,mqtt_sender):
-    print('Automatice race with Doc. Base speed is {} and turn choice is {}'.format(base_speed,turn_choice))
-    mqtt_sender.send_message('auto_race_doc', [base_speed.get(),turn_choice.get()])
+def handle_doc_race_auto(base_speed,mqtt_sender):
+    print('Automatice race with Doc. Base speed is {}'.format(base_speed.get()))
+    mqtt_sender.send_message('auto_race_doc', [base_speed.get()])
 
-def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button):
+def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button):
     base_speed_label.grid(row=0,column=1)
     base_speed_entry.grid(row=1,column=1)
     auto_race_label.grid(row=2,column=0)
     manual_race_label.grid(row=2,column=2)
-    turn_choice_label.grid(row=3,column=0)
-    turn_choice_entry.grid(row=4,column=0)
-    auto_go_button.grid(row=5,column=0)
-    manual_go_button.grid(row=5,column=2)
+    auto_go_button.grid(row=3,column=0)
+    manual_go_button.grid(row=3,column=2)
 
-def manual_race(base_speed,last_frame,window,mqtt_sender):
-    root = tkinter.Tk()
-    last_frame.destroy()
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
-    frame.grid()
-
-    explain_label = ttk.Label(frame,text='Use the arrow keys to control your robot')
-    base_speed_label = ttk.Label(frame,text='Your base speed is {}'.format(base_speed))
-
-    explain_label.grid(row=0,column=0)
-    base_speed_label.grid(row=1,column=0)
-
-    root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
-    root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
-
-    root.bind_all('<Key-w>', lambda event: go_forward(event,base_speed,mqtt_sender))
-    root.bind_all('<Key-s>', lambda event: go_backward(event,base_speed,mqtt_sender))
-    root.bind_all('<Key-a>', lambda event: go_left(event,base_speed,mqtt_sender))
-    root.bind_all('<Key-d>', lambda event: go_right(event,base_speed,mqtt_sender))
-
-    return frame
+# def manual_race(base_speed,last_frame,window,mqtt_sender):
+#     # root = tkinter.Tk()
+#     last_frame.destroy()
+#     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+#     frame.grid()
+#
+#     explain_label = ttk.Label(frame,text='Use the arrow keys to control your robot')
+#     base_speed_label = ttk.Label(frame,text='Your base speed is {}'.format(base_speed))
+#
+#     explain_label.grid(row=0,column=0)
+#     base_speed_label.grid(row=1,column=0)
+#
+#     frame.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
+#     frame.bind_all('<KeyRelease>', lambda event: released_a_key(event))
+#
+#     frame.bind_all('<Key-w>', lambda event: go_forward(event,base_speed,mqtt_sender))
+#     frame.bind_all('<Key-s>', lambda event: go_backward(event,base_speed,mqtt_sender))
+#     frame.bind_all('<Key-a>', lambda event: go_left(event,base_speed,mqtt_sender))
+#     frame.bind_all('<Key-d>', lambda event: go_right(event,base_speed,mqtt_sender))
+#
+#     return frame
 
 def pressed_a_key(event):
     print('You pressed the', event.keysym, 'key')
@@ -199,6 +191,18 @@ def released_a_key(event):
 def go_forward(event,base_speed,mqtt_sender):
     print('go forward')
     mqtt_sender.send_message('forward_press', [base_speed])
+
+def go_backward(event,base_speed,mqtt_sender):
+    print('go backward')
+    mqtt_sender.send_message('backward_press', [base_speed])
+
+def go_left(event,base_speed,mqtt_sender):
+    print('go left')
+    mqtt_sender.send_message('left_press', [base_speed])
+
+def go_right(event,base_speed,mqtt_sender):
+    print('go right')
+    mqtt_sender.send_message('right_press', [base_speed])
 
 
 
