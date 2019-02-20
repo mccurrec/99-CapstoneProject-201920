@@ -8,7 +8,7 @@
 import rosebot
 import mqtt_remote_method_calls as com
 import time
-import shared_gui_delegate_on_robot as rec
+import m1_gui_delegate_on_robot as rec
 
 
 def main():
@@ -25,14 +25,15 @@ def demonstration():
     receiver = rec.Receiver(robot)
     mqtt_receiver = com.MqttClient(receiver)
     mqtt_receiver.connect_to_pc()
-
-    while True:
-        time.sleep(0.01)
-        if receiver.is_time_to_stop:
-            break
+    # while True:
+    #     previous_progress = receiver.update_progress()
+    #     time.sleep(0.01)
+    #     if receiver.update_progress() > previous_progress:
+    #         mqtt_receiver.send_message('update_progress', [float(receiver.update_progress())])
 
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
 main()
+
