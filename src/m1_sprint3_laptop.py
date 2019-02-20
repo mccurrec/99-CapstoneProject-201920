@@ -4,25 +4,28 @@ from tkinter import ttk
 
 
 def main():
-    mqtt_sender = com.MqttClient()
+    pc_receiver = PcReceiver(None)
+    mqtt_sender = com.MqttClient(pc_receiver)
     mqtt_sender.connect_to_ev3()
     root = tkinter.Tk()
     root.title('Amazon Delivery')
     main_frame = tkinter.Frame(root, borderwidth=5, relief='flat', bg='turquoise4')
     main_frame.grid()
-    teleop_frame, auton_frame = get_frames(main_frame, mqtt_sender)
+    teleop_frame, auton_frame = get_frames(main_frame, mqtt_sender, pc_receiver)
     grid_frames(teleop_frame, auton_frame)
     root.mainloop()
 
 
-def get_frames(main_frame, mqtt_sender):
+def get_frames(main_frame, mqtt_sender, pc_receiver):
     teleop_frame = get_teleop_frame(main_frame, mqtt_sender)
-    auton_frame = get_auton_frame(main_frame, mqtt_sender)
+    auton_frame = get_auton_frame(main_frame, mqtt_sender, pc_receiver)
     return teleop_frame, auton_frame
+
 
 def grid_frames(teleop_frame, auton_frame):
     teleop_frame.grid(row=0, column=0)
     auton_frame.grid(row=0, column=1, sticky='N' + 'S')
+
 
 def get_teleop_frame(window, mqtt_sender):
     frame = tkinter.Frame(window, borderwidth=5, relief='groove', bg='turquoise4')
@@ -55,7 +58,7 @@ def get_teleop_frame(window, mqtt_sender):
     return frame
 
 
-def get_auton_frame(window, mqtt_sender):
+def get_auton_frame(window, mqtt_sender, pc_receiver):
     frame = tkinter.Frame(window, borderwidth=5, relief='groove', bg='turquoise4')
 
     # LABELS:
@@ -78,11 +81,12 @@ def get_auton_frame(window, mqtt_sender):
     # get_value_button['command'] = lambda: handle_get_value(mqtt_sender)
 
     # PROGRESS BAR:
-    value = tkinter.IntVar()
-    value.set(0)
+    # value = tkinter.IntVar()
+    # value.set(0)
     # mqtt_sender.connect_to_ev3()
-    progress_bar = ttk.Progressbar(frame, orient='horizontal', mode='determinate', variable=value)
+    progress_bar = ttk.Progressbar(frame, orient='horizontal', mode='determinate')
     progress_bar.grid(row=3, column=0, columnspan=2, sticky='E' + 'W', pady=(8, 0))
+    pc_receiver.progress_bar = progress_bar
 
     return frame
 
@@ -133,6 +137,16 @@ def handle_get_value(mqtt_sender):
     :type mqtt_sender: com.MqttClient
     """
     mqtt_sender.send_message('get_value')
+
+
+class PcReceiver(object):
+
+    def __init__(self, progress_bar):
+        self.progress_bar = progress_bar
+
+    def update_progress(self, progress_value):
+        self.progress_bar['value'] = progress_value
+        print('attempted to update the progress', progress_value)
 
 
 main()

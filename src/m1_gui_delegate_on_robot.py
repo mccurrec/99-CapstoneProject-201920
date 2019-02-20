@@ -1,14 +1,14 @@
-import time
 import m1_individual
 import m1_sprint3
 
 
 class Receiver(object):
 
-    def __init__(self, robot):
+    def __init__(self, robot, mqtt=None):
         """:type  robot: rosebot.RoseBot"""
         self.robot = robot
         self.is_time_to_stop = False
+        self.mqtt = mqtt
 
     ###############################################################################
     # Drive System Methods
@@ -65,13 +65,25 @@ class Receiver(object):
         print("Got display_camera_data")
         self.robot.drive_system.display_camera_data()
 
-    def spin_clockwise_until_sees_object(self, speed_entry, area_entry):
-        print("Got spin_clockwise_until_sees_object, Speed: {}, Area: {}".format(int(speed_entry), int(area_entry)))
+    def spin_clockwise_until_sees_object(self,speed_entry,area_entry):
+        print("Got spin_clockwise_until_sees_object, Speed: {}, Area: {}".format(int(speed_entry),int(area_entry)))
         self.robot.drive_system.spin_clockwise_until_sees_object(int(speed_entry), int(area_entry))
 
     def spin_counterclockwise_until_sees_object(self, speed_entry, area_entry):
         print("Got spin_counterclockwise_until_sees_object, Speed: {}, Area: {}".format(int(speed_entry), int(area_entry)))
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed_entry), int(area_entry))
+
+    def forward_until(self, distance_entry, speed_entry):
+        print("got it")
+        self.robot.drive_system.go_forward_until_distance_is_less_than(float(distance_entry), int(speed_entry))
+
+    def backward_until(self, distance_entry, speed_entry):
+        print("got it")
+        self.robot.drive_system.go_backward_until_distance_is_greater_than(float(distance_entry), int(speed_entry))
+
+    def within(self, distance_entry, speed_entry, delta_entry):
+        print('got it')
+        self.robot.drive_system.go_until_distance_is_within(distance_entry,speed_entry,distance_entry)
 
     ###############################################################################
     # Arm and Claw Methods
@@ -168,7 +180,7 @@ class Receiver(object):
 
     def sort_packages(self, number_of_packages):
         print('received sort packages')
-        m1_sprint3.sort_packages(number_of_packages, self.robot)
+        m1_sprint3.sort_packages(self.robot, number_of_packages, self.mqtt)
 
     def get_value(self):
         m1_sprint3.return_value(self.robot)
