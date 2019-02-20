@@ -35,6 +35,7 @@ def real_thing():
     robot = rosebot.RoseBot()
     robot_receiver = rec.Receiver(robot)
     mqtt_robot = com.MqttClient(robot_receiver)
+
     mqtt_robot.connect_to_pc()
 
 

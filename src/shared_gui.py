@@ -862,6 +862,7 @@ def m2_popup(mqtt_laptop):
     plow_button = ttk.Button(popup_frame2, text='Plow')
     plow_button['command'] = lambda: handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_laptop)
     find_water_button = ttk.Button(popup_frame2, text='Find Water')
+    find_water_button['command'] = lambda: handle_find_water(direction_entry, mqtt_laptop)
 
     #Grid
     popup_frame2_label.grid(row=0, column=1)
@@ -882,3 +883,12 @@ def handle_plow(between_rows_entry, length_rows_entry, number_rows_entry, mqtt_l
     """
     print('Imma Plow')
     mqtt_laptop.send_message('plow', [between_rows_entry.get(), length_rows_entry.get(), number_rows_entry.get()])
+
+
+def handle_find_water(direction_entry, mqtt_laptop):
+    """"
+    :type mqtt_laptop: com.MqttClient
+    """
+
+    print('Water')
+    mqtt_laptop.send_message('find_water', [direction_entry.get()])

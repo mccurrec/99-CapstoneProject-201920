@@ -12,7 +12,7 @@ import m1_individual
 import m2_individual
 import m3_individual
 import m1_sprint3
-import m3_sprint_3
+#import m3_sprint_3
 
 class Receiver(object):
 
@@ -209,7 +209,12 @@ class Receiver(object):
     ##############################################################################
 
     def plow(self, between, length, how_many):
+        print('plow')
         m2_individual.plow(int(between), int(length), int(how_many), self.robot)
+
+    def find_water(self, direction):
+        print('water')
+        m2_individual.find_water(direction, self.robot)
 
     ##############################################################################
     # m1_sprint3:

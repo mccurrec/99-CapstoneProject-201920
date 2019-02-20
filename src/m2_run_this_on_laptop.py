@@ -22,8 +22,8 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-    #laptop_receiver = Laptop_receiver()
-    mqtt_laptop = com.MqttClient()
+    laptop_receiver = Laptop_receiver()
+    mqtt_laptop = com.MqttClient(laptop_receiver)
     mqtt_laptop.connect_to_ev3()
 
 
@@ -91,10 +91,11 @@ def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame
     m2_frame.grid(row=3, column=1)
 
 
+class Laptop_receiver(object):
 
+    def print(self, x):
+        print(x)
 
-#class Laptop_receiver(object):
-    #def __init__(self):
 
 
 # -----------------------------------------------------------------------------

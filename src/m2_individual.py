@@ -51,13 +51,13 @@ def plow(between, length, how_many, robot):
         if k % 2 == 0:
             while True:
                 robot.drive_system.go(50, -50)
-                if time.time() - start >= .53:
+                if time.time() - start >= 1.07:
                     robot.drive_system.stop()
                     break
         if k % 2 == 1:
             while True:
                 robot.drive_system.go(-50, 50)
-                if time.time() - start >= .53:
+                if time.time() - start >= 1.07:
                     robot.drive_system.stop()
                     break
         robot.drive_system.go_straight_for_inches_using_encoder(between, 100)
@@ -66,13 +66,13 @@ def plow(between, length, how_many, robot):
         if k % 2 == 0:
             while True:
                 robot.drive_system.go(50, -50)
-                if time.time() - start >= .53:
+                if time.time() - start >= 1.07:
                     robot.drive_system.stop()
                     break
         if k % 2 == 1:
             while True:
                 robot.drive_system.go(-50, 50)
-                if time.time() - start >= .53:
+                if time.time() - start >= 1.07:
                     robot.drive_system.stop()
                     break
 
