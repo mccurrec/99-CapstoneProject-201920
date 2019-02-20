@@ -159,14 +159,14 @@ def handle_doc_race_auto(base_speed,turn_choice,mqtt_sender):
     mqtt_sender.send_message('auto_race_doc', [base_speed.get(),turn_choice.get()])
 
 def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,turn_choice_label,turn_choice_entry,auto_go_button,manual_go_button):
-    base_speed_label.grid(row=0,column=0)
-    base_speed_entry.grid(row=0,column=1)
-    auto_race_label.grid(row=1,column=0)
-    manual_race_label.grid(row=1,column=1)
-    turn_choice_label.grid(row=2,column=0)
-    turn_choice_entry.grid(row=3,column=0)
-    auto_go_button.grid(row=4,column=0)
-    manual_go_button.grid(row=4,column=1)
+    base_speed_label.grid(row=0,column=1)
+    base_speed_entry.grid(row=1,column=1)
+    auto_race_label.grid(row=2,column=0)
+    manual_race_label.grid(row=2,column=2)
+    turn_choice_label.grid(row=3,column=0)
+    turn_choice_entry.grid(row=4,column=0)
+    auto_go_button.grid(row=5,column=0)
+    manual_go_button.grid(row=5,column=2)
 
 def manual_race(base_speed,last_frame,window,mqtt_sender):
     root = tkinter.Tk()
