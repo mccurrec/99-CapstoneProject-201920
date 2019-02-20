@@ -12,7 +12,6 @@ import m1_individual
 import m2_individual
 import m3_individual
 import m1_sprint3
-import m3_sprint_3
 import m3_sprint_3_robot
 
 class Receiver(object):

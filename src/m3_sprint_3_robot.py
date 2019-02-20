@@ -21,23 +21,25 @@ def auto_race_lightning(base_speed,robot):
     robot.drivesystem.go(racing_speed)
     robot.sensor_system.color_sensor.mode = 'COL-COLOR'
     while True:
-        if robot.sensor_system.color_sensor.get_color_as_name() == 'red':
+        if robot.sensor_system.color_sensor.get_color() == 5:
             robot.drivesystem.go(item_speed-100)
             time.sleep(4)
-        if robot.sensor_system.color_sensor.get_color_as_name() == 'green':
+        if robot.sensor_system.color_sensor.get_color() == 3:
             robot.drivesystem.go(item_speed+100)
             time.sleep(4)
-        if robot.sensor_system.color_sensor.get_color_as_name() == 'yellow':
+        if robot.sensor_system.color_sensor.get_color() == 4:
             robot.drivesystem.left_motor.turn_on(item_speed)
             robot.drivesystem.right_motor.turn_on(-item_speed)
-        if robot.sensor_system.color_sensor.get_color_as_name() == 'blue':
-            turns(robot,stop)
+        if robot.sensor_system.color_sensor.get_color() == 2:
+            turns(robot)
+            robot.drivesystem.go(racing_speed)
+        # if robot.sensor_system.
 
 # def auto_race_sally(base_speed,robot):
 #
 # def auto_race_doc(base_speed,robot):
 
-def turns(robot,stop):
+def turns(robot):
     white = 94
     black = 23
     k = 0.6
@@ -47,8 +49,8 @@ def turns(robot,stop):
         print(c * (white - current) + c, k * (current - black) + c)
         robot.drive_system.go(k * (white - current) + c, k * (current - black) + c)
         print(robot.sensor_system.color_sensor.get_color_as_name())
-        if robot.sensor_system.color_sensor.get_color() == stop:
+        if robot.sensor_system.color_sensor.get_color() == 2:
             time.sleep(0.1)
-            if robot.sensor_system.color_sensor.get_color() == stop:
+            if robot.sensor_system.color_sensor.get_color() == 2:
                 robot.drive_system.stop()
                 break
