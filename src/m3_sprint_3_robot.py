@@ -29,7 +29,7 @@ def auto_race_lightning(base_speed,robot):
         if robot.sensor_system.color_sensor.get_color() == 2:
             robot.drive_system.left_motor.turn_on(item_speed)
             robot.drive_system.right_motor.turn_on(-item_speed)
-            time.sleep(3.7)
+            time.sleep(4.3)
             robot.drive_system.left_motor.turn_off()
             robot.drive_system.right_motor.turn_off()
             robot.drive_system.left_motor.turn_on(racing_speed)
@@ -37,7 +37,7 @@ def auto_race_lightning(base_speed,robot):
         if robot.sensor_system.color_sensor.get_color() == 1:
             robot.drive_system.stop()
             robot.drive_system.go(turn_speed, turn_speed)
-            time.sleep(2.5)
+            time.sleep(2.8)
             robot.drive_system.left_motor.turn_on(-turn_speed)
             robot.drive_system.right_motor.turn_on(turn_speed)
             time.sleep(1.55)
@@ -78,7 +78,7 @@ def auto_race_sally(base_speed,robot):
         if robot.sensor_system.color_sensor.get_color() == 2:
             robot.drive_system.left_motor.turn_on(item_speed)
             robot.drive_system.right_motor.turn_on(-item_speed)
-            time.sleep(3.7)
+            time.sleep(4.3)
             robot.drive_system.left_motor.turn_off()
             robot.drive_system.right_motor.turn_off()
             robot.drive_system.left_motor.turn_on(racing_speed)
@@ -86,7 +86,7 @@ def auto_race_sally(base_speed,robot):
         if robot.sensor_system.color_sensor.get_color() == 1:
             robot.drive_system.stop()
             robot.drive_system.go(turn_speed, turn_speed)
-            time.sleep(2.5)
+            time.sleep(2.8)
             robot.drive_system.left_motor.turn_on(-turn_speed)
             robot.drive_system.right_motor.turn_on(turn_speed)
             time.sleep(1.55)
@@ -126,7 +126,7 @@ def auto_race_doc(base_speed,robot):
         if robot.sensor_system.color_sensor.get_color() == 2:
             robot.drive_system.left_motor.turn_on(item_speed)
             robot.drive_system.right_motor.turn_on(-item_speed)
-            time.sleep(3.7)
+            time.sleep(4.3)
             robot.drive_system.left_motor.turn_off()
             robot.drive_system.right_motor.turn_off()
             robot.drive_system.left_motor.turn_on(racing_speed)
@@ -134,7 +134,7 @@ def auto_race_doc(base_speed,robot):
         if robot.sensor_system.color_sensor.get_color() == 1:
             robot.drive_system.stop()
             robot.drive_system.go(turn_speed, turn_speed)
-            time.sleep(2.5)
+            time.sleep(2.8)
             robot.drive_system.left_motor.turn_on(-turn_speed)
             robot.drive_system.right_motor.turn_on(turn_speed)
             time.sleep(1.55)
@@ -237,15 +237,15 @@ def celebrate_finish(robot):
     robot.sound_system.speech_maker.speak('yay we won').wait()
     robot.sound_system.speech_maker.speak('good job').wait()
     robot.sound_system.speech_maker.speak('now watch me dance').wait()
-    # for _ in range(7):
-    #     robot.drive_system.right_motor.turn_on(100)
-    #     robot.drive_system.left_motor.turn_on(-100)
-    #     time.sleep(.2)
-    #     robot.drive_system.right_motor.turn_on(-100)
-    #     robot.drive_system.left_motor.turn_on(100)
-    #     time.sleep(.2)
-    # robot.drive_system.left_motor.turn_off()
-    # robot.drive_system.right_motor.turn_off()
+    for _ in range(7):
+        robot.drive_system.right_motor.turn_on(100)
+        robot.drive_system.left_motor.turn_on(-100)
+        time.sleep(.2)
+        robot.drive_system.right_motor.turn_on(-100)
+        robot.drive_system.left_motor.turn_on(100)
+        time.sleep(.2)
+    robot.drive_system.left_motor.turn_off()
+    robot.drive_system.right_motor.turn_off()
 
 
 
