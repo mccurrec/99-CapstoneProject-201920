@@ -91,11 +91,11 @@ def lightning_race(last_frame,window,mqtt_sender):
     base_speed_label = ttk.Label(frame,text='Base Speed:')
     base_speed_entry = ttk.Entry(frame,width=8)
     auto_race_label = ttk.Label(frame,text='Automatice Race',font='Arial 13 bold')
-    manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
+    # manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
     auto_go_button = ttk.Button(frame,text='GO!')
-    manual_go_button = ttk.Button(frame,text='GO!')
+    # manual_go_button = ttk.Button(frame,text='GO!')
 
-    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button)
+    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,auto_go_button)
 
     auto_go_button["command"] = lambda: handle_lightning_race_auto(base_speed_entry,mqtt_sender)
     # manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
@@ -114,11 +114,11 @@ def sally_race(last_frame, window, mqtt_sender):
     base_speed_label = ttk.Label(frame,text='Base Speed:')
     base_speed_entry = ttk.Entry(frame,width=8)
     auto_race_label = ttk.Label(frame,text='Automatice Race',font='Arial 13 bold')
-    manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
+    # manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
     auto_go_button = ttk.Button(frame,text='GO!')
-    manual_go_button = ttk.Button(frame,text='GO!')
+    # manual_go_button = ttk.Button(frame,text='GO!')
 
-    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button)
+    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,auto_go_button)
 
     auto_go_button["command"] = lambda: handle_sally_race_auto(base_speed_entry,mqtt_sender)
     # manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
@@ -137,11 +137,11 @@ def doc_race(last_frame, window, mqtt_sender):
     base_speed_label = ttk.Label(frame,text='Base Speed:')
     base_speed_entry = ttk.Entry(frame,width=8)
     auto_race_label = ttk.Label(frame,text='Automatice Race',font='Arial 13 bold')
-    manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
+    # manual_race_label = ttk.Label(frame,text='Manual Race',font='Arial 13 bold')
     auto_go_button = ttk.Button(frame,text='GO!')
-    manual_go_button = ttk.Button(frame,text='GO!')
+    # manual_go_button = ttk.Button(frame,text='GO!')
 
-    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button)
+    grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,auto_go_button)
 
     auto_go_button["command"] = lambda: handle_doc_race_auto(base_speed_entry,mqtt_sender)
     # manual_go_button["command"] = lambda: manual_race(base_speed_entry.get(),frame,window,mqtt_sender)
@@ -152,7 +152,7 @@ def handle_doc_race_auto(base_speed,mqtt_sender):
     print('Automatice race with Doc. Base speed is {}'.format(base_speed.get()))
     mqtt_sender.send_message('auto_race_doc', [base_speed.get()])
 
-def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,manual_race_label,auto_go_button,manual_go_button):
+def grid_race_widgets(base_speed_label,base_speed_entry,auto_race_label,auto_go_button):
     base_speed_label.grid(row=0,column=0)
     base_speed_entry.grid(row=1,column=0)
     auto_race_label.grid(row=2,column=0)

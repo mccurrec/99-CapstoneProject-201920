@@ -34,10 +34,19 @@ def auto_race_lightning(base_speed,robot):
             robot.drive_system.right_motor.turn_off()
             robot.drive_system.left_motor.turn_on(racing_speed)
             robot.drive_system.right_motor.turn_on(racing_speed)
-        if robot.sensor_system.color_sensor.get_reflected_light_intensity() == 2:
-            # time.sleep(.1)
-            # if robot.sensor_system.color_sensor.get_color() != 4:
-            turns(turn_speed,robot)
+        if robot.sensor_system.color_sensor.get_color() == 1:
+            robot.drive_system.stop()
+            robot.drive_system.go(turn_speed, turn_speed)
+            time.sleep(2.5)
+            robot.drive_system.left_motor.turn_on(-turn_speed)
+            robot.drive_system.right_motor.turn_on(turn_speed)
+            time.sleep(1.55)
+            robot.drive_system.go(turn_speed, turn_speed)
+            time.sleep(4.65)
+            robot.drive_system.left_motor.turn_on(-turn_speed)
+            robot.drive_system.right_motor.turn_on(turn_speed)
+            time.sleep(1.55)
+            robot.drive_system.go(turn_speed, turn_speed)            # turns(turn_speed,robot)
             robot.drive_system.go(racing_speed,racing_speed)
         # if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 6:
         #     time.sleep(.01)
@@ -57,14 +66,14 @@ def auto_race_sally(base_speed,robot):
     racing_speed = int(base_speed)
     turn_speed = int(base_speed)
     item_speed = int(racing_speed) + 20
-    robot.drive_system.go(racing_speed,racing_speed)
+    robot.drive_system.go(racing_speed, racing_speed)
     robot.sensor_system.color_sensor.mode = 'COL-COLOR'
     while True:
         if robot.sensor_system.color_sensor.get_color() == 5:
-            robot.drive_system.go(item_speed-20,item_speed-20)
+            robot.drive_system.go(item_speed - 20, item_speed - 20)
             time.sleep(.1)
         if robot.sensor_system.color_sensor.get_color() == 3:
-            robot.drive_system.go(item_speed+20,item_speed+20)
+            robot.drive_system.go(item_speed + 20, item_speed + 20)
             time.sleep(.1)
         if robot.sensor_system.color_sensor.get_color() == 2:
             robot.drive_system.left_motor.turn_on(item_speed)
@@ -72,16 +81,28 @@ def auto_race_sally(base_speed,robot):
             time.sleep(3.7)
             robot.drive_system.left_motor.turn_off()
             robot.drive_system.right_motor.turn_off()
+            robot.drive_system.left_motor.turn_on(racing_speed)
+            robot.drive_system.right_motor.turn_on(racing_speed)
         if robot.sensor_system.color_sensor.get_color() == 1:
-            time.sleep(.1)
-            turns(turn_speed,robot)
-            robot.drive_system.go(racing_speed,racing_speed)
+            robot.drive_system.stop()
+            robot.drive_system.go(turn_speed, turn_speed)
+            time.sleep(2.5)
+            robot.drive_system.left_motor.turn_on(-turn_speed)
+            robot.drive_system.right_motor.turn_on(turn_speed)
+            time.sleep(1.55)
+            robot.drive_system.go(turn_speed, turn_speed)
+            time.sleep(4.65)
+            robot.drive_system.left_motor.turn_on(-turn_speed)
+            robot.drive_system.right_motor.turn_on(turn_speed)
+            time.sleep(1.55)
+            robot.drive_system.go(turn_speed, turn_speed)  # turns(turn_speed,robot)
+            robot.drive_system.go(racing_speed, racing_speed)
+        # if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 6:
+        #     time.sleep(.01)
         if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 6:
-            time.sleep(.01)
-            if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 6:
-                robot.drive_system.stop()
-                avoid_obstacle(turn_speed,robot)
-                robot.drive_system.go(racing_speed,racing_speed)
+            robot.drive_system.stop()
+            avoid_obstacle(turn_speed, robot)
+            robot.drive_system.go(racing_speed, racing_speed)
         if robot.sensor_system.color_sensor.get_color() == 7:
             time.sleep(1)
             robot.drive_system.stop()
@@ -93,14 +114,14 @@ def auto_race_doc(base_speed,robot):
     racing_speed = int(base_speed)
     turn_speed = int(base_speed) + 20
     item_speed = int(racing_speed)
-    robot.drive_system.go(racing_speed,racing_speed)
+    robot.drive_system.go(racing_speed, racing_speed)
     robot.sensor_system.color_sensor.mode = 'COL-COLOR'
     while True:
         if robot.sensor_system.color_sensor.get_color() == 5:
-            robot.drive_system.go(item_speed-20,item_speed-20)
+            robot.drive_system.go(item_speed - 20, item_speed - 20)
             time.sleep(.1)
         if robot.sensor_system.color_sensor.get_color() == 3:
-            robot.drive_system.go(item_speed+20,item_speed+20)
+            robot.drive_system.go(item_speed + 20, item_speed + 20)
             time.sleep(.1)
         if robot.sensor_system.color_sensor.get_color() == 2:
             robot.drive_system.left_motor.turn_on(item_speed)
@@ -108,22 +129,49 @@ def auto_race_doc(base_speed,robot):
             time.sleep(3.7)
             robot.drive_system.left_motor.turn_off()
             robot.drive_system.right_motor.turn_off()
+            robot.drive_system.left_motor.turn_on(racing_speed)
+            robot.drive_system.right_motor.turn_on(racing_speed)
         if robot.sensor_system.color_sensor.get_color() == 1:
-            time.sleep(.1)
-            turns(turn_speed,robot)
-            robot.drive_system.go(racing_speed,racing_speed)
+            robot.drive_system.stop()
+            robot.drive_system.go(turn_speed, turn_speed)
+            time.sleep(2.5)
+            robot.drive_system.left_motor.turn_on(-turn_speed)
+            robot.drive_system.right_motor.turn_on(turn_speed)
+            time.sleep(1.55)
+            robot.drive_system.go(turn_speed, turn_speed)
+            time.sleep(4.65)
+            robot.drive_system.left_motor.turn_on(-turn_speed)
+            robot.drive_system.right_motor.turn_on(turn_speed)
+            time.sleep(1.55)
+            robot.drive_system.go(turn_speed, turn_speed)  # turns(turn_speed,robot)
+            robot.drive_system.go(racing_speed, racing_speed)
+        # if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 6:
+        #     time.sleep(.01)
         if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 6:
-            time.sleep(.01)
-            if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 6:
-                robot.drive_system.stop()
-                avoid_obstacle(turn_speed,robot)
-                robot.drive_system.go(racing_speed,racing_speed)
+            robot.drive_system.stop()
+            avoid_obstacle(turn_speed, robot)
+            robot.drive_system.go(racing_speed, racing_speed)
         if robot.sensor_system.color_sensor.get_color() == 7:
             time.sleep(1)
             robot.drive_system.stop()
             celebrate_finish(robot)
             break
     print('Congratulations! You Win!')
+
+def force_turn(turn_speed,robot):
+    robot.drive_system.stop()
+    robot.drive_system.go(turn_speed,turn_speed)
+    time.sleep(2.5)
+    robot.drive_system.left_motor.turn_on(-turn_speed)
+    robot.drive_system.right_motor.turn_on(turn_speed)
+    time.sleep(1.4)
+    robot.drive_system.go(turn_speed,turn_speed)
+    time.sleep(4.7)
+    robot.drive_system.left_motor.turn_on(-turn_speed)
+    robot.drive_system.right_motor.turn_on(turn_speed)
+    time.sleep(1.4)
+    robot.drive_system.go(turn_speed,turn_speed)
+
 
 def turns(turn_speed,robot):
     error = 7  # adjust to make the run smoother
@@ -133,8 +181,8 @@ def turns(turn_speed,robot):
         if original - error < current < original + error:
             robot.drive_system.go(turn_speed, turn_speed)
         if current >= original + error or current <= original - error:
-            robot.drive_system.left_motor.turn_on(-turn_speed)
-            robot.drive_system.right_motor.turn_on(turn_speed)
+            robot.drive_system.left_motor.turn_on(-30)
+            robot.drive_system.right_motor.turn_on(30)
         if robot.sensor_system.color_sensor.get_color() == 4:
             robot.drive_system.left_motor.turn_off()
             robot.drive_system.right_motor.turn_off()
@@ -143,6 +191,8 @@ def turns(turn_speed,robot):
             time.sleep(.03)
             robot.drive_system.left_motor.turn_off()
             robot.drive_system.right_motor.turn_off()
+            break
+        if robot.sensor_system.color_sensor.get_color() == 7:
             break
 
 # def turns(robot):
