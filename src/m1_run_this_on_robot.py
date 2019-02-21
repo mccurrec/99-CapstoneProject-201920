@@ -6,6 +6,7 @@
 """
 
 import m1_rosebot
+import m1_sprint3
 import mqtt_remote_method_calls as com
 import time
 import m1_gui_delegate_on_robot as rec
@@ -35,6 +36,8 @@ def demonstration():
         time.sleep(0.01)
         if receiver.is_time_to_stop:
             break
+        if receiver.time_to_sort_packages:
+            m1_sprint3.sort_packages(robot, receiver.number_of_packages, mqtt_receiver)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

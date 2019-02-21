@@ -86,7 +86,7 @@ def get_auton_frame(window, mqtt_sender, pc_receiver):
     # mqtt_sender.connect_to_ev3()
     progress_bar = ttk.Progressbar(frame, orient='horizontal', mode='determinate')
     progress_bar.grid(row=3, column=0, columnspan=2, sticky='E' + 'W', pady=(8, 0))
-    pc_receiver.progress_bar = progress_bar
+    # pc_receiver.progress_bar = progress_bar
 
     return frame
 
@@ -145,7 +145,7 @@ class PcReceiver(object):
         self.progress_bar = progress_bar
 
     def update_progress(self, progress_value):
-        self.progress_bar['value'] = progress_value
+        # self.progress_bar['value'] = progress_value
         print('attempted to update the progress', progress_value)
 
 

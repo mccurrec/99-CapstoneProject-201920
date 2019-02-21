@@ -33,7 +33,9 @@ def retrieve_package(robot):
     time.sleep(.5)
     m1_individual.m1_spin_ccw(.5, .05, robot)
     robot.drive_system.go(-50, 50)
-    time.sleep(3)
+    time.sleep(3.5)
+    robot.drive_system.go(-50, -50)
+    time.sleep(1)
     robot.drive_system.go_straight_until_color_is(5, 50)
     robot.drive_system.go_straight_until_color_is_not(5, 50)
     robot.drive_system.stop()
@@ -51,9 +53,13 @@ def deliver_package(robot):
     # then goes forward to place the cube and places it:
     robot.drive_system.go_straight_for_inches_using_encoder(8, 50)
     robot.arm_and_claw.lower_arm()
+    robot.drive_system.go(-50, -50)
+    time.sleep(0.75)
     # then turns around 180:
     robot.drive_system.go(-50, 50)
     time.sleep(3)
+    robot.drive_system.go(-50, -50)
+    time.sleep(0.75)
     # then goes up to the red, then across the red, and stops:
     robot.drive_system.go_straight_until_color_is(5, 50)
     robot.drive_system.go_straight_until_color_is_not(5, 50)

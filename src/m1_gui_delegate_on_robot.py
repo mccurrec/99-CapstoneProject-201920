@@ -9,6 +9,8 @@ class Receiver(object):
         self.robot = robot
         self.is_time_to_stop = False
         self.mqtt = mqtt
+        self.number_of_packages = None
+        self.time_to_sort_packages = False
 
     ###############################################################################
     # Drive System Methods
@@ -179,8 +181,9 @@ class Receiver(object):
         m1_sprint3.deliver_package(self.robot)
 
     def sort_packages(self, number_of_packages):
-        print('received sort packages')
-        m1_sprint3.sort_packages(self.robot, number_of_packages, self.mqtt)
+        print('received sort')
+        self.number_of_packages = int(number_of_packages)
+        self.time_to_sort_packages = True
 
     def get_value(self):
         m1_sprint3.return_value(self.robot)
