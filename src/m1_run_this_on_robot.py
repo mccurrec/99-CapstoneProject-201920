@@ -5,7 +5,7 @@
   Winter term, 2018-2019.
 """
 
-import m1_rosebot
+import rosebot
 import m1_sprint3
 import mqtt_remote_method_calls as com
 import time
@@ -22,7 +22,7 @@ def main():
 
 
 def demonstration():
-    robot = m1_rosebot.RoseBot()
+    robot = rosebot.RoseBot()
     receiver = rec.Receiver(robot)
     mqtt_receiver = com.MqttClient(receiver)
     receiver.mqtt = mqtt_receiver
